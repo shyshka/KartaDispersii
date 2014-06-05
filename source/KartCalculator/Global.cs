@@ -10,6 +10,7 @@ namespace KartCalculator
         public static string msgNotWorking = "Модуль еще не работает";
         public static string msgFrmMainTitle = "Выбор типа карт для контроля рассеяния. Файл: ";
         public static string msgGenerationDone = "Генерация файлов прошла успешно. Файлов: ";
+        public static string msgDeterminant = "Определитель матрицы: ";
 
         //отображения массива чисел в элементе DataGridView
         public static void ShowArrayInDataGrid(double[,] data, DataGridView dgView)
@@ -32,14 +33,8 @@ namespace KartCalculator
 
             for (int i = 0; i < data.GetLength(0); i++)
                 for (int j = 0; j < data.GetLength(1); j++)
-                {
-                    if (data[i, j] >= 0.001)
-                        dgView[i, j].Value = data[i, j].ToString("0.000");
-                    else
-                        dgView[i, j].Value = data[i, j].ToString("0.00E+00");
-                }
+                dgView[i, j].Value = GetString(data[i, j]);                
         }
-
         public static void ShowArrayInDataGrid(double[, ,] data, int index, DataGridView dgView)
         {
             double[,] arrShow = new double[data.GetLength(0), data.GetLength(1)];
@@ -49,7 +44,6 @@ namespace KartCalculator
 
             ShowArrayInDataGrid(arrShow, dgView);
         }
-
         public static void ShowArrayInDataGrid(double[] data, DataGridView dgView)
         {
             while (dgView.Rows.Count > 0)
@@ -66,12 +60,15 @@ namespace KartCalculator
                 dgView.Rows[i].HeaderCell.Value = (i + 1).ToString();
 
             for (int i = 0; i < data.GetLength(0); i++)
-            {
-                if (data[i] >= 0.001)
-                    dgView[0, i].Value = data[i].ToString("0.000");
-                else
-                    dgView[0, i].Value = data[i].ToString("0.00E+00");
-            }
+                dgView[0, i].Value = GetString(data[i]);            
+        }
+
+        public static string GetString(double val)
+        {
+            if (val >= 0.001)
+                return val.ToString("0.000");
+            else
+                return val.ToString("0.00E+00");
         }
     }
 }

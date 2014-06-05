@@ -10,8 +10,12 @@ namespace KartCalculator
         private double[, ,] arrSt;
         private double[] detArrSt;
         private double[,] arrS;
-        private double[] detArrS;
-
+        private double detArrS;
+        private double ucl;        
+        private double lcl;
+        private double b1;        
+        private double b2;        
+        
         public double[,] ArrS
         {
             get { return arrS; }
@@ -23,6 +27,26 @@ namespace KartCalculator
         public double[] DetArrSt
         {
             get { return detArrSt; }
+        }
+        public double DetArrS
+        {
+            get { return detArrS; }
+        }
+        public double Ucl
+        {
+            get { return ucl; }
+        }
+        public double Lcl
+        {
+            get { return lcl; }
+        }
+        public double B1
+        {
+            get { return b1; }
+        }
+        public double B2
+        {
+            get { return b2; }
         }
 
         public KartaObDisp(BaseParams baseParams)
@@ -36,6 +60,9 @@ namespace KartCalculator
             this.calcArrSt();
             this.calcDetArrSt();
             this.calcArrS();
+            this.calcDetArrS();
+            this.calcB1B2();
+            this.calcUclLcl();
         }
 
         //расчет виборочной ковариационной матрицы St
@@ -69,7 +96,6 @@ namespace KartCalculator
 
             this.arrSt = arrTmpSjkt;
         }
-
         //расчет массива детерминатов
         private void calcDetArrSt()
         {
@@ -83,8 +109,7 @@ namespace KartCalculator
                 arrTmp[i] = determinant(arrSjk);
             }
             this.detArrSt = arrTmp;
-        }
-        
+        }        
         //расчет ковариационной матрицы S
         private void calcArrS()
         {
@@ -100,6 +125,38 @@ namespace KartCalculator
                 }
             this.arrS = arrTmp;
         }
+        //расчет определителя S
+        private void calcDetArrS()
+        {
+            this.detArrS = determinant(arrS);
+        }
+        private void calcB1B2()
+        {
+            double b1Tmp=1.0;
+            for (int i = 1; i <= basePar.CntParams; i++)
+                b1Tmp *= basePar.WeightViborka - i;
+            b1Tmp /= Math.Pow(basePar.WeightViborka - 1, basePar.CntParams);
+            this.b1= b1Tmp;
+
+            double b2Tmp = 1.0;
+            double tmp1 = 1.0;
+            double tmp2 = 1.0;
+            for (int i = 1; i <= basePar.CntParams; i++)
+                tmp1 *= basePar.WeightViborka - i + 2;
+            for (int i = 1; i <= basePar.CntParams; i++)
+                tmp2 *= basePar.WeightViborka - i;
+            for (int i = 1; i <= basePar.CntParams; i++)
+                b2Tmp *= basePar.WeightViborka - i;
+            b2Tmp *= tmp1 - tmp2;
+            b2Tmp /= Math.Pow(basePar.WeightViborka - 1, 2 * basePar.CntParams);
+            this.b2 = b2Tmp;
+        }
+        private void calcUclLcl()
+        {
+            this.ucl = detArrS * (b1 + 3 * Math.Sqrt(b2));
+            this.lcl = detArrS * (b1 - 3 * Math.Sqrt(b2));
+        }
+
 
         #region Детерминант
         //this method determines the sign of the elements
