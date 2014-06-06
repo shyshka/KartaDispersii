@@ -16,18 +16,13 @@ namespace KartCalculator
 
         private BaseParams baseParams;
 
-        public BaseParams BaseParams
-        {
-            get { return baseParams; }
-        }
-
         public FrmBaseParams(BaseParams baseParams)
         {
             InitializeComponent();
             this.baseParams = baseParams;
         }
 
-        public void ShowBaseParams()
+        public new void Show()
         {
             this.lblFileName.Text = "Файл: " + Path.GetFileName(baseParams.FilePath);
             this.lblCntParams.Text = "К-во параметров: " + baseParams.CntParams;
@@ -43,7 +38,7 @@ namespace KartCalculator
 
             this.Text = "Базовые характеристики. Файл: " + Path.GetFileName(baseParams.FilePath);
             this.SetActiveTitle(Path.GetFileName(baseParams.FilePath));
-            this.Show();
+            base.Show();
         }        
 
         private void FrmBaseParams_Activated(object sender, EventArgs e)

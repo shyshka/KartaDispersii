@@ -132,11 +132,11 @@ namespace KartCalculator
         }
         private void calcB1B2()
         {
-            double b1Tmp=1.0;
+            double b1Tmp = 1.0;
             for (int i = 1; i <= basePar.CntParams; i++)
                 b1Tmp *= basePar.WeightViborka - i;
             b1Tmp /= Math.Pow(basePar.WeightViborka - 1, basePar.CntParams);
-            this.b1= b1Tmp;
+            this.b1 = b1Tmp;
 
             double b2Tmp = 1.0;
             double tmp1 = 1.0;
@@ -154,9 +154,10 @@ namespace KartCalculator
         private void calcUclLcl()
         {
             this.ucl = detArrS * (b1 + 3 * Math.Sqrt(b2));
+            if (this.ucl < 0.0) ucl = 0.0;
             this.lcl = detArrS * (b1 - 3 * Math.Sqrt(b2));
+            if (this.lcl < 0.0) lcl = 0.0;
         }
-
 
         #region Детерминант
         //this method determines the sign of the elements

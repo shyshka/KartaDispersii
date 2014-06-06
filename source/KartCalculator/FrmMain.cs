@@ -10,7 +10,7 @@ namespace KartCalculator
 {
     public partial class FrmMain : Form
     {
-        private FrmBaseParams frmBaseParams;
+        private BaseParams baseParams;
 
         public FrmMain()
         {
@@ -32,8 +32,8 @@ namespace KartCalculator
         {
             if (openFileDlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                BaseParams baseParams = new BaseParams(openFileDlg.FileName);
-                frmBaseParams = new FrmBaseParams(baseParams);
+                baseParams = new BaseParams(openFileDlg.FileName);
+                FrmBaseParams frmBaseParams = new FrmBaseParams(baseParams) { MdiParent = this };
                 frmBaseParams.SetActiveTitle += msg => this.Text = Global.msgFrmMainTitle + msg;
                 frmBaseParams.FormClosed += (obj, arg) =>
                 {
@@ -41,8 +41,7 @@ namespace KartCalculator
                     this.Text = Global.msgFrmMainTitle;
                 };
 
-                frmBaseParams.MdiParent = this;
-                frmBaseParams.ShowBaseParams();
+                frmBaseParams.Show();
             }
         }
 
@@ -53,18 +52,20 @@ namespace KartCalculator
 
         private void генерацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Generation generation = new Generation(frmBaseParams.BaseParams);            
-            FrmGeneration frmGeneration = new FrmGeneration(generation);
-            frmGeneration.MdiParent = this;
+            FrmGeneration frmGeneration = new FrmGeneration(this.baseParams) { MdiParent = this };
             frmGeneration.Show();
         }
 
         private void картаОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            KartaObDisp kartaObDisp = new KartaObDisp(frmBaseParams.BaseParams);
-            FrmKartaObDisp frmKartaObDisp = new FrmKartaObDisp(kartaObDisp);
-            frmKartaObDisp.MdiParent = this;
-            frmKartaObDisp.ShowParams();
+            FrmKartaObDisp frmKartaObDisp = new FrmKartaObDisp(this.baseParams) { MdiParent = this };
+            frmKartaObDisp.Show();
+        }
+
+        private void картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmKartaEVCC frmKartaEvcc = new FrmKartaEVCC(this.baseParams) { MdiParent = this };
+            frmKartaEvcc.Show();
         }
     }
 }

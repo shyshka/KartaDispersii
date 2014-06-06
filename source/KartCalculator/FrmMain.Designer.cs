@@ -35,10 +35,11 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вычисленияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.генерацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.картаОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.картаОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,7 +90,8 @@
             // 
             this.вычисленияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.генерацияToolStripMenuItem,
-            this.картаОбобщеннойДисперсииToolStripMenuItem});
+            this.картаОбобщеннойДисперсииToolStripMenuItem,
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem});
             this.вычисленияToolStripMenuItem.Name = "вычисленияToolStripMenuItem";
             this.вычисленияToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.вычисленияToolStripMenuItem.Text = "Вычисления";
@@ -97,9 +99,16 @@
             // генерацияToolStripMenuItem
             // 
             this.генерацияToolStripMenuItem.Name = "генерацияToolStripMenuItem";
-            this.генерацияToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.генерацияToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
             this.генерацияToolStripMenuItem.Text = "Генерация";
             this.генерацияToolStripMenuItem.Click += new System.EventHandler(this.генерацияToolStripMenuItem_Click);
+            // 
+            // картаОбобщеннойДисперсииToolStripMenuItem
+            // 
+            this.картаОбобщеннойДисперсииToolStripMenuItem.Name = "картаОбобщеннойДисперсииToolStripMenuItem";
+            this.картаОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.картаОбобщеннойДисперсииToolStripMenuItem.Text = "Карта обобщенной дисперсии";
+            this.картаОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаОбобщеннойДисперсииToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -120,12 +129,12 @@
             this.openFileDlg.Filter = "Файл данных (*.dtk) | *.dtk";
             this.openFileDlg.RestoreDirectory = true;
             // 
-            // картаОбобщеннойДисперсииToolStripMenuItem
+            // картаЭВССДляОбобщеннойДисперсииToolStripMenuItem
             // 
-            this.картаОбобщеннойДисперсииToolStripMenuItem.Name = "картаОбобщеннойДисперсииToolStripMenuItem";
-            this.картаОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.картаОбобщеннойДисперсииToolStripMenuItem.Text = "Карта обобщенной дисперсии";
-            this.картаОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаОбобщеннойДисперсииToolStripMenuItem_Click);
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Name = "картаЭВССДляОбобщеннойДисперсииToolStripMenuItem";
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Text = "Карта ЭВСС для обобщенной дисперсии";
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click);
             // 
             // FrmMain
             // 
@@ -157,6 +166,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDlg;
         private System.Windows.Forms.ToolStripMenuItem генерацияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem картаОбобщеннойДисперсииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem картаЭВССДляОбобщеннойДисперсииToolStripMenuItem;
     }
 }
 
