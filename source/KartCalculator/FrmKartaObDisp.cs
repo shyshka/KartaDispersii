@@ -10,15 +10,17 @@ namespace KartCalculator
 {
     public partial class FrmKartaObDisp : Form
     {
+        private BaseParams baseParams;
         private KartaObDisp kartaObDisp;
 
-        public FrmKartaObDisp(KartaObDisp kartaObDisp)
+        public FrmKartaObDisp(BaseParams baseParams)
         {
             InitializeComponent();
-            this.kartaObDisp = kartaObDisp;
+            this.baseParams = baseParams;
+            this.kartaObDisp = new KartaObDisp(this.baseParams);
         }
 
-        public void ShowParams()
+        public new void Show()
         {
             //вкладка выборочная ковариационная матрица
             listBoxArrSt.Items.Clear();
@@ -30,16 +32,15 @@ namespace KartCalculator
             Global.ShowArrayInDataGrid(kartaObDisp.DetArrSt, this.dataGVDetArrSt);
 
             //вкладка ковариационная матрица
-            Global.ShowArrayInDataGrid(kartaObDisp.ArrS, this.dataGVCovarArr);
-            lblDetArrS.Text = Global.msgDeterminant;
-            this.lblDetArrS.Text += Global.GetString(kartaObDisp.DetArrS);
+            Global.ShowArrayInDataGrid(kartaObDisp.ArrS, this.dataGVCovarArr);            
+            this.lblDetArrS.Text += "|S|=" +Global.GetString(kartaObDisp.DetArrS);
             this.lblDetArrS.Text += "; b1=" + Global.GetString(kartaObDisp.B1);
             this.lblDetArrS.Text += "; b2=" + Global.GetString(kartaObDisp.B2);
             this.lblDetArrS.Text += "; UCL=" + Global.GetString(kartaObDisp.Ucl);
             this.lblDetArrS.Text += "; LCL=" + Global.GetString(kartaObDisp.Lcl);
 
             this.showKarta();
-            this.Show();
+            base.Show();
         }
 
         private void showKarta()

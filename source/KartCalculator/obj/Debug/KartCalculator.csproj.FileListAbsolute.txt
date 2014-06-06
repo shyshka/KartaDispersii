@@ -51,3 +51,15 @@ d:\Users\Oleg\Development\Job\weblancer.net\Prohorov\Application\050614\KartCalc
 d:\Users\Oleg\Development\Job\weblancer.net\Prohorov\Application\050614\KartCalculator\KartCalculator\obj\Debug\KartCalculator.FrmMain.resources
 d:\Users\Oleg\Development\Job\weblancer.net\Prohorov\Application\050614\KartCalculator\KartCalculator\obj\Debug\KartCalculator.Properties.Resources.resources
 d:\Users\Oleg\Development\Job\weblancer.net\Prohorov\Application\050614\KartCalculator\KartCalculator\obj\Debug\KartCalculator.csproj.GenerateResource.Cache
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\bin\Debug\KartCalculator.exe.config
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.exe
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.pdb
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\bin\Debug\KartCalculator.exe
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\bin\Debug\KartCalculator.pdb
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.csprojResolveAssemblyReference.cache
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.FrmBaseParams.resources
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.FrmGeneration.resources
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.FrmKartaObDisp.resources
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.FrmMain.resources
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.Properties.Resources.resources
+e:\Users\shyshka\Documents\Development\Job\weblancer.net\Prohorov\GitClone\KartaDispersii\source\KartCalculator\obj\Debug\KartCalculator.csproj.GenerateResource.Cache

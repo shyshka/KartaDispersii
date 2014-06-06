@@ -68,7 +68,7 @@
             this.tabPageButstrep.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageButstrep.Size = new System.Drawing.Size(376, 135);
             this.tabPageButstrep.TabIndex = 0;
-            this.tabPageButstrep.Text = "Многомерное нормальное распредиление";
+            this.tabPageButstrep.Text = "Многомерное нормальное распределение";
             this.tabPageButstrep.UseVisualStyleBackColor = true;
             // 
             // btnCreate

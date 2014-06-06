@@ -11,13 +11,15 @@ namespace KartCalculator
 {
     public partial class FrmGeneration : Form
     {
+        private BaseParams baseParams;
         private Generation generation;
 
-        public FrmGeneration(Generation generation)
+        public FrmGeneration(BaseParams baseParams)
         {
             InitializeComponent();
 
-            this.generation = generation;
+            this.baseParams = baseParams;
+            this.generation = new Generation(this.baseParams);
             this.generation.ChangePerc += val=>
                 {
                     if (InvokeRequired) 

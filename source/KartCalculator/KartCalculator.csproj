@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseParams.cs" />
+    <Compile Include="Calculation\BaseParams.cs" />
+    <Compile Include="Calculation\KartaEVCC.cs" />
     <Compile Include="FrmBaseParams.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +55,12 @@
     </Compile>
     <Compile Include="FrmGeneration.Designer.cs">
       <DependentUpon>FrmGeneration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmKartaEVCC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmKartaEVCC.Designer.cs">
+      <DependentUpon>FrmKartaEVCC.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmKartaObDisp.cs">
       <SubType>Form</SubType>
@@ -67,9 +74,9 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generation.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="KartaObDisp.cs" />
+    <Compile Include="Calculation\Generation.cs" />
+    <Compile Include="Calculation\Global.cs" />
+    <Compile Include="Calculation\KartaObDisp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmBaseParams.resx">
