@@ -23,7 +23,17 @@ namespace KartCalculator
 
         public new void Show()
         {
+            drawChart();
             base.Show();
+        }
+
+        private void drawChart()
+        {
+            chartKarta.Series[0].Points.Clear();
+            for (int t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
+            {
+                chartKarta.Series[0].Points.AddXY(t + 1, kartaEvcc.ArrEt[t]);
+            }
         }
     }
 }

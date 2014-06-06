@@ -10,7 +10,20 @@ namespace KartCalculator
         private BaseParams baseParams;
         private KartaObDisp kartaObDisp;
         private double[] arrEt;
-        private double k;
+        private double k = 0.25;
+        private double sigmaS;
+        private double arrSigmaEt;
+        private double ulc;
+        private double lcl;
+
+        public double K
+        {
+            set { k = value; }
+        }
+        public double[] ArrEt
+        {
+            get { return arrEt; }
+        }
 
         public KartaEVCC(BaseParams baseParams)
         {
@@ -22,6 +35,8 @@ namespace KartCalculator
         private void calcParams()
         {
             calcArrEt();
+            calcSigmaS();
+            calcSigmaEt();
         }
 
         private void calcArrEt()
@@ -31,6 +46,19 @@ namespace KartCalculator
             for (int t = 1; t < arrTmp.GetLength(0); t++)
                 arrTmp[t] = (1 - k) * arrTmp[t - 1] + k * kartaObDisp.DetArrSt[t];
             this.arrEt = arrTmp;
+        }
+
+        private void calcSigmaS()
+        {
+            this.sigmaS = Math.Sqrt(kartaObDisp.B2) * kartaObDisp.DetArrS;
+        }
+
+        private void calcSigmaEt()
+        {
+            double arrTmp = 0.0;
+            arrTmp = sigmaS * k * (1 - Math.Pow(1 - k, 2 * kartaObDisp.DetArrSt.GetLength(0)));
+            arrTmp /= baseParams.WeightViborka * (2 - k);
+            this.arrSigmaEt = arrTmp;
         }
     }
 }

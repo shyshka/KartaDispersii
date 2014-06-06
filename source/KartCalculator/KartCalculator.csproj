@@ -85,6 +85,9 @@
     <EmbeddedResource Include="FrmGeneration.resx">
       <DependentUpon>FrmGeneration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmKartaEVCC.resx">
+      <DependentUpon>FrmKartaEVCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmKartaObDisp.resx">
       <DependentUpon>FrmKartaObDisp.cs</DependentUpon>
     </EmbeddedResource>

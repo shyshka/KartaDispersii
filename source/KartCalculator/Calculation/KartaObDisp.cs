@@ -149,7 +149,6 @@ namespace KartCalculator
                 b2Tmp *= basePar.WeightViborka - i;
             b2Tmp *= tmp1 - tmp2;
             b2Tmp /= Math.Pow(basePar.WeightViborka - 1, 2 * basePar.CntParams);
-            b2Tmp = 0.0;
             this.b2 = b2Tmp;
         }
         private void calcUclLcl()
