@@ -30,9 +30,9 @@ namespace KartCalculator
             this.generation.ChangeText += val => MessageBox.Show(val);
             tBoxDir.Text =
                 Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar +
-                generation.BaseParams.CntParams + "_" +
-                generation.BaseParams.WeightViborka + "_" +
-                generation.BaseParams.CntViborka +
+                baseParams.CntParams + "_" +
+                baseParams.WeightViborka + "_" +
+                baseParams.CntViborka +
                 Path.DirectorySeparatorChar +
                 "samples" + Path.DirectorySeparatorChar;
         }
@@ -47,6 +47,11 @@ namespace KartCalculator
             generation.CntFiles = Convert.ToInt32(nUpDownCntFiles.Value);
             generation.DirPath = tBoxDir.Text;
             generation.Generate();
+        }
+
+        private void btnBrowseDir_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

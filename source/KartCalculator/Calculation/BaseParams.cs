@@ -88,7 +88,17 @@ namespace KartCalculator
         {
             this.filePath = filePath;
             this.calcBaseParams();
-        } 
+        }
+
+        public static bool IsGoodFile(String filePath)
+        {
+            try
+            { new BaseParams(filePath); }
+            catch (Exception ex)
+            { return false; }
+
+            return true;
+        }
         #endregion
 
         #region Private methods

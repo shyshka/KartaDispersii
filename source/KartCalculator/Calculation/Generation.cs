@@ -16,12 +16,7 @@ namespace KartCalculator
 
         private BaseParams baseParams;
         private string dirPath;
-        private int cntFiles;
-
-        public BaseParams BaseParams
-        {
-            get { return baseParams; }
-        }        
+        private int cntFiles;  
         public int CntFiles
         {
             get { return cntFiles; }
@@ -67,7 +62,7 @@ namespace KartCalculator
 
             for (int indFile = 0; indFile < cntFiles; indFile++)
             {
-                String filePath = dirPath + indFile.ToString() + ".txt";
+                String filePath = dirPath + indFile.ToString() + ".dtk";
                 double[,] arrWrite = createGenArray();
 
                 StreamWriter sWr = File.CreateText(filePath);
@@ -77,9 +72,13 @@ namespace KartCalculator
                 for (int j = 0; j < arrWrite.GetLength(1); j++)
                 {
                     string curLine = string.Empty;
-                    for (int k = 0; k < arrWrite.GetLength(0); k++)
-                        curLine += arrWrite[k, j].ToString("0.000") + '\t';
-                    sWr.WriteLine(curLine);
+                    curLine += arrWrite[0, j].ToString("0.000");
+                    for (int k = 1; k < arrWrite.GetLength(0); k++)
+                        curLine += '\t' + arrWrite[k, j].ToString("0.000");                    
+                    if (j != arrWrite.GetLength(1) - 1)
+                        sWr.WriteLine(curLine);
+                    else
+                        sWr.Write(curLine);                        
                 }
                 sWr.Close();
 

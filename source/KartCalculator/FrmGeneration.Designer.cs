@@ -111,6 +111,7 @@
             this.btnBrowseDir.TabIndex = 2;
             this.btnBrowseDir.Text = "...";
             this.btnBrowseDir.UseVisualStyleBackColor = true;
+            this.btnBrowseDir.Click += new System.EventHandler(this.btnBrowseDir_Click);
             // 
             // label2
             // 
