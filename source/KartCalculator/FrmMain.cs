@@ -52,18 +52,34 @@ namespace KartCalculator
 
         private void генерацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this.baseParams == null)
+            {
+                MessageBox.Show(Global.msgBaseFileError);
+                return;
+            }
             FrmGeneration frmGeneration = new FrmGeneration(this.baseParams) { MdiParent = this };
             frmGeneration.Show();
         }
 
         private void картаОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this.baseParams == null)
+            {
+                MessageBox.Show(Global.msgBaseFileError);
+                return;
+            }
             FrmKartaObDisp frmKartaObDisp = new FrmKartaObDisp(this.baseParams) { MdiParent = this };
             frmKartaObDisp.Show();
         }
 
         private void картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this.baseParams == null)
+            {
+                MessageBox.Show(Global.msgBaseFileError);
+                return;
+            }
+            
             FrmKartaEVCC frmKartaEvcc = new FrmKartaEVCC(this.baseParams) { MdiParent = this };
             frmKartaEvcc.Show();
         }

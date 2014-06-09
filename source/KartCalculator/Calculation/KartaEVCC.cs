@@ -29,6 +29,7 @@ namespace KartCalculator
         private double sigmaEt;
         private double ucl; 
         private double lcl;
+        private double hAv;        
         private const int cntViborkaPerFile = 370;
 
         public string OldDir
@@ -72,12 +73,20 @@ namespace KartCalculator
                 else return lstOldFiles.Count;
             }
         }
-        public int CndNewFiles
+        public int CntNewFiles
         {
             get
             {
                 if (lstNewFiles == null) return 0;
                 else return lstNewFiles.Count;
+            }
+        }
+        public int CntCalcNewFiles
+        {
+
+            get
+            {
+                return oldCntViborka / cntViborkaPerFile;
             }
         }
         public double Ucl
@@ -87,6 +96,10 @@ namespace KartCalculator
         public double Lcl
         {
             get { return lcl; }
+        }
+        public double HAv
+        {
+            get { return hAv; }
         }
 
         public KartaEVCC(BaseParams baseParams)
@@ -166,7 +179,8 @@ namespace KartCalculator
         {
             Directory.CreateDirectory(newDir);
             int indexOldFile = 0;
-            for (int indNew = 0; indNew < CndNewFiles; indNew++)
+            //обработка новых файлов
+            for (int indNew = 0; indNew < CntCalcNewFiles; indNew++)
             {
                 int indexVibWr = 0;
                 String filePath = newDir + indNew.ToString() + ".dtk";
@@ -174,6 +188,7 @@ namespace KartCalculator
                 sWr.WriteLine(baseParams.CntParams);
                 sWr.WriteLine(baseParams.WeightViborka);
                 sWr.WriteLine(cntViborkaPerFile);
+                //запись выборок максимум 370 в файл
                 while (indexVibWr < cntViborkaPerFile)
                 {
                     BaseParams bpCur = new BaseParams(lstOldFiles[indexOldFile]);
@@ -190,9 +205,9 @@ namespace KartCalculator
                         }
                         curVibRd++;
                         indexVibWr++;
-                    }
-                    indexOldFile++;
+                    }                    
                 }
+                indexOldFile++;
                 sWr.Close();
             }
 
@@ -206,13 +221,14 @@ namespace KartCalculator
             Thread thread = new Thread(new ThreadStart(generate));
             thread.Start();
         }
-        public void CalcUclLcl()
+        public void CalcH()
         {
-            double maxEt = 0.0;
-            double minEt = 0.0;
+            double hAvTmp = 0.0;
             foreach (string filePath in lstNewFiles)
             {                
                 KartaEVCC kartaEvccCur = new KartaEVCC(new BaseParams(filePath));
+                double maxEt = 0.0;
+                double minEt = 0.0;
                 for (int t = 0; t < baseParams.CntViborka; t++)
                 {
                     if (maxEt < kartaEvccCur.ArrEt[t]) maxEt = kartaEvccCur.ArrEt[t];
@@ -220,9 +236,13 @@ namespace KartCalculator
                         minEt = kartaEvccCur.ArrEt[t];
                     if (minEt == 0.0) minEt = kartaEvccCur.ArrEt[t];
                 }
+
+                double hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt;
+                double hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt;
+                hAvTmp += hCurMax + hCurMin;
             }
-            this.ucl = kartaObDisp.DetArrSt[0] + maxEt * sigmaEt;
-            this.lcl = kartaObDisp.DetArrSt[0] - minEt * sigmaEt;
+            hAvTmp /= lstNewFiles.Count;
+            this.hAv = hAvTmp;
         }
     }
 }

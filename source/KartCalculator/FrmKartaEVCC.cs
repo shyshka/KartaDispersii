@@ -42,7 +42,7 @@ namespace KartCalculator
             kartaEvcc.OldDir = this.tBoxOldDir.Text;
             this.lblTotalOldFiles.Text = kartaEvcc.CntOldFiles.ToString();
             this.lblTotalCntViborkaOldFiles.Text = kartaEvcc.OldCntViborka.ToString();
-            this.lblCntNewFilesCalc.Text = kartaEvcc.CndNewFiles.ToString();
+            this.lblCntNewFilesCalc.Text = kartaEvcc.CntCalcNewFiles.ToString();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -53,21 +53,22 @@ namespace KartCalculator
         private void btnReadNewFiles_Click(object sender, EventArgs e)
         {
             kartaEvcc.NewDir = this.tBoxNewDir.Text;
-            this.lblCntNewFiles.Text = kartaEvcc.CndNewFiles.ToString();
+            this.lblCntNewFiles.Text = kartaEvcc.CntNewFiles.ToString();
             this.lblNewViborok.Text = kartaEvcc.NewCntViborka.ToString();
         }
 
         private void btnMakeKarta_Click(object sender, EventArgs e)
         {
-            kartaEvcc.CalcUclLcl();
+            kartaEvcc.CalcH();
+            this.lblH.Text = "Усредненное значение H=" + Global.GetString(kartaEvcc.HAv);
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
             chartKarta.Series[2].Points.Clear();
 
             for (int t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
             {
-                chartKarta.Series[0].Points.AddXY(t + 1, kartaEvcc.Ucl);
-                chartKarta.Series[1].Points.AddXY(t + 1, kartaEvcc.Lcl);
+                //chartKarta.Series[0].Points.AddXY(t + 1, kartaEvcc.Ucl);
+                //chartKarta.Series[1].Points.AddXY(t + 1, kartaEvcc.Lcl);
                 chartKarta.Series[2].Points.AddXY(t + 1, kartaEvcc.ArrEt[t]);
             }
         }

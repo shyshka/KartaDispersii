@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -60,8 +60,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tBoxOldDir = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.folderBrDlg = new System.Windows.Forms.FolderBrowserDialog();
             this.chartKarta = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.folderBrDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this.lblH = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -84,6 +85,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblH);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -111,7 +113,7 @@
             this.groupBox2.Size = new System.Drawing.Size(237, 218);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Обработка подходящих файлов";
+            this.groupBox2.Text = "Обработка подходящих файлов (m=370)";
             // 
             // btnReadNewFiles
             // 
@@ -353,41 +355,48 @@
             // 
             // chartKarta
             // 
-            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.Name = "ChartArea1";
-            this.chartKarta.ChartAreas.Add(chartArea1);
+            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.Name = "ChartArea1";
+            this.chartKarta.ChartAreas.Add(chartArea2);
             this.chartKarta.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartKarta.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chartKarta.Legends.Add(legend2);
             this.chartKarta.Location = new System.Drawing.Point(3, 3);
             this.chartKarta.Name = "chartKarta";
             this.chartKarta.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderColor = System.Drawing.Color.White;
-            series1.BorderWidth = 5;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Color = System.Drawing.Color.Black;
-            series1.Legend = "Legend1";
-            series1.MarkerBorderWidth = 5;
-            series1.Name = "Верхняя граница";
-            series1.YValuesPerPoint = 2;
-            series2.BorderWidth = 5;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Color = System.Drawing.Color.Black;
-            series2.Legend = "Legend1";
-            series2.Name = "Нижняя граница";
-            series3.BorderWidth = 5;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Color = System.Drawing.Color.Black;
-            series3.Legend = "Legend1";
-            series3.Name = "ЭВСС";
-            this.chartKarta.Series.Add(series1);
-            this.chartKarta.Series.Add(series2);
-            this.chartKarta.Series.Add(series3);
+            series4.BorderColor = System.Drawing.Color.White;
+            series4.BorderWidth = 5;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Color = System.Drawing.Color.Red;
+            series4.Legend = "Legend1";
+            series4.MarkerBorderWidth = 5;
+            series4.Name = "Верхняя граница";
+            series4.YValuesPerPoint = 2;
+            series5.BorderWidth = 5;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Color = System.Drawing.Color.Red;
+            series5.Legend = "Legend1";
+            series5.Name = "Нижняя граница";
+            series6.BorderWidth = 5;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Color = System.Drawing.Color.Black;
+            series6.Legend = "Legend1";
+            series6.Name = "ЭВСС";
+            this.chartKarta.Series.Add(series4);
+            this.chartKarta.Series.Add(series5);
+            this.chartKarta.Series.Add(series6);
             this.chartKarta.Size = new System.Drawing.Size(720, 379);
             this.chartKarta.TabIndex = 1;
+            // 
+            // lblH
+            // 
+            this.lblH.Location = new System.Drawing.Point(364, 305);
+            this.lblH.Name = "lblH";
+            this.lblH.Size = new System.Drawing.Size(237, 45);
+            this.lblH.TabIndex = 8;
             // 
             // FrmKartaEVCC
             // 
@@ -441,5 +450,6 @@
         private System.Windows.Forms.Button btnReadNewFiles;
         private System.Windows.Forms.Button btnMakeKarta;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartKarta;
+        private System.Windows.Forms.Label lblH;
     }
 }

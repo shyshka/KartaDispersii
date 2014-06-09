@@ -7,6 +7,7 @@ namespace KartCalculator
 {
     class Global
     {
+        public static string msgBaseFileError = "Начальный файл не загружен в систему";
         public static string msgNotWorking = "Модуль еще не работает";
         public static string msgFrmMainTitle = "Выбор типа карт для контроля рассеяния. Файл: ";
         public static string msgGenerationDone = "Генерация файлов прошла успешно. Файлов: ";

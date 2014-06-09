@@ -36,10 +36,11 @@
             this.вычисленияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.генерацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.картаОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +92,8 @@
             this.вычисленияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.генерацияToolStripMenuItem,
             this.картаОбобщеннойДисперсииToolStripMenuItem,
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem});
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem,
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem});
             this.вычисленияToolStripMenuItem.Name = "вычисленияToolStripMenuItem";
             this.вычисленияToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.вычисленияToolStripMenuItem.Text = "Вычисления";
@@ -109,6 +111,13 @@
             this.картаОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
             this.картаОбобщеннойДисперсииToolStripMenuItem.Text = "Карта обобщенной дисперсии";
             this.картаОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаОбобщеннойДисперсииToolStripMenuItem_Click);
+            // 
+            // картаЭВССДляОбобщеннойДисперсииToolStripMenuItem
+            // 
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Name = "картаЭВССДляОбобщеннойДисперсииToolStripMenuItem";
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Text = "Карта ЭВСС для обобщенной дисперсии";
+            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -129,12 +138,11 @@
             this.openFileDlg.Filter = "Файл данных (*.dtk) | *.dtk";
             this.openFileDlg.RestoreDirectory = true;
             // 
-            // картаЭВССДляОбобщеннойДисперсииToolStripMenuItem
+            // моделированиеУвеличенияРассеянияToolStripMenuItem
             // 
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Name = "картаЭВССДляОбобщеннойДисперсииToolStripMenuItem";
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Text = "Карта ЭВСС для обобщенной дисперсии";
-            this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click);
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Name = "моделированиеУвеличенияРассеянияToolStripMenuItem";
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Text = "Моделирование увеличения рассеяния";
             // 
             // FrmMain
             // 
@@ -167,6 +175,7 @@
         private System.Windows.Forms.ToolStripMenuItem генерацияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem картаОбобщеннойДисперсииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem картаЭВССДляОбобщеннойДисперсииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem моделированиеУвеличенияРассеянияToolStripMenuItem;
     }
 }
 

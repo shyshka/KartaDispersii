@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageArrSt = new System.Windows.Forms.TabPage();
             this.dataGVArrSt = new System.Windows.Forms.DataGridView();
@@ -150,10 +150,9 @@
             // 
             // lblDetArrS
             // 
-            this.lblDetArrS.AutoSize = true;
             this.lblDetArrS.Location = new System.Drawing.Point(3, 367);
             this.lblDetArrS.Name = "lblDetArrS";
-            this.lblDetArrS.Size = new System.Drawing.Size(0, 13);
+            this.lblDetArrS.Size = new System.Drawing.Size(720, 18);
             this.lblDetArrS.TabIndex = 5;
             // 
             // dataGVCovarArr
@@ -180,39 +179,39 @@
             // 
             // chartObDisp
             // 
-            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.Name = "ChartArea1";
-            this.chartObDisp.ChartAreas.Add(chartArea1);
+            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.Name = "ChartArea1";
+            this.chartObDisp.ChartAreas.Add(chartArea2);
             this.chartObDisp.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartObDisp.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chartObDisp.Legends.Add(legend2);
             this.chartObDisp.Location = new System.Drawing.Point(0, 0);
             this.chartObDisp.Name = "chartObDisp";
             this.chartObDisp.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderColor = System.Drawing.Color.White;
-            series1.BorderWidth = 5;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Color = System.Drawing.Color.Black;
-            series1.Legend = "Legend1";
-            series1.MarkerBorderWidth = 5;
-            series1.Name = "Верхняя граница";
-            series1.YValuesPerPoint = 2;
-            series2.BorderWidth = 5;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Color = System.Drawing.Color.Black;
-            series2.Legend = "Legend1";
-            series2.Name = "Нижняя граница";
-            series3.BorderWidth = 5;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Color = System.Drawing.Color.Black;
-            series3.Legend = "Legend1";
-            series3.Name = "Обобщенная дисперсия";
-            this.chartObDisp.Series.Add(series1);
-            this.chartObDisp.Series.Add(series2);
-            this.chartObDisp.Series.Add(series3);
+            series4.BorderColor = System.Drawing.Color.White;
+            series4.BorderWidth = 5;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Color = System.Drawing.Color.Red;
+            series4.Legend = "Legend1";
+            series4.MarkerBorderWidth = 5;
+            series4.Name = "Верхняя граница";
+            series4.YValuesPerPoint = 2;
+            series5.BorderWidth = 5;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Color = System.Drawing.Color.Red;
+            series5.Legend = "Legend1";
+            series5.Name = "Нижняя граница";
+            series6.BorderWidth = 5;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Color = System.Drawing.Color.Black;
+            series6.Legend = "Legend1";
+            series6.Name = "Обобщенная дисперсия";
+            this.chartObDisp.Series.Add(series4);
+            this.chartObDisp.Series.Add(series5);
+            this.chartObDisp.Series.Add(series6);
             this.chartObDisp.Size = new System.Drawing.Size(726, 385);
             this.chartObDisp.TabIndex = 0;
             // 
@@ -231,7 +230,6 @@
             this.tabPageArrDetSt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSt)).EndInit();
             this.tabPageCovarArr.ResumeLayout(false);
-            this.tabPageCovarArr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCovarArr)).EndInit();
             this.tabPageKarta.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartObDisp)).EndInit();
