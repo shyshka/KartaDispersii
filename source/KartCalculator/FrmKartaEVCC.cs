@@ -18,18 +18,17 @@ namespace KartCalculator
         public FrmKartaEVCC(BaseParams baseParams)
         {
             this.baseParams = baseParams;
-            this.kartaEvcc = new KartaEVCC(this.baseParams);            
+            this.kartaEvcc = new KartaEVCC(this.baseParams);
             InitializeComponent();
 
-            tBoxOldDir.Text =
+            tBoxDir.Text =
                Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar +
                baseParams.CntParams + "_" +
                baseParams.WeightViborka + "_" +
                baseParams.CntViborka +
                Path.DirectorySeparatorChar +
-               "samples" + Path.DirectorySeparatorChar;
-            tBoxNewDir.Text = 
-                tBoxOldDir.Text + "new" + Path.DirectorySeparatorChar;
+               "samples" + Path.DirectorySeparatorChar +
+               "new" + Path.DirectorySeparatorChar;
         }
 
         public new void Show()
@@ -37,24 +36,11 @@ namespace KartCalculator
             base.Show();
         }
 
-        private void btnReadOldFiles_Click(object sender, EventArgs e)
+        private void btnReadFiles_Click(object sender, EventArgs e)
         {
-            kartaEvcc.OldDir = this.tBoxOldDir.Text;
-            this.lblTotalOldFiles.Text = kartaEvcc.CntOldFiles.ToString();
-            this.lblTotalCntViborkaOldFiles.Text = kartaEvcc.OldCntViborka.ToString();
-            this.lblCntNewFilesCalc.Text = kartaEvcc.CntCalcNewFiles.ToString();
-        }
-
-        private void btnGenerate_Click(object sender, EventArgs e)
-        {
-            kartaEvcc.GenerateNewFiles();
-        }
-
-        private void btnReadNewFiles_Click(object sender, EventArgs e)
-        {
-            kartaEvcc.NewDir = this.tBoxNewDir.Text;
-            this.lblCntNewFiles.Text = kartaEvcc.CntNewFiles.ToString();
-            this.lblNewViborok.Text = kartaEvcc.NewCntViborka.ToString();
+            kartaEvcc.DirPath = this.tBoxDir.Text;
+            this.lblCntFiles.Text = kartaEvcc.CntFiles.ToString();
+            this.lblCntViborok.Text = kartaEvcc.CntViborka.ToString();
         }
 
         private void btnMakeKarta_Click(object sender, EventArgs e)
@@ -64,6 +50,8 @@ namespace KartCalculator
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
             chartKarta.Series[2].Points.Clear();
+
+            chartKarta.Series[2].IsValueShownAsLabel = true;
 
             for (int t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
             {

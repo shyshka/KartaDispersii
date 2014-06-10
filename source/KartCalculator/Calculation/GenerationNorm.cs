@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace KartCalculator
 {
-    public class Generation
+    public class GenerationNorm
     {
         public delegate void IntHandler(int val);
         public event IntHandler ChangePerc;
@@ -28,7 +28,7 @@ namespace KartCalculator
             set { dirPath = value; }
         }
 
-        public Generation(BaseParams baseParams)
+        public GenerationNorm(BaseParams baseParams)
         {
             this.baseParams = baseParams;
         }
@@ -72,9 +72,9 @@ namespace KartCalculator
                 for (int j = 0; j < arrWrite.GetLength(1); j++)
                 {
                     string curLine = string.Empty;
-                    curLine += arrWrite[0, j].ToString("0.000");
+                    curLine += arrWrite[0, j].ToString("0.000").Replace(',', '.');
                     for (int k = 1; k < arrWrite.GetLength(0); k++)
-                        curLine += '\t' + arrWrite[k, j].ToString("0.000");                    
+                        curLine += '\t' + arrWrite[k, j].ToString("0.000").Replace(',', '.');                    
                     if (j != arrWrite.GetLength(1) - 1)
                         sWr.WriteLine(curLine);
                     else
