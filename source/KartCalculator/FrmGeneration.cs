@@ -12,46 +12,70 @@ namespace KartCalculator
     public partial class FrmGeneration : Form
     {
         private BaseParams baseParams;
-        private Generation generation;
 
         public FrmGeneration(BaseParams baseParams)
         {
             InitializeComponent();
 
             this.baseParams = baseParams;
-            this.generation = new Generation(this.baseParams);
-            this.generation.ChangePerc += val=>
-                {
-                    if (InvokeRequired) 
-                        BeginInvoke(new Generation.IntHandler(changePrBarVal),val);
-                    else
-                        changePrBarVal(val);
-                };
-            this.generation.ChangeText += val => MessageBox.Show(val);
-            tBoxDir.Text =
+            
+            this.tBoxDirGenerNorm.Text =
                 Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar +
                 baseParams.CntParams + "_" +
                 baseParams.WeightViborka + "_" +
                 baseParams.CntViborka +
                 Path.DirectorySeparatorChar +
                 "samples" + Path.DirectorySeparatorChar;
+            this.tBoxOldDirPath.Text = this.tBoxDirGenerNorm.Text;
         }
 
         private void changePrBarVal(int val)
         {
-            this.prBarMain.Value = val;
+            try { this.prBarMain.Value = val; }
+            catch { }
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            generation.CntFiles = Convert.ToInt32(nUpDownCntFiles.Value);
-            generation.DirPath = tBoxDir.Text;
-            generation.Generate();
+            GenerationNorm generNorm = new GenerationNorm(this.baseParams);
+            generNorm.ChangePerc += val =>
+            {
+                if (InvokeRequired)
+                    BeginInvoke(new GenerationNorm.IntHandler(changePrBarVal), val);
+                else
+                    changePrBarVal(val);
+            };
+            generNorm.ChangeText += val => MessageBox.Show(val);            
+            generNorm.CntFiles = Convert.ToInt32(nUpDownCntFilesGenerateNorm.Value);
+            generNorm.DirPath = tBoxDirGenerNorm.Text;
+            generNorm.Generate();
         }
 
         private void btnBrowseDir_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnReadOldDir_Click(object sender, EventArgs e)
+        {
+            GenerationFromExists genEx = new GenerationFromExists(this.tBoxOldDirPath.Text);
+            this.lblCntOldFiles.Text = genEx.CntOldFiles.ToString();
+            this.lblCntViborka.Text = genEx.CntOldViborka.ToString();
+            this.lblCntNewFilesCalc.Text = genEx.CntCalcNewFiles.ToString();
+        }
+
+        private void btnGenerM370_Click(object sender, EventArgs e)
+        {
+            GenerationFromExists genEx = new GenerationFromExists(this.tBoxOldDirPath.Text);
+            genEx.ChangePerc += val =>
+                {
+                    if (InvokeRequired)
+                        BeginInvoke(new GenerationNorm.IntHandler(changePrBarVal), val);
+                    else
+                        changePrBarVal(val);
+                };
+            genEx.ChangeText += val => MessageBox.Show(val);
+            genEx.GenerateNewFiles();
         }
     }
 }
