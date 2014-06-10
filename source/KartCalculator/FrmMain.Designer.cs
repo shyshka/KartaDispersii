@@ -37,10 +37,10 @@
             this.генерацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.картаОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.моделированиеУвеличенияРассеянияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,6 +119,13 @@
             this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Text = "Карта ЭВСС для обобщенной дисперсии";
             this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem.Click += new System.EventHandler(this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click);
             // 
+            // моделированиеУвеличенияРассеянияToolStripMenuItem
+            // 
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Name = "моделированиеУвеличенияРассеянияToolStripMenuItem";
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Text = "Моделирование увеличения рассеяния";
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Click += new System.EventHandler(this.моделированиеУвеличенияРассеянияToolStripMenuItem_Click);
+            // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
@@ -137,12 +144,6 @@
             // 
             this.openFileDlg.Filter = "Файл данных (*.dtk) | *.dtk";
             this.openFileDlg.RestoreDirectory = true;
-            // 
-            // моделированиеУвеличенияРассеянияToolStripMenuItem
-            // 
-            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Name = "моделированиеУвеличенияРассеянияToolStripMenuItem";
-            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.моделированиеУвеличенияРассеянияToolStripMenuItem.Text = "Моделирование увеличения рассеяния";
             // 
             // FrmMain
             // 

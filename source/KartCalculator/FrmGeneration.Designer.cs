@@ -97,7 +97,7 @@
             // lblCntNewFilesCalc
             // 
             this.lblCntNewFilesCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCntNewFilesCalc.Location = new System.Drawing.Point(246, 156);
+            this.lblCntNewFilesCalc.Location = new System.Drawing.Point(244, 147);
             this.lblCntNewFilesCalc.Name = "lblCntNewFilesCalc";
             this.lblCntNewFilesCalc.Size = new System.Drawing.Size(52, 13);
             this.lblCntNewFilesCalc.TabIndex = 21;
@@ -105,7 +105,7 @@
             // lblCntViborka
             // 
             this.lblCntViborka.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCntViborka.Location = new System.Drawing.Point(246, 123);
+            this.lblCntViborka.Location = new System.Drawing.Point(244, 114);
             this.lblCntViborka.Name = "lblCntViborka";
             this.lblCntViborka.Size = new System.Drawing.Size(52, 13);
             this.lblCntViborka.TabIndex = 22;
@@ -113,7 +113,7 @@
             // lblCntOldFiles
             // 
             this.lblCntOldFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCntOldFiles.Location = new System.Drawing.Point(246, 90);
+            this.lblCntOldFiles.Location = new System.Drawing.Point(244, 81);
             this.lblCntOldFiles.Name = "lblCntOldFiles";
             this.lblCntOldFiles.Size = new System.Drawing.Size(52, 13);
             this.lblCntOldFiles.TabIndex = 23;
@@ -121,7 +121,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(156, 156);
+            this.label6.Location = new System.Drawing.Point(154, 147);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 13);
             this.label6.TabIndex = 18;
@@ -129,7 +129,7 @@
             // 
             // btnGenerM370
             // 
-            this.btnGenerM370.Location = new System.Drawing.Point(104, 185);
+            this.btnGenerM370.Location = new System.Drawing.Point(102, 176);
             this.btnGenerM370.Name = "btnGenerM370";
             this.btnGenerM370.Size = new System.Drawing.Size(225, 29);
             this.btnGenerM370.TabIndex = 13;
@@ -140,7 +140,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(149, 123);
+            this.label7.Location = new System.Drawing.Point(147, 114);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 19;
@@ -149,7 +149,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(127, 90);
+            this.label8.Location = new System.Drawing.Point(125, 81);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 13);
             this.label8.TabIndex = 20;
@@ -157,7 +157,7 @@
             // 
             // btnReadOldDir
             // 
-            this.btnReadOldDir.Location = new System.Drawing.Point(101, 48);
+            this.btnReadOldDir.Location = new System.Drawing.Point(99, 39);
             this.btnReadOldDir.Name = "btnReadOldDir";
             this.btnReadOldDir.Size = new System.Drawing.Size(225, 28);
             this.btnReadOldDir.TabIndex = 17;
@@ -167,7 +167,7 @@
             // 
             // btnSelectOldDirPath
             // 
-            this.btnSelectOldDirPath.Location = new System.Drawing.Point(301, 22);
+            this.btnSelectOldDirPath.Location = new System.Drawing.Point(299, 13);
             this.btnSelectOldDirPath.Name = "btnSelectOldDirPath";
             this.btnSelectOldDirPath.Size = new System.Drawing.Size(25, 20);
             this.btnSelectOldDirPath.TabIndex = 16;
@@ -177,7 +177,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(101, 26);
+            this.label9.Location = new System.Drawing.Point(99, 17);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 13);
             this.label9.TabIndex = 15;
@@ -185,7 +185,7 @@
             // 
             // tBoxOldDirPath
             // 
-            this.tBoxOldDirPath.Location = new System.Drawing.Point(155, 22);
+            this.tBoxOldDirPath.Location = new System.Drawing.Point(153, 13);
             this.tBoxOldDirPath.Name = "tBoxOldDirPath";
             this.tBoxOldDirPath.Size = new System.Drawing.Size(143, 20);
             this.tBoxOldDirPath.TabIndex = 14;

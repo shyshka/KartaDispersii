@@ -83,5 +83,11 @@ namespace KartCalculator
             FrmKartaEVCC frmKartaEvcc = new FrmKartaEVCC(this.baseParams) { MdiParent = this };
             frmKartaEvcc.Show();
         }
+
+        private void моделированиеУвеличенияРассеянияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmModelRass frmTmp = new FrmModelRass(baseParams);
+            frmTmp.Show();
+        }
     }
 }

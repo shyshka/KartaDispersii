@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculation\BaseParams.cs" />
+    <Compile Include="Calculation\GenerationRass.cs" />
     <Compile Include="Calculation\KartaEVCC.cs" />
     <Compile Include="FrmBaseParams.cs">
       <SubType>Form</SubType>
@@ -78,6 +79,12 @@
     <Compile Include="Calculation\Global.cs" />
     <Compile Include="Calculation\KartaObDisp.cs" />
     <Compile Include="Calculation\GenerationFromExists.cs" />
+    <Compile Include="FrmModelRass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModelRass.Designer.cs">
+      <DependentUpon>FrmModelRass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmBaseParams.resx">
@@ -94,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModelRass.resx">
+      <DependentUpon>FrmModelRass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

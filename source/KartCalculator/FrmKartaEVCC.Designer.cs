@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnReadFiles = new System.Windows.Forms.Button();
@@ -113,7 +113,7 @@
             this.btnMakeKarta.Name = "btnMakeKarta";
             this.btnMakeKarta.Size = new System.Drawing.Size(225, 29);
             this.btnMakeKarta.TabIndex = 16;
-            this.btnMakeKarta.Text = "Расчитать карту";
+            this.btnMakeKarta.Text = "Рассчитать карту";
             this.btnMakeKarta.UseVisualStyleBackColor = true;
             this.btnMakeKarta.Click += new System.EventHandler(this.btnMakeKarta_Click);
             // 
@@ -145,9 +145,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(251, 234);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 13);
+            this.label1.Size = new System.Drawing.Size(137, 13);
             this.label1.TabIndex = 14;
-            this.label1.Text = "Параметр сглажывания k";
+            this.label1.Text = "Параметр сглаживания k";
             // 
             // lblCntFiles
             // 
@@ -220,44 +220,44 @@
             // 
             // chartKarta
             // 
-            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.Name = "ChartArea1";
-            this.chartKarta.ChartAreas.Add(chartArea2);
+            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.Name = "ChartArea1";
+            this.chartKarta.ChartAreas.Add(chartArea1);
             this.chartKarta.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartKarta.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chartKarta.Legends.Add(legend1);
             this.chartKarta.Location = new System.Drawing.Point(3, 3);
             this.chartKarta.Name = "chartKarta";
             this.chartKarta.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series4.BorderColor = System.Drawing.Color.White;
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "Legend1";
-            series4.MarkerBorderColor = System.Drawing.Color.Black;
-            series4.MarkerBorderWidth = 5;
-            series4.MarkerColor = System.Drawing.Color.Black;
-            series4.MarkerImageTransparentColor = System.Drawing.Color.Black;
-            series4.MarkerStep = 5;
-            series4.Name = "Верхняя граница";
-            series4.YValuesPerPoint = 2;
-            series5.BorderWidth = 2;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series5.Color = System.Drawing.Color.Red;
-            series5.Legend = "Legend1";
-            series5.Name = "Нижняя граница";
-            series6.BorderWidth = 2;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series6.Color = System.Drawing.Color.Black;
-            series6.Legend = "Legend1";
-            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series6.Name = "ЭВСС";
-            this.chartKarta.Series.Add(series4);
-            this.chartKarta.Series.Add(series5);
-            this.chartKarta.Series.Add(series6);
+            series1.BorderColor = System.Drawing.Color.White;
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.MarkerBorderColor = System.Drawing.Color.Black;
+            series1.MarkerBorderWidth = 5;
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerImageTransparentColor = System.Drawing.Color.Black;
+            series1.MarkerStep = 5;
+            series1.Name = "Верхняя граница";
+            series1.YValuesPerPoint = 2;
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Нижняя граница";
+            series3.BorderWidth = 2;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Color = System.Drawing.Color.Black;
+            series3.Legend = "Legend1";
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series3.Name = "ЭВСС";
+            this.chartKarta.Series.Add(series1);
+            this.chartKarta.Series.Add(series2);
+            this.chartKarta.Series.Add(series3);
             this.chartKarta.Size = new System.Drawing.Size(720, 379);
             this.chartKarta.TabIndex = 1;
             // 
