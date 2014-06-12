@@ -45,7 +45,8 @@ namespace KartCalculator
 
         private void btnMakeKarta_Click(object sender, EventArgs e)
         {
-            kartaEvcc.CalcH();
+            kartaEvcc.K = Double.Parse(this.numericUpDown1.Value.ToString());
+            kartaEvcc.CalcUclLcl();
             this.lblH.Text = "Усредненное значение H=" + Global.GetString(kartaEvcc.HAv);
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
@@ -55,8 +56,8 @@ namespace KartCalculator
 
             for (int t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
             {
-                //chartKarta.Series[0].Points.AddXY(t + 1, kartaEvcc.Ucl);
-                //chartKarta.Series[1].Points.AddXY(t + 1, kartaEvcc.Lcl);
+                chartKarta.Series[0].Points.AddXY(t + 1, kartaEvcc.Ucl[t]);
+                chartKarta.Series[1].Points.AddXY(t + 1, kartaEvcc.Lcl[t]);
                 chartKarta.Series[2].Points.AddXY(t + 1, kartaEvcc.ArrEt[t]);
             }
         }

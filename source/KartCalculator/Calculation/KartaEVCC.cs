@@ -17,9 +17,9 @@ namespace KartCalculator
         private double[] arrEt;
         private double k = 0.25;
         private double sigmaS;
-        private double sigmaEt;
-        private double ucl; 
-        private double lcl;
+        private double[] sigmaEt;
+        private double[] ucl; 
+        private double[] lcl;
         private double hAv;        
         private const int cntViborkaPerFile = 370;
 
@@ -51,11 +51,11 @@ namespace KartCalculator
                 else return lstFiles.Count;
             }
         }
-        public double Ucl
+        public double[] Ucl
         {
             get { return ucl; }
         }
-        public double Lcl
+        public double[] Lcl
         {
             get { return lcl; }
         }
@@ -91,10 +91,15 @@ namespace KartCalculator
         }
         private void calcSigmaEt()
         {
-            double arrTmp = 0.0;
-            arrTmp = sigmaS * k * (1 - Math.Pow(1 - k, 2 * cntViborkaPerFile));
-            arrTmp /= baseParams.WeightViborka * (2 - k);
-            this.sigmaEt = Math.Sqrt(arrTmp);
+            double[] arrTmp = new double[this.baseParams.CntViborka];
+            for (int i = 0; i < arrTmp.Length; i++)
+            {
+                arrTmp[i] = Math.Pow(sigmaS, 2) * k * (1 - Math.Pow(1 - k, 2 * (i + 1)));
+                arrTmp[i] /= baseParams.WeightViborka * (2 - k);
+                arrTmp[i] = Math.Sqrt(arrTmp[i]);
+            }
+
+            this.sigmaEt = arrTmp;
         }
         private void loadFiles()
         {
@@ -108,31 +113,45 @@ namespace KartCalculator
                     BaseParams bp = new BaseParams(filePath);
                     this.cntViborka += bp.CntViborka;
                 }
-        }
+        }        
         
-        
-        public void CalcH()
+        public void CalcUclLcl()
         {
+            calcParams();
             double hAvTmp = 0.0;
             foreach (string filePath in lstFiles)
             {                
                 KartaEVCC kartaEvccCur = new KartaEVCC(new BaseParams(filePath));
                 double maxEt = 0.0;
                 double minEt = 0.0;
+                double hCurMax = 0.0;
+                double hCurMin = 0.0;
+
                 for (int t = 0; t < baseParams.CntViborka; t++)
                 {
                     if (maxEt < kartaEvccCur.ArrEt[t]) maxEt = kartaEvccCur.ArrEt[t];
                     if (minEt > kartaEvccCur.ArrEt[t] && kartaEvccCur.ArrEt[t] >= 0.0)
                         minEt = kartaEvccCur.ArrEt[t];
                     if (minEt == 0.0) minEt = kartaEvccCur.ArrEt[t];
-                }
 
-                double hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt;
-                double hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt;
-                hAvTmp += hCurMax + hCurMin;
+                    hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt[t];
+                    hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt[t];
+                }
+                
+                hAvTmp += hCurMax + hCurMin;                
             }
-            hAvTmp /= lstFiles.Count;
+            hAvTmp /= lstFiles.Count * baseParams.CntViborka;
             this.hAv = hAvTmp;
+
+            this.hAv = 3;
+            this.ucl = new double[baseParams.CntViborka];
+            this.lcl= new double[baseParams.CntViborka];
+
+            for (int t = 0; t < baseParams.CntViborka; t++)
+            {
+                this.ucl[t] = kartaObDisp.DetArrS + this.hAv * sigmaEt[t];
+                this.lcl[t] = kartaObDisp.DetArrS - this.hAv * sigmaEt[t];
+            }
         }
     }
 }
