@@ -220,7 +220,7 @@
             // 
             this.nUpDownCntFilesGenerateNorm.Location = new System.Drawing.Point(90, 97);
             this.nUpDownCntFilesGenerateNorm.Maximum = new decimal(new int[] {
-            10000,
+            50000,
             0,
             0,
             0});

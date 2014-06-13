@@ -24,7 +24,7 @@ namespace KartCalculator
         public GenerationFromExists(string oldDirPath)
         {
             this.oldDir = oldDirPath;
-            this.newDir = oldDir + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar;
+            this.newDir = oldDir + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar + "M370" + Path.DirectorySeparatorChar;
 
             string[] files = Directory.GetFiles(this.oldDir);
             this.lstOldFiles = new List<string>();
@@ -79,6 +79,7 @@ namespace KartCalculator
         {
             Directory.CreateDirectory(newDir);
             int indexOldFile = 0;
+            int indexOldVib = 0;
             //обработка новых файлов
             for (int indNew = 0; indNew < CntCalcNewFiles; indNew++)
             {
@@ -115,6 +116,7 @@ namespace KartCalculator
             if (ChangePerc != null) ChangePerc(0);
             if (ChangeText != null) ChangeText(Global.msgGenerationDone + CntCalcNewFiles);
         }
+
         public void GenerateNewFiles()
         {
             if (!isReadyGenerate()) return;

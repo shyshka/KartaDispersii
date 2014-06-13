@@ -49,6 +49,8 @@ namespace KartCalculator
                 if (this.InvokeRequired) this.BeginInvoke(new GenerationRass.IntHandler(changePrBarVal), val);
                 else changePrBarVal(val);
             };
+            gen.ChangeText += val => MessageBox.Show(val);
+
             gen.GenerateNewFiles();
         }
     }

@@ -19,7 +19,6 @@ namespace KartCalculator
         private string newDir;
         private List<string> lstOldFiles;
         private int oldCntViborka;
-        //private double d;
 
         public GenerationRass(string oldDirPath)
         {
@@ -72,7 +71,7 @@ namespace KartCalculator
         {
             Directory.CreateDirectory(newDir);            
             //обработка новых файлов
-            for (double d = 0.25; d <= 2; d += 0.25)
+            for (double d = 1.25; d <= 2; d += 0.25)
             {
                 string newDirTmp = newDir + d.ToString() + Path.DirectorySeparatorChar;
                 Directory.CreateDirectory(newDirTmp);
@@ -104,9 +103,11 @@ namespace KartCalculator
                     sWr.Close();
 
                     if (ChangePerc != null)
-                        ChangePerc(Convert.ToInt32(lstOldFiles.IndexOf(filePath) * 100.0 / (lstOldFiles.Count)));
+                        ChangePerc(Convert.ToInt32((d - 1.25) * 100.0 + lstOldFiles.IndexOf(filePath) * 100.0 / (lstOldFiles.Count * 4.0)));
                 }
-            }            
+            }
+            if (ChangePerc != null) ChangePerc(0);
+            if (ChangeText != null) ChangeText(Global.msgGenerationDone + lstOldFiles.Count * 4);
         }
 
         public void GenerateNewFiles()
