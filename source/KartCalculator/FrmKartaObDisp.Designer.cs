@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageArrSt = new System.Windows.Forms.TabPage();
             this.dataGVArrSt = new System.Windows.Forms.DataGridView();
@@ -45,6 +45,15 @@
             this.dataGVCovarArr = new System.Windows.Forms.DataGridView();
             this.tabPageKarta = new System.Windows.Forms.TabPage();
             this.chartObDisp = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPageSave = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveImage = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSaveText = new System.Windows.Forms.Button();
+            this.tBoxImageFilePath = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tBoxTextFilePath = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageArrSt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVArrSt)).BeginInit();
@@ -55,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCovarArr)).BeginInit();
             this.tabPageKarta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartObDisp)).BeginInit();
+            this.tabPageSave.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -63,6 +73,7 @@
             this.tabControl.Controls.Add(this.tabPageArrDetSt);
             this.tabControl.Controls.Add(this.tabPageCovarArr);
             this.tabControl.Controls.Add(this.tabPageKarta);
+            this.tabControl.Controls.Add(this.tabPageSave);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -179,41 +190,128 @@
             // 
             // chartObDisp
             // 
-            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.Name = "ChartArea1";
-            this.chartObDisp.ChartAreas.Add(chartArea2);
+            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.Name = "ChartArea1";
+            this.chartObDisp.ChartAreas.Add(chartArea1);
             this.chartObDisp.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartObDisp.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chartObDisp.Legends.Add(legend1);
             this.chartObDisp.Location = new System.Drawing.Point(0, 0);
             this.chartObDisp.Name = "chartObDisp";
             this.chartObDisp.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series4.BorderColor = System.Drawing.Color.White;
-            series4.BorderWidth = 5;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "Legend1";
-            series4.MarkerBorderWidth = 5;
-            series4.Name = "Верхняя граница";
-            series4.YValuesPerPoint = 2;
-            series5.BorderWidth = 5;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series5.Color = System.Drawing.Color.Red;
-            series5.Legend = "Legend1";
-            series5.Name = "Нижняя граница";
-            series6.BorderWidth = 5;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series6.Color = System.Drawing.Color.Black;
-            series6.Legend = "Legend1";
-            series6.Name = "Обобщенная дисперсия";
-            this.chartObDisp.Series.Add(series4);
-            this.chartObDisp.Series.Add(series5);
-            this.chartObDisp.Series.Add(series6);
+            series1.BorderColor = System.Drawing.Color.White;
+            series1.BorderWidth = 5;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.MarkerBorderWidth = 5;
+            series1.Name = "Верхняя граница";
+            series1.YValuesPerPoint = 2;
+            series2.BorderWidth = 5;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Нижняя граница";
+            series3.BorderWidth = 5;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Color = System.Drawing.Color.Black;
+            series3.Legend = "Legend1";
+            series3.Name = "Обобщенная дисперсия";
+            this.chartObDisp.Series.Add(series1);
+            this.chartObDisp.Series.Add(series2);
+            this.chartObDisp.Series.Add(series3);
             this.chartObDisp.Size = new System.Drawing.Size(726, 385);
             this.chartObDisp.TabIndex = 0;
+            // 
+            // tabPageSave
+            // 
+            this.tabPageSave.Controls.Add(this.button2);
+            this.tabPageSave.Controls.Add(this.button1);
+            this.tabPageSave.Controls.Add(this.btnSaveImage);
+            this.tabPageSave.Controls.Add(this.label2);
+            this.tabPageSave.Controls.Add(this.btnSaveText);
+            this.tabPageSave.Controls.Add(this.tBoxImageFilePath);
+            this.tabPageSave.Controls.Add(this.label1);
+            this.tabPageSave.Controls.Add(this.tBoxTextFilePath);
+            this.tabPageSave.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSave.Name = "tabPageSave";
+            this.tabPageSave.Size = new System.Drawing.Size(726, 385);
+            this.tabPageSave.TabIndex = 4;
+            this.tabPageSave.Text = "Сохранение";
+            this.tabPageSave.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(563, 212);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 20);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(563, 105);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(24, 20);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveImage
+            // 
+            this.btnSaveImage.Location = new System.Drawing.Point(482, 238);
+            this.btnSaveImage.Name = "btnSaveImage";
+            this.btnSaveImage.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveImage.TabIndex = 2;
+            this.btnSaveImage.Text = "Сохранить";
+            this.btnSaveImage.UseVisualStyleBackColor = true;
+            this.btnSaveImage.Click += new System.EventHandler(this.btnSaveImage_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(57, 215);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(153, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Путь к графическому файлу:";
+            // 
+            // btnSaveText
+            // 
+            this.btnSaveText.Location = new System.Drawing.Point(482, 131);
+            this.btnSaveText.Name = "btnSaveText";
+            this.btnSaveText.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveText.TabIndex = 2;
+            this.btnSaveText.Text = "Сохранить";
+            this.btnSaveText.UseVisualStyleBackColor = true;
+            this.btnSaveText.Click += new System.EventHandler(this.btnSaveText_Click);
+            // 
+            // tBoxImageFilePath
+            // 
+            this.tBoxImageFilePath.Location = new System.Drawing.Point(216, 212);
+            this.tBoxImageFilePath.Name = "tBoxImageFilePath";
+            this.tBoxImageFilePath.Size = new System.Drawing.Size(341, 20);
+            this.tBoxImageFilePath.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(71, 108);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(139, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Путь к текстовому файлу:";
+            // 
+            // tBoxTextFilePath
+            // 
+            this.tBoxTextFilePath.Location = new System.Drawing.Point(216, 105);
+            this.tBoxTextFilePath.Name = "tBoxTextFilePath";
+            this.tBoxTextFilePath.Size = new System.Drawing.Size(341, 20);
+            this.tBoxTextFilePath.TabIndex = 0;
             // 
             // FrmKartaObDisp
             // 
@@ -233,6 +331,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCovarArr)).EndInit();
             this.tabPageKarta.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartObDisp)).EndInit();
+            this.tabPageSave.ResumeLayout(false);
+            this.tabPageSave.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -251,5 +351,14 @@
         private System.Windows.Forms.Label lblDetArrS;
         private System.Windows.Forms.TabPage tabPageKarta;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartObDisp;
+        private System.Windows.Forms.TabPage tabPageSave;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveImage;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSaveText;
+        private System.Windows.Forms.TextBox tBoxImageFilePath;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tBoxTextFilePath;
     }
 }

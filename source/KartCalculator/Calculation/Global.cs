@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -7,9 +8,11 @@ namespace KartCalculator
 {
     class Global
     {
+        public static string msgTitleApp = "Ульяновский Государственный Технический Университет\nКафедра ПМИ\n2014 год";
+
         public static string msgBaseFileError = "Начальный файл не загружен в систему";
         public static string msgNotWorking = "Модуль еще не работает";
-        public static string msgFrmMainTitle = "Выбор типа карт для контроля рассеяния. Файл: ";
+        public static string msgFrmMainTitle = "Выбор типа карт для контроля рассеяния. {0}";
         public static string msgGenerationDone = "Генерация файлов прошла успешно. Файлов: ";
         public static string msgDeterminant = "Определитель матрицы: ";
 
@@ -22,25 +25,25 @@ namespace KartCalculator
             while (dgView.Columns.Count > 0)
                 dgView.Columns.RemoveAt(0);
 
-            for (int i = 1; i <= data.GetLength(0); i++)
+            for (var i = 1; i <= data.GetLength(0); i++)
             {
                 dgView.Columns.Add("X" + i.ToString(), "X" + i.ToString());
                 dgView.Columns[i - 1].Width = 60;
             }
             dgView.Rows.Add(data.GetLength(1));
 
-            for (int i = 0; i < dgView.Rows.Count; i++)
+            for (var i = 0; i < dgView.Rows.Count; i++)
                 dgView.Rows[i].HeaderCell.Value = (i + 1).ToString();
 
-            for (int i = 0; i < data.GetLength(0); i++)
-                for (int j = 0; j < data.GetLength(1); j++)
+            for (var i = 0; i < data.GetLength(0); i++)
+                for (var j = 0; j < data.GetLength(1); j++)
                 dgView[i, j].Value = GetString(data[i, j]);                
         }
         public static void ShowArrayInDataGrid(double[, ,] data, int index, DataGridView dgView)
         {
-            double[,] arrShow = new double[data.GetLength(0), data.GetLength(1)];
-            for (int i = 0; i < arrShow.GetLength(0); i++)
-                for (int j = 0; j < arrShow.GetLength(1); j++)
+            var arrShow = new double[data.GetLength(0), data.GetLength(1)];
+            for (var i = 0; i < arrShow.GetLength(0); i++)
+                for (var j = 0; j < arrShow.GetLength(1); j++)
                     arrShow[i, j] = data[i, j, index];
 
             ShowArrayInDataGrid(arrShow, dgView);
@@ -54,13 +57,13 @@ namespace KartCalculator
                 dgView.Columns.RemoveAt(0);
 
             dgView.Columns.Add("Значение", "Значение");
-            dgView.Columns[0].Width = 60;
+            dgView.Columns[0].Width = 55;
             dgView.Rows.Add(data.GetLength(0));
 
-            for (int i = 0; i < dgView.Rows.Count; i++)
+            for (var i = 0; i < dgView.Rows.Count; i++)
                 dgView.Rows[i].HeaderCell.Value = (i + 1).ToString();
 
-            for (int i = 0; i < data.GetLength(0); i++)
+            for (var i = 0; i < data.GetLength(0); i++)
                 dgView[0, i].Value = GetString(data[i]);            
         }
 
@@ -70,6 +73,16 @@ namespace KartCalculator
                 return val.ToString("0.000");
             else
                 return val.ToString("0.00E+00");
+        }
+
+        public static string GetPathBaseDir(BaseParams baseParams)
+        {
+            return Path.Combine(
+                path1: Path.GetDirectoryName(Application.ExecutablePath),
+                path2: Path.GetFileNameWithoutExtension(baseParams.FilePath) + "-" +
+                       baseParams.CntParams + "-" +
+                       baseParams.WeightViborka + "-" +
+                       baseParams.CntViborka);
         }
     }
 }

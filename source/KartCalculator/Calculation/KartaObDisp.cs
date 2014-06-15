@@ -1,162 +1,179 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.IO;
 
-namespace KartCalculator
+namespace KartCalculator.Calculation
 {
     public class KartaObDisp
     {
-        private BaseParams basePar;
-        private double[, ,] arrSt;
-        private double[] detArrSt;
-        private double[,] arrS;
-        private double detArrS;
-        private double ucl;        
-        private double lcl;
-        private double b1;        
-        private double b2;        
-        
-        public double[,] ArrS
-        {
-            get { return arrS; }
-        }
-        public double[, ,] ArrSt
-        {
-            get { return arrSt; }
-        }
-        public double[] DetArrSt
-        {
-            get { return detArrSt; }
-        }
-        public double DetArrS
-        {
-            get { return detArrS; }
-        }
-        public double Ucl
-        {
-            get { return ucl; }
-        }
-        public double Lcl
-        {
-            get { return lcl; }
-        }
-        public double B1
-        {
-            get { return b1; }
-        }
-        public double B2
-        {
-            get { return b2; }
-        }
+        private readonly BaseParams _basePar;
+
+        public double[,] ArrS { get; private set; }
+
+        public double[,,] ArrSt { get; private set; }
+
+        public double[] DetArrSt { get; private set; }
+
+        public double DetArrS { get; private set; }
+
+        public double Ucl { get; private set; }
+
+        public double Lcl { get; private set; }
+
+        public double B1 { get; private set; }
+
+        public double B2 { get; private set; }
 
         public KartaObDisp(BaseParams baseParams)
         {
-            this.basePar = baseParams;
-            this.calcParams();
+            _basePar = baseParams;
+            CalcParams();
         }
 
-        private void calcParams()
+        public void SaveData(string filePath)
         {
-            this.calcArrSt();
-            this.calcDetArrSt();
-            this.calcArrS();
-            this.calcDetArrS();
-            this.calcB1B2();
-            this.calcUclLcl();
+            using (var sWr = File.CreateText(filePath))
+            {
+                sWr.WriteLine("Базовый файл для расчетов: " + _basePar.FilePath);
+                sWr.WriteLine("Параметры базового файла:");
+                sWr.WriteLine("Количество параметров: " + _basePar.CntParams);
+                sWr.WriteLine("Глубина выборки: " + _basePar.WeightViborka);
+                sWr.WriteLine("Количество выборок: " + _basePar.CntViborka);
+                sWr.WriteLine();
+
+                sWr.WriteLine("Выборочная ковариационная матрица:");
+                for (int t = 0; t < ArrSt.GetLength(2); t++)
+                {
+                    sWr.WriteLine("Выборка № " + (t + 1).ToString() + " Определитель: " + Global.GetString(DetArrSt[t]));
+                    for (int i = 0; i < ArrSt.GetLength(0); i++)
+                    {
+                        var line = string.Empty;
+                        for (int j = 0; j < ArrSt.GetLength(1); j++)
+                            line += Global.GetString(ArrSt[i, j, t]) + '\t';
+                        sWr.WriteLine(line);
+                    }
+                    sWr.WriteLine();
+                }
+
+                sWr.WriteLine("Ковариационная матрица. Определитель: "+Global.GetString(DetArrS));
+                for (int i = 0; i < ArrS.GetLength(0); i++)
+                {
+                    var line = string.Empty;
+                    for (int j = 0; j < ArrS.GetLength(1); j++)
+                        line += Global.GetString(ArrS[i, j]) + '\t';
+                    sWr.WriteLine(line);
+                }
+                sWr.WriteLine();
+
+                sWr.WriteLine("B1=" + Global.GetString(B1));
+                sWr.WriteLine("B2=" + Global.GetString(B2));
+                sWr.WriteLine("Верхняя граница: UCL=" + Global.GetString(Ucl));
+                sWr.WriteLine("Нижняя граница: LCL=" + Global.GetString(Lcl));
+            }
         }
 
+        private void CalcParams()
+        {
+            CalcArrSt();
+            CalcDetArrSt();
+            CalcArrS();
+            CalcDetArrS();
+            CalcB1B2();
+            CalcUclLcl();
+        }
         //расчет виборочной ковариационной матрицы St
-        private void calcArrSt()
+        private void CalcArrSt()
         {
-            double[, ,] arrTmpSjkt = new double[basePar.CntParams, basePar.CntParams, basePar.CntViborka];
-            for (int j = 0; j < basePar.CntParams; j++)
-                for (int k = 0; k < basePar.CntParams; k++)
-                    for (int t = 0; t < basePar.CntViborka; t++)
+            var arrTmpSjkt = new double[_basePar.CntParams, _basePar.CntParams, _basePar.CntViborka];
+            for (var j = 0; j < _basePar.CntParams; j++)
+                for (var k = 0; k < _basePar.CntParams; k++)
+                    for (var t = 0; t < _basePar.CntViborka; t++)
                     {
                         //среднее значение по выборке
-                        double avVibJ = 0.0;
-                        double avVibK = 0.0;
-                        for (int i = 0; i < basePar.WeightViborka; i++)
+                        var avVibJ = 0.0;
+                        var avVibK = 0.0;
+                        for (var i = 0; i < _basePar.WeightViborka; i++)
                         {
-                            avVibJ += basePar.InputData[j, t * basePar.WeightViborka + i];
-                            avVibK += basePar.InputData[k, t * basePar.WeightViborka + i];
+                            avVibJ += _basePar.InputData[j, t * _basePar.WeightViborka + i];
+                            avVibK += _basePar.InputData[k, t * _basePar.WeightViborka + i];
                         }
-                        avVibJ /= basePar.WeightViborka;
-                        avVibK /= basePar.WeightViborka;
+                        avVibJ /= _basePar.WeightViborka;
+                        avVibK /= _basePar.WeightViborka;
 
                         //умножение разниц значений и средних сзначений
-                        double multVib = 0.0;
-                        for (int i = 0; i < basePar.WeightViborka; i++)
+                        var multVib = 0.0;
+                        for (var i = 0; i < _basePar.WeightViborka; i++)
                             multVib +=
-                                (basePar.InputData[j, t * basePar.WeightViborka + i] - avVibJ) *
-                                (basePar.InputData[k, t * basePar.WeightViborka + i] - avVibK);
-                        multVib /= basePar.WeightViborka - 1;
+                                (_basePar.InputData[j, t * _basePar.WeightViborka + i] - avVibJ) *
+                                (_basePar.InputData[k, t * _basePar.WeightViborka + i] - avVibK);
+                        multVib /= _basePar.WeightViborka - 1;
                         arrTmpSjkt[j, k, t] = multVib;
                     }
 
-            this.arrSt = arrTmpSjkt;
+            ArrSt = arrTmpSjkt;
         }
         //расчет массива детерминатов
-        private void calcDetArrSt()
+        private void CalcDetArrSt()
         {
-            double[] arrTmp = new double[arrSt.GetLength(2)];
-            for (int i = 0; i < arrSt.GetLength(2); i++)
+            var arrTmp = new double[ArrSt.GetLength(2)];
+            for (var i = 0; i < ArrSt.GetLength(2); i++)
             {
-                double[,] arrSjk = new double[arrSt.GetLength(0), arrSt.GetLength(1)];
-                for (int j = 0; j < arrSjk.GetLength(0); j++)
-                    for (int k = 0; k < arrSjk.GetLength(1); k++)
-                        arrSjk[j, k] = arrSt[j, k, i];
-                arrTmp[i] = determinant(arrSjk);
+                var arrSjk = new double[ArrSt.GetLength(0), ArrSt.GetLength(1)];
+                for (var j = 0; j < arrSjk.GetLength(0); j++)
+                    for (var k = 0; k < arrSjk.GetLength(1); k++)
+                        arrSjk[j, k] = ArrSt[j, k, i];
+                arrTmp[i] = Determinant(arrSjk);
             }
-            this.detArrSt = arrTmp;
+            DetArrSt = arrTmp;
         }        
         //расчет ковариационной матрицы S
-        private void calcArrS()
+        private void CalcArrS()
         {
-            double[,] arrTmp = new double[basePar.CntParams, basePar.CntParams];
-            for (int j=0;j<basePar.CntParams;j++)
-                for (int k = 0; k < basePar.CntParams; k++)
+            var arrTmp = new double[_basePar.CntParams, _basePar.CntParams];
+            for (var j = 0; j < _basePar.CntParams; j++)
+                for (var k = 0; k < _basePar.CntParams; k++)
                 {
-                    double sumTmp = 0.0;
-                    for (int t = 0; t < basePar.CntViborka; t++)
-                        sumTmp += arrSt[j, k, t];
-                    sumTmp /= basePar.CntViborka;
+                    var sumTmp = 0.0;
+                    for (var t = 0; t < _basePar.CntViborka; t++)
+                        sumTmp += ArrSt[j, k, t];
+                    sumTmp /= _basePar.CntViborka;
                     arrTmp[j, k] = sumTmp;
                 }
-            this.arrS = arrTmp;
+            ArrS = arrTmp;
         }
-        //расчет определителя S
-        private void calcDetArrS()
-        {
-            this.detArrS = determinant(arrS);
-        }
-        private void calcB1B2()
-        {
-            double b1Tmp = 1.0;
-            for (int i = 1; i <= basePar.CntParams; i++)
-                b1Tmp *= basePar.WeightViborka - i;
-            b1Tmp /= Math.Pow(basePar.WeightViborka - 1, basePar.CntParams);
-            this.b1 = b1Tmp;
 
-            double b2Tmp = 1.0;
-            double tmp1 = 1.0;
-            double tmp2 = 1.0;
-            for (int i = 1; i <= basePar.CntParams; i++)
-                tmp1 *= basePar.WeightViborka - i + 2;
-            for (int i = 1; i <= basePar.CntParams; i++)
-                tmp2 *= basePar.WeightViborka - i;
-            for (int i = 1; i <= basePar.CntParams; i++)
-                b2Tmp *= basePar.WeightViborka - i;
-            b2Tmp *= tmp1 - tmp2;
-            b2Tmp /= Math.Pow(basePar.WeightViborka - 1, 2 * basePar.CntParams);
-            this.b2 = b2Tmp;
-        }
-        private void calcUclLcl()
+        //расчет определителя S
+        private void CalcDetArrS()
         {
-            this.ucl = detArrS * (b1 + 3 * Math.Sqrt(b2));
-            if (this.ucl < 0.0) ucl = 0.0;
-            this.lcl = detArrS * (b1 - 3 * Math.Sqrt(b2));
-            if (this.lcl < 0.0) lcl = 0.0;
+            DetArrS = Determinant(ArrS);
+        }
+        private void CalcB1B2()
+        {
+            var b1Tmp = 1.0;
+            for (var i = 1; i <= _basePar.CntParams; i++)
+                b1Tmp *= _basePar.WeightViborka - i;
+            b1Tmp /= Math.Pow(_basePar.WeightViborka - 1, _basePar.CntParams);
+            B1 = b1Tmp;
+
+            var b2Tmp = 1.0;
+            var tmp1 = 1.0;
+            var tmp2 = 1.0;
+            for (var i = 1; i <= _basePar.CntParams; i++)
+                tmp1 *= _basePar.WeightViborka - i + 2;
+            for (var i = 1; i <= _basePar.CntParams; i++)
+                tmp2 *= _basePar.WeightViborka - i;
+            for (var i = 1; i <= _basePar.CntParams; i++)
+                b2Tmp *= _basePar.WeightViborka - i;
+            b2Tmp *= tmp1 - tmp2;
+            b2Tmp /= Math.Pow(_basePar.WeightViborka - 1, 2 * _basePar.CntParams);
+            B2 = b2Tmp;
+        }
+        private void CalcUclLcl()
+        {
+            Ucl = DetArrS * (B1 + 3 * Math.Sqrt(B2));
+            if (Ucl < 0.0) Ucl = 0.0;
+            Lcl = DetArrS * (B1 - 3 * Math.Sqrt(B2));
+            if (Lcl < 0.0) Lcl = 0.0;
         }
 
         #region Детерминант
@@ -167,23 +184,21 @@ namespace KartCalculator
             {
                 return 1;
             }
-            else
-            {
-                return -1;
-            }
+            return -1;
         }
+
         //this method determines the sub matrix corresponding to a given element
         private double[,] createSmallerMatrix (double[,]input, int i, int j)
         {
-            int order = int.Parse(System.Math.Sqrt(input.Length).ToString());
-            double[,] output = new double[order-1, order-1];
-            int x = 0, y = 0;
-            for (int m = 0; m < order; m++, x++)
+            var order = int.Parse(Math.Sqrt(input.Length).ToString(CultureInfo.InvariantCulture));
+            var output = new double[order-1, order-1];
+            int x = 0;
+            for (var m = 0; m < order; m++, x++)
             {
                 if (m != i)
                 {
-                    y = 0;
-                    for (int n = 0; n < order; n++)
+                    int y = 0;
+                    for (var n = 0; n < order; n++)
                     {
                         if (n != j)
                         {
@@ -200,27 +215,24 @@ namespace KartCalculator
             return output;
         }
         //this method determines the value of determinant using recursion
-        private double determinant(double[,] input)
+        private double Determinant(double[,] input)
         {
-            int order = int.Parse(System.Math.Sqrt(input.Length).ToString());
+            var order = int.Parse(Math.Sqrt(input.Length).ToString(CultureInfo.InvariantCulture));
             if (order > 2)
             {
                 double value = 0;
-                for (int j = 0; j < order; j++)
+                for (var j = 0; j < order; j++)
                 {
-                    double[,] Temp = createSmallerMatrix(input, 0, j);
-                    value = value + input[0, j] * (signOfElement(0, j) * determinant(Temp));
+                    var temp = createSmallerMatrix(input, 0, j);
+                    value = value + input[0, j] * (signOfElement(0, j) * Determinant(temp));
                 }
                 return value;
             }
-            else if (order == 2)
+            if (order == 2)
             {
                 return ((input[0, 0] * input[1, 1]) - (input[1, 0] * input[0, 1]));
             }
-            else
-            {
-                return (input[0, 0]);
-            }
+            return (input[0, 0]);
         }
         #endregion
     }

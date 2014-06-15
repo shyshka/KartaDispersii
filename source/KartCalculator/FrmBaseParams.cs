@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace KartCalculator
@@ -14,36 +9,36 @@ namespace KartCalculator
         public delegate void SendMessage(String msg);
         public SendMessage SetActiveTitle;
 
-        private BaseParams baseParams;
+        private BaseParams _baseParams;
 
         public FrmBaseParams(BaseParams baseParams)
         {
             InitializeComponent();
-            this.baseParams = baseParams;
+            _baseParams = baseParams;
         }
 
         public new void Show()
         {
-            this.lblFileName.Text = "Файл: " + Path.GetFileName(baseParams.FilePath);
-            this.lblCntParams.Text = "К-во параметров: " + baseParams.CntParams;
-            this.lblWeightViborka.Text = "Обьем выборки: " + baseParams.WeightViborka;
-            this.lblCntViborka.Text = "К-во выборок: " + baseParams.CntViborka;
+            lblFileName.Text = "Файл: " + Path.GetFileName(_baseParams.FilePath);
+            lblCntParams.Text = "К-во параметров: " + _baseParams.CntParams;
+            lblWeightViborka.Text = "Обьем выборки: " + _baseParams.WeightViborka;
+            lblCntViborka.Text = "К-во выборок: " + _baseParams.CntViborka;
 
-            Global.ShowArrayInDataGrid(baseParams.InputData, this.dataGVInput);
-            Global.ShowArrayInDataGrid(baseParams.Correlation, this.dataGVCorelation);
-            Global.ShowArrayInDataGrid(baseParams.MOSKO, this.dataGVMOSKO);
-            this.dataGVMOSKO.Rows[0].HeaderCell.Value = "MO";
-            this.dataGVMOSKO.Rows[1].HeaderCell.Value = "SKO";
-            Global.ShowArrayInDataGrid(baseParams.Covariation, this.dataGVCovariation);
+            Global.ShowArrayInDataGrid(_baseParams.InputData, dataGVInput);
+            Global.ShowArrayInDataGrid(_baseParams.Correlation, dataGVCorelation);
+            Global.ShowArrayInDataGrid(_baseParams.MOSKO, dataGVMOSKO);
+            dataGVMOSKO.Rows[0].HeaderCell.Value = "MO";
+            dataGVMOSKO.Rows[1].HeaderCell.Value = "SKO";
+            Global.ShowArrayInDataGrid(_baseParams.Covariation, dataGVCovariation);
 
-            this.Text = "Базовые характеристики. Файл: " + Path.GetFileName(baseParams.FilePath);
-            this.SetActiveTitle(Path.GetFileName(baseParams.FilePath));
+            Text = "Базовые характеристики. Файл: " + Path.GetFileName(_baseParams.FilePath);
+            SetActiveTitle(Path.GetFileName(_baseParams.FilePath));
             base.Show();
         }        
 
         private void FrmBaseParams_Activated(object sender, EventArgs e)
         {
-            this.SetActiveTitle(Path.GetFileName(baseParams.FilePath));
+            SetActiveTitle(Path.GetFileName(_baseParams.FilePath));
         }
     }
 }

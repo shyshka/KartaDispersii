@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using WinWord = Microsoft.Office.Interop.Word;
 
 namespace KartCalculator
 {
     public partial class FrmMain : Form
     {
-        private BaseParams baseParams;
+        private BaseParams _baseParams;
 
         public FrmMain()
         {
@@ -19,30 +16,43 @@ namespace KartCalculator
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Global.msgNotWorking);
+            var frm = new Form
+            {
+                Size = new Size(350, 150),
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false
+            };
+            
+            var lbl = new Label
+            {
+                Dock = DockStyle.Fill,
+                Text = Global.msgTitleApp,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = frm
+            };
+            frm.ShowDialog();
         }
 
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
-            MessageBox.Show(Global.msgNotWorking);
-            //считывать с файла help.txt
+        {
+            var frmHelp = new FrmHelp();
+            frmHelp.Show();
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDlg.ShowDialog() != DialogResult.OK) return;
+            _baseParams = new BaseParams(openFileDlg.FileName);
+            var frmBaseParams = new FrmBaseParams(_baseParams) { MdiParent = this };
+            frmBaseParams.SetActiveTitle += msg => Text = string.Format(Global.msgFrmMainTitle, msg);
+            frmBaseParams.FormClosed += (obj, arg) =>
             {
-                baseParams = new BaseParams(openFileDlg.FileName);
-                FrmBaseParams frmBaseParams = new FrmBaseParams(baseParams) { MdiParent = this };
-                frmBaseParams.SetActiveTitle += msg => this.Text = Global.msgFrmMainTitle + msg;
-                frmBaseParams.FormClosed += (obj, arg) =>
-                {
-                    frmBaseParams = null;
-                    this.Text = Global.msgFrmMainTitle;
-                };
+                _baseParams = null;
+                Text = string.Format(Global.msgFrmMainTitle,string.Empty);
+            };
 
-                frmBaseParams.Show();
-            }
+            frmBaseParams.Show();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,41 +62,41 @@ namespace KartCalculator
 
         private void генерацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.baseParams == null)
+            if (_baseParams == null)
             {
                 MessageBox.Show(Global.msgBaseFileError);
                 return;
             }
-            FrmGeneration frmGeneration = new FrmGeneration(this.baseParams) { MdiParent = this };
+            var frmGeneration = new FrmGeneration(_baseParams) {MdiParent = this};
             frmGeneration.Show();
         }
 
         private void картаОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.baseParams == null)
+            if (_baseParams == null)
             {
                 MessageBox.Show(Global.msgBaseFileError);
                 return;
             }
-            FrmKartaObDisp frmKartaObDisp = new FrmKartaObDisp(this.baseParams) { MdiParent = this };
+            var frmKartaObDisp = new FrmKartaObDisp(_baseParams) { MdiParent = this };
             frmKartaObDisp.Show();
         }
 
         private void картаЭВССДляОбобщеннойДисперсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.baseParams == null)
+            if (_baseParams == null)
             {
                 MessageBox.Show(Global.msgBaseFileError);
                 return;
             }
             
-            FrmKartaEVCC frmKartaEvcc = new FrmKartaEVCC(this.baseParams) { MdiParent = this };
+            var frmKartaEvcc = new FrmKartaEVCC(_baseParams) { MdiParent = this };
             frmKartaEvcc.Show();
         }
 
         private void моделированиеУвеличенияРассеянияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmModelRass frmTmp = new FrmModelRass(baseParams);
+            var frmTmp = new FrmModelRass(_baseParams);
             frmTmp.Show();
         }
     }

@@ -1,116 +1,121 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
-namespace KartCalculator
+namespace KartCalculator.Calculation
 {
     public class GenerationFromExists
     {
         public delegate void IntHandler(int val);
+
         public event IntHandler ChangePerc;
 
         public delegate void StrHandler(string val);
+
         public event StrHandler ChangeText;
 
-        private string oldDir;
-        private string newDir;
-        private List<string> lstOldFiles;
-        private int oldCntViborka;
-        private const int cntViborkaPerFile = 370;
+        private readonly string _newDir;
+        private readonly List<string> _lstOldFiles;
+        private readonly int _oldCntViborka;
+        private const int CntViborkaPerFile = 370;
 
         public GenerationFromExists(string oldDirPath)
         {
-            this.oldDir = oldDirPath;
-            this.newDir = oldDir + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar + "M370" + Path.DirectorySeparatorChar;
+            string oldDir = oldDirPath;
+            _newDir = Path.Combine(
+                Directory.GetParent(oldDir).FullName,
+                "Generation-M370");
 
-            string[] files = Directory.GetFiles(this.oldDir);
-            this.lstOldFiles = new List<string>();
-            this.oldCntViborka = 0;
-            foreach (string filePath in files)
+            var files = Directory.GetFiles(oldDir);
+            _lstOldFiles = new List<string>();
+            _oldCntViborka = 0;
+            foreach (var filePath in files)
                 if (BaseParams.IsGoodFile(filePath))
                 {
-                    this.lstOldFiles.Add(filePath);
-                    BaseParams bp = new BaseParams(filePath);
-                    this.oldCntViborka += bp.CntViborka;
+                    _lstOldFiles.Add(filePath);
+                    var bp = new BaseParams(filePath);
+                    _oldCntViborka += bp.CntViborka;
                 }
         }
-       
+
         public int CntOldViborka
         {
-            get { return oldCntViborka; }
+            get { return _oldCntViborka; }
         }
-        
+
         public int CntOldFiles
         {
-            get
-            {
-                if (lstOldFiles == null) return 0;
-                else return lstOldFiles.Count;
-            }
+            get { return _lstOldFiles == null ? 0 : _lstOldFiles.Count; }
         }
 
         public int CntCalcNewFiles
         {
-            get
-            {
-                return oldCntViborka / cntViborkaPerFile;
-            }
+            get { return _oldCntViborka/CntViborkaPerFile; }
         }
 
-        private bool isReadyGenerate()
+        private bool IsReadyGenerate()
         {
-            if (lstOldFiles == null)
+            if (_lstOldFiles == null)
             {
                 if (ChangeText != null) ChangeText(string.Empty);
                 return false;
             }
 
-            if (newDir == null)
+            if (_newDir == null)
             {
                 if (ChangeText != null) ChangeText(string.Empty);
                 return false;
             }
             return true;
         }
-        private void generate()
+
+        private void GenerateThread()
         {
-            Directory.CreateDirectory(newDir);
-            int indexOldFile = 0;
-            int indexOldVib = 0;
+            Directory.CreateDirectory(_newDir);
+            var indOldFile = 0;
+            var indOldVib = 0;
             //обработка новых файлов
-            for (int indNew = 0; indNew < CntCalcNewFiles; indNew++)
+            for (var indNewFile = 0; indNewFile < CntCalcNewFiles; indNewFile++)
             {
-                int indexVibWr = 0;
-                String filePath = newDir + indNew.ToString() + ".dtk";
-                StreamWriter sWr = File.CreateText(filePath);
-                sWr.WriteLine(new BaseParams(lstOldFiles[indexOldFile]).CntParams);
-                sWr.WriteLine(new BaseParams(lstOldFiles[indexOldFile]).WeightViborka);
-                sWr.WriteLine(cntViborkaPerFile);
+                var filePath = Path.Combine(_newDir, indNewFile + ".dtk");
+                var sWrNew = File.CreateText(filePath);
+                sWrNew.WriteLine(new BaseParams(_lstOldFiles[indOldFile]).CntParams);
+                sWrNew.WriteLine(new BaseParams(_lstOldFiles[indOldFile]).WeightViborka);
+                sWrNew.WriteLine(CntViborkaPerFile);
+
+                var indNewVib = 0;
                 //запись выборок максимум 370 в файл
-                while (indexVibWr < cntViborkaPerFile)
+                while (indNewVib < CntViborkaPerFile)
                 {
-                    BaseParams bpCur = new BaseParams(lstOldFiles[indexOldFile]);
-                    int curVibRd = 0;
-                    while (curVibRd < bpCur.CntViborka)
+                    if (indOldFile >= _lstOldFiles.Count) indOldFile = 0;
+                    var bpCur = new BaseParams(_lstOldFiles[indOldFile]);
+                    //считывание выборок из файла
+                    while (indOldVib < bpCur.CntViborka)
                     {
-                        for (int j = 0; j < bpCur.WeightViborka; j++)
+                        //запись одной выборки указанной глубины
+                        for (var j = 0; j < bpCur.WeightViborka; j++)
                         {
-                            string curLine = string.Empty;
-                            curLine += bpCur.InputData[0, curVibRd * bpCur.WeightViborka + j].ToString("0.000").Replace(',', '.');
-                            for (int i = 1; i < bpCur.CntParams; i++)
-                                curLine += '\t' + bpCur.InputData[i, curVibRd * bpCur.WeightViborka + j].ToString("0.000").Replace(',', '.');
-                            sWr.WriteLine(curLine);
+                            var curLine = string.Empty;
+                            curLine +=
+                                bpCur.InputData[0, indOldVib*bpCur.WeightViborka + j].ToString("0.000")
+                                    .Replace(',', '.');
+                            for (var i = 1; i < bpCur.CntParams; i++)
+                                curLine += '\t' +
+                                           bpCur.InputData[i, indOldVib*bpCur.WeightViborka + j].ToString("0.000")
+                                               .Replace(',', '.');
+                            sWrNew.WriteLine(curLine);
                         }
-                        curVibRd++;
-                        indexVibWr++;
-                        if (ChangePerc != null) ChangePerc(Convert.ToInt32(100.0 * indNew / CntCalcNewFiles));
+                        indOldVib++;
+                        indNewVib++;
+                        if (ChangePerc != null) ChangePerc(Convert.ToInt32(100.0*indNewFile/CntCalcNewFiles));
+                        if (indNewVib == CntViborkaPerFile)
+                            break;
                     }
+                    indOldFile++;
+                    indOldVib = 0;
                 }
-                indexOldFile++;
-                sWr.Close();
+                sWrNew.Close();
             }
 
             if (ChangePerc != null) ChangePerc(0);
@@ -119,8 +124,8 @@ namespace KartCalculator
 
         public void GenerateNewFiles()
         {
-            if (!isReadyGenerate()) return;
-            Thread thread = new Thread(new ThreadStart(generate));
+            if (!IsReadyGenerate()) return;
+            var thread = new Thread(GenerateThread);
             thread.Start();
         }
     }

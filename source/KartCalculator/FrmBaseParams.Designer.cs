@@ -222,7 +222,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCovariation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

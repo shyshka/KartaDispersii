@@ -19,34 +19,34 @@ namespace KartCalculator
             this.baseParams = baseParams;
             InitializeComponent();
 
-            this.tBoxOldDirPath.Text =
-               Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar +
-               baseParams.CntParams + "_" +
-               baseParams.WeightViborka + "_" +
-               baseParams.CntViborka +
-               Path.DirectorySeparatorChar +
-               "samples" + Path.DirectorySeparatorChar;
+           
+        }
+
+        public new void Show()
+        {
+            tBoxOldDirPath.Text = Path.Combine(Global.GetPathBaseDir(baseParams), "Generation-M370");
+            base.Show();
         }
 
         private void btnReadOldDir_Click(object sender, EventArgs e)
         {
-            GenerationRass gen = new GenerationRass(tBoxOldDirPath.Text);
+            var gen = new GenerationRass(tBoxOldDirPath.Text);
             lblCntOldFiles.Text = gen.CntOldFiles.ToString();
             lblCntViborka.Text = gen.CntOldViborka.ToString();            
         }
 
         private void changePrBarVal(int val)
         {
-            try { this.prBarMain.Value = val; }
+            try { prBarMain.Value = val; }
             catch { }
         }
 
         private void btnGener_Click(object sender, EventArgs e)
         {
-            GenerationRass gen = new GenerationRass(tBoxOldDirPath.Text);
+            var gen = new GenerationRass(tBoxOldDirPath.Text);
             gen.ChangePerc += val =>
             {
-                if (this.InvokeRequired) this.BeginInvoke(new GenerationRass.IntHandler(changePrBarVal), val);
+                if (InvokeRequired) BeginInvoke(new GenerationRass.IntHandler(changePrBarVal), val);
                 else changePrBarVal(val);
             };
             gen.ChangeText += val => MessageBox.Show(val);

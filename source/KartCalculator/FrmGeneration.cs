@@ -1,49 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
+using KartCalculator.Calculation;
 
 namespace KartCalculator
 {
     public partial class FrmGeneration : Form
     {
-        private BaseParams baseParams;
+        private readonly BaseParams _baseParams;
 
         public FrmGeneration(BaseParams baseParams)
         {
             InitializeComponent();
-
-            this.baseParams = baseParams;
-            
-            this.tBoxDirGenerNorm.Text =
-                Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar +
-                baseParams.CntParams + "_" +
-                baseParams.WeightViborka + "_" +
-                baseParams.CntViborka +
-                Path.DirectorySeparatorChar +
-                "samples" + Path.DirectorySeparatorChar;
-            this.tBoxOldDirPath.Text = this.tBoxDirGenerNorm.Text;
+            _baseParams = baseParams;
         }
 
-        private void changePrBarVal(int val)
+        public new void Show()
         {
-            try { this.prBarMain.Value = val; }
-            catch { }
+            Text = "Генерация файлов на основе: " + Path.GetFileName(_baseParams.FilePath);
+            tBoxDirGenerNorm.Text =
+                Path.Combine(
+                    Global.GetPathBaseDir(_baseParams),
+                    "Generation-Norm");
+            tBoxOldDirPath.Text = tBoxDirGenerNorm.Text;
+            base.Show();
+        }
+
+        private void ChangePrBarVal(int val)
+        {
+            try
+            {
+                prBarMain.Value = val;
+            }
+            catch (Exception exception)
+            {
+            }
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            GenerationNorm generNorm = new GenerationNorm(this.baseParams);
+            var generNorm = new GenerationNorm(_baseParams);
             generNorm.ChangePerc += val =>
             {
                 if (InvokeRequired)
-                    BeginInvoke(new GenerationNorm.IntHandler(changePrBarVal), val);
+                    BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
                 else
-                    changePrBarVal(val);
+                    ChangePrBarVal(val);
             };
             generNorm.ChangeText += val => MessageBox.Show(val);            
             generNorm.CntFiles = Convert.ToInt32(nUpDownCntFilesGenerateNorm.Value);
@@ -51,28 +53,23 @@ namespace KartCalculator
             generNorm.Generate();
         }
 
-        private void btnBrowseDir_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnReadOldDir_Click(object sender, EventArgs e)
         {
-            GenerationFromExists genEx = new GenerationFromExists(this.tBoxOldDirPath.Text);
-            this.lblCntOldFiles.Text = genEx.CntOldFiles.ToString();
-            this.lblCntViborka.Text = genEx.CntOldViborka.ToString();
-            this.lblCntNewFilesCalc.Text = genEx.CntCalcNewFiles.ToString();
+            var genEx = new GenerationFromExists(tBoxOldDirPath.Text);
+            lblCntOldFiles.Text = genEx.CntOldFiles.ToString();
+            lblCntViborka.Text = genEx.CntOldViborka.ToString();
+            lblCntNewFilesCalc.Text = genEx.CntCalcNewFiles.ToString();
         }
 
         private void btnGenerM370_Click(object sender, EventArgs e)
         {
-            GenerationFromExists genEx = new GenerationFromExists(this.tBoxOldDirPath.Text);
+            var genEx = new GenerationFromExists(tBoxOldDirPath.Text);
             genEx.ChangePerc += val =>
                 {
                     if (InvokeRequired)
-                        BeginInvoke(new GenerationNorm.IntHandler(changePrBarVal), val);
+                        BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
                     else
-                        changePrBarVal(val);
+                        ChangePrBarVal(val);
                 };
             genEx.ChangeText += val => MessageBox.Show(val);
             genEx.GenerateNewFiles();

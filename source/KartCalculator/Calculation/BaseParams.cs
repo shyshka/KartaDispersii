@@ -60,8 +60,8 @@ namespace KartCalculator
         {
             get
             {
-                double[,] tmp = new double[cntParams, 2];
-                for (int i = 0; i < cntParams; i++)
+                var tmp = new double[cntParams, 2];
+                for (var i = 0; i < cntParams; i++)
                 {
                     tmp[i, 0] = mo[i];
                     tmp[i, 1] = sko[i];
@@ -87,7 +87,7 @@ namespace KartCalculator
         public BaseParams(string filePath)
         {
             this.filePath = filePath;
-            this.calcBaseParams();
+            calcBaseParams();
         }
 
         public static bool IsGoodFile(String filePath)
@@ -105,34 +105,34 @@ namespace KartCalculator
         private void calcBaseParams()
         {
             //Входные данные
-            using (StreamReader sr = new StreamReader(this.filePath))
+            using (var sr = new StreamReader(filePath))
             {
-                this.cntParams = Convert.ToInt32(sr.ReadLine());
-                this.weightViborka = Convert.ToInt32(sr.ReadLine());
-                this.cntViborka = Convert.ToInt32(sr.ReadLine());
-                this.fullViborka = weightViborka * cntViborka;
+                cntParams = Convert.ToInt32(sr.ReadLine());
+                weightViborka = Convert.ToInt32(sr.ReadLine());
+                cntViborka = Convert.ToInt32(sr.ReadLine());
+                fullViborka = weightViborka * cntViborka;
 
-                this.inputData = new double[cntParams, fullViborka];
-                for (int i = 0; i < fullViborka; i++)
+                inputData = new double[cntParams, fullViborka];
+                for (var i = 0; i < fullViborka; i++)
                 {
-                    String[] curLineItems = sr.ReadLine().Split('\t');
-                    for (int j = 0; j < curLineItems.Length; j++)
-                        this.inputData[j, i] = float.Parse(curLineItems[j], CultureInfo.InvariantCulture.NumberFormat);
+                    var curLineItems = sr.ReadLine().Split('\t');
+                    for (var j = 0; j < curLineItems.Length; j++)
+                        inputData[j, i] = float.Parse(curLineItems[j], CultureInfo.InvariantCulture.NumberFormat);
                 }
             }
-            this.mo = calcMO();
-            this.sko = calcSKO();
-            this.correlation = calcCorrelation();
-            this.covariation = calcCovariation();
-            this.cholesky = calcCholesky();
+            mo = calcMO();
+            sko = calcSKO();
+            correlation = calcCorrelation();
+            covariation = calcCovariation();
+            cholesky = calcCholesky();
         }
 
         private double[] calcMO()
         {
-            double[] moTmp = new double[cntParams];
-            for (int i = 0; i < cntParams; i++)
+            var moTmp = new double[cntParams];
+            for (var i = 0; i < cntParams; i++)
             {
-                for (int j = 0; j < fullViborka; j++)
+                for (var j = 0; j < fullViborka; j++)
                     moTmp[i] += inputData[i, j];
                 moTmp[i] /= fullViborka;
             }
@@ -140,10 +140,10 @@ namespace KartCalculator
         }        
         private double[] calcSKO()
         {
-            double[] skoTmp = new double[cntParams];
-            for (int i = 0; i < cntParams; i++)
+            var skoTmp = new double[cntParams];
+            for (var i = 0; i < cntParams; i++)
             {
-                for (int j = 0; j < fullViborka; j++)
+                for (var j = 0; j < fullViborka; j++)
                     skoTmp[i] += Math.Pow(inputData[i, j] - mo[i], 2);
                 skoTmp[i] = Math.Sqrt(skoTmp[i] / fullViborka);
             }
@@ -151,13 +151,13 @@ namespace KartCalculator
         }        
         private double[,] calcCorrelation()
         {
-            double[,] corTmp = new double[cntParams, cntParams];
+            var corTmp = new double[cntParams, cntParams];
 
-            for (int i = 0; i < cntParams; i++)
-                for (int j = 0; j < cntParams; j++)
+            for (var i = 0; i < cntParams; i++)
+                for (var j = 0; j < cntParams; j++)
                 {
-                    double sum = 0.0;
-                    for (int k = 0; k < fullViborka; k++)
+                    var sum = 0.0;
+                    for (var k = 0; k < fullViborka; k++)
                         sum += (inputData[i, k] - mo[i]) * (inputData[j, k] - mo[j]);
                     corTmp[i, j] = sum / (fullViborka * sko[i] * sko[j]);
                 }
@@ -165,12 +165,12 @@ namespace KartCalculator
         }
         private double[,] calcCovariation()
         {
-            double[,] tmp = new double[cntParams, cntParams];
-            for (int i = 0; i < cntParams; i++)
-                for (int j = 0; j < cntParams; j++)
+            var tmp = new double[cntParams, cntParams];
+            for (var i = 0; i < cntParams; i++)
+                for (var j = 0; j < cntParams; j++)
                 {
-                    double sum = 0.0;
-                    for (int k = 0; k < fullViborka; k++)
+                    var sum = 0.0;
+                    for (var k = 0; k < fullViborka; k++)
                         sum += (inputData[i, k] - mo[i]) * (inputData[j, k] - mo[j]);
                     tmp[i, j] = sum / (fullViborka - 1);
                 }
@@ -179,20 +179,20 @@ namespace KartCalculator
         }
         private double[,] calcCholesky()
         {
-            double[,] resArr = new double[cntParams,cntParams];
-            for (int j = 0; j < cntParams; j++)
+            var resArr = new double[cntParams,cntParams];
+            for (var j = 0; j < cntParams; j++)
             {
-                double s = 0.0;
-                double ss = 0.0;
-                for (int k = 0; k < cntParams - 1; k++)
+                var s = 0.0;
+                var ss = 0.0;
+                for (var k = 0; k < cntParams - 1; k++)
                     s += resArr[j, k] * resArr[j, k];
                 ss = covariation[j, j] - s;
                 if (ss <= 0) break;
                 ss = Math.Sqrt(ss);
-                for (int i = j; i < cntParams; i++)
+                for (var i = j; i < cntParams; i++)
                 {
                     s = 0.0;
-                    for (int k = 0; k < cntParams - 1; k++) 
+                    for (var k = 0; k < cntParams - 1; k++) 
                         s += resArr[i, k] * resArr[j, k];
                     resArr[i, j] = (covariation[i, j] - s) / ss;
                 }                

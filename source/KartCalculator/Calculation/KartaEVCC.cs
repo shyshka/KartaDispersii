@@ -1,157 +1,179 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 
-namespace KartCalculator
+namespace KartCalculator.Calculation
 {
-    public class KartaEVCC
+    public class KartaEvcc
     {
-        private BaseParams baseParams;
-        private KartaObDisp kartaObDisp;
-        private string dirPath;
-        private List<string> lstFiles;
-        private int cntViborka;
-        private double[] arrEt;
-        private double k = 0.25;
-        private double sigmaS;
-        private double[] sigmaEt;
-        private double[] ucl; 
-        private double[] lcl;
-        private double hAv;        
-        private const int cntViborkaPerFile = 370;
+        private readonly BaseParams _baseParams;
+        private readonly KartaObDisp _kartaObDisp;
+        private string _dirPath;
+        private List<string> _lstFiles;
+        private int _cntViborka;
+        private double[] _arrEt;
+        private double _k = 0.25;
+        private double _sigmaS;
+        private double[] _sigmaEt;
+        private double[] _ucl;
+        private double _hAv;
+        private double _hAvUser;
 
         public string DirPath
         {
             set
             {
-                dirPath = value;
-                loadFiles();
+                _dirPath = value;
+                LoadFiles();
             }
         }
         public int CntViborka
         {
-            get { return cntViborka; }
+            get { return _cntViborka; }
         }        
         public double K
         {
-            set { k = value; }
+            set { _k = value; }
         }
         public double[] ArrEt
         {
-            get { return arrEt; }
+            get { return _arrEt; }
         }
         public int CntFiles
         {
             get
             {
-                if (lstFiles == null) return 0;
-                else return lstFiles.Count;
+                if (_lstFiles == null) return 0;
+                return _lstFiles.Count;
             }
         }
         public double[] Ucl
         {
-            get { return ucl; }
+            get { return _ucl; }
         }
-        public double[] Lcl
-        {
-            get { return lcl; }
-        }
+
+        public double[] Lcl { get; private set; }
+
         public double HAv
         {
-            get { return hAv; }
+            get { return _hAv; }
         }
 
-        public KartaEVCC(BaseParams baseParams)
+        public double HavUser
         {
-            this.baseParams = baseParams;
-            this.kartaObDisp = new KartaObDisp(this.baseParams);
-            calcParams();   
+            set { _hAvUser = value; }
+        }
+        public double[] SigmaEt
+        {
+            get { return _sigmaEt; }
         }
 
-        private void calcParams()
+        public KartaEvcc(BaseParams baseParams)
         {
-            calcArrEt();
-            calcSigmaS();
-            calcSigmaEt();
+            _baseParams = baseParams;
+            _kartaObDisp = new KartaObDisp(_baseParams);
+            CalcParams();   
         }
-        private void calcArrEt()
-        {
-            double[] arrTmp = new double[kartaObDisp.DetArrSt.GetLength(0)];
-            arrTmp[0] = kartaObDisp.DetArrS;
-            for (int t = 1; t < arrTmp.GetLength(0); t++)
-                arrTmp[t] = (1 - k) * arrTmp[t - 1] + k * kartaObDisp.DetArrSt[t];
-            this.arrEt = arrTmp;
-        }
-        private void calcSigmaS()
-        {
-            this.sigmaS = Math.Sqrt(kartaObDisp.B2) * kartaObDisp.DetArrS;
-        }
-        private void calcSigmaEt()
-        {
-            double[] arrTmp = new double[this.baseParams.CntViborka];
-            for (int i = 0; i < arrTmp.Length; i++)
-            {
-                arrTmp[i] = Math.Pow(sigmaS, 2) * k * (1 - Math.Pow(1 - k, 2 * (i + 1)));
-                arrTmp[i] /= baseParams.WeightViborka * (2 - k);
-                arrTmp[i] = Math.Sqrt(arrTmp[i]);
-            }
 
-            this.sigmaEt = arrTmp;
-        }
-        private void loadFiles()
-        {
-            string[] files = Directory.GetFiles(this.dirPath);
-            this.lstFiles = new List<string>();
-            this.cntViborka = 0;
-            foreach (string filePath in files)
-                if (BaseParams.IsGoodFile(filePath))
-                {
-                    lstFiles.Add(filePath);
-                    BaseParams bp = new BaseParams(filePath);
-                    this.cntViborka += bp.CntViborka;
-                }
-        }        
-        
         public void CalcUclLcl()
         {
-            calcParams();
-            double hAvTmp = 0.0;
-            foreach (string filePath in lstFiles)
-            {                
-                KartaEVCC kartaEvccCur = new KartaEVCC(new BaseParams(filePath));
-                double maxEt = 0.0;
-                double minEt = 0.0;
-                double hCurMax = 0.0;
-                double hCurMin = 0.0;
+            CalcParams();
+            var hAvTmp = 0.0;
+            foreach (var filePath in _lstFiles)
+            {
+                var kartaEvccCur = new KartaEvcc(new BaseParams(filePath));
+                var maxEt = 0.0;
+                var minEt = 0.0;
+                var hCurMax = 0.0;
+                var hCurMin = 0.0;
 
-                for (int t = 0; t < baseParams.CntViborka; t++)
+                for (var t = 0; t < _baseParams.CntViborka; t++)
                 {
                     if (maxEt < kartaEvccCur.ArrEt[t]) maxEt = kartaEvccCur.ArrEt[t];
                     if (minEt > kartaEvccCur.ArrEt[t] && kartaEvccCur.ArrEt[t] >= 0.0)
                         minEt = kartaEvccCur.ArrEt[t];
                     if (minEt == 0.0) minEt = kartaEvccCur.ArrEt[t];
 
-                    hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt[t];
-                    hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / sigmaEt[t];
+                    hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / SigmaEt[t];
+                    hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / SigmaEt[t];
                 }
-                
-                hAvTmp += hCurMax + hCurMin;                
+
+                hAvTmp += hCurMax + hCurMin;
             }
-            hAvTmp /= lstFiles.Count * baseParams.CntViborka;
-            this.hAv = hAvTmp;
+            hAvTmp /= _lstFiles.Count * _baseParams.CntViborka;
+            _hAv = hAvTmp;
 
-            this.hAv = 3;
-            this.ucl = new double[baseParams.CntViborka];
-            this.lcl= new double[baseParams.CntViborka];
+            _ucl = new double[_baseParams.CntViborka];
+            Lcl = new double[_baseParams.CntViborka];
 
-            for (int t = 0; t < baseParams.CntViborka; t++)
+            if (_hAvUser!=0.0)
             {
-                this.ucl[t] = kartaObDisp.DetArrS + this.hAv * sigmaEt[t];
-                this.lcl[t] = kartaObDisp.DetArrS - this.hAv * sigmaEt[t];
+                for (var t = 0; t < _baseParams.CntViborka; t++)
+                {
+                    _ucl[t] = _kartaObDisp.DetArrS + _hAvUser * SigmaEt[t];
+                    Lcl[t] = _kartaObDisp.DetArrS - _hAvUser * SigmaEt[t];
+                }
+            }
+            else
+            {
+                for (var t = 0; t < _baseParams.CntViborka; t++)
+                {
+                    _ucl[t] = _kartaObDisp.DetArrS + _hAv * SigmaEt[t];
+                    Lcl[t] = _kartaObDisp.DetArrS - _hAv * SigmaEt[t];
+                }
             }
         }
+
+        public string GetResultsString()
+        {
+            var s = string.Empty;
+            s += "SigmaS=" + Global.GetString(_sigmaS)+'\n';
+            s += "Calculated H=" + Global.GetString(_hAv);
+            return s;
+        }
+
+        private void CalcParams()
+        {
+            CalcArrEt();
+            CalcSigmaS();
+            CalcSigmaEt();
+        }
+        private void CalcArrEt()
+        {
+            var arrTmp = new double[_kartaObDisp.DetArrSt.GetLength(0)];
+            arrTmp[0] = _kartaObDisp.DetArrS;
+            for (var t = 1; t < arrTmp.GetLength(0); t++)
+                arrTmp[t] = (1 - _k) * arrTmp[t - 1] + _k * _kartaObDisp.DetArrSt[t];
+            _arrEt = arrTmp;
+        }
+        private void CalcSigmaS()
+        {
+            _sigmaS = Math.Sqrt(_kartaObDisp.B2) * _kartaObDisp.DetArrS;
+        }
+        private void CalcSigmaEt()
+        {
+            var arrTmp = new double[_baseParams.CntViborka];
+            for (var i = 0; i < arrTmp.Length; i++)
+            {
+                arrTmp[i] = Math.Pow(_sigmaS, 2) * _k * (1 - Math.Pow(1 - _k, 2 * (i + 1)));
+                arrTmp[i] /= _baseParams.WeightViborka * (2 - _k);
+                arrTmp[i] = Math.Sqrt(arrTmp[i]);
+            }
+
+            _sigmaEt = arrTmp;
+        }
+        private void LoadFiles()
+        {
+            var files = Directory.GetFiles(_dirPath);
+            _lstFiles = new List<string>();
+            _cntViborka = 0;
+            foreach (var filePath in files)
+                if (BaseParams.IsGoodFile(filePath))
+                {
+                    _lstFiles.Add(filePath);
+                    var bp = new BaseParams(filePath);
+                    _cntViborka += bp.CntViborka;
+                }
+        }        
     }
 }

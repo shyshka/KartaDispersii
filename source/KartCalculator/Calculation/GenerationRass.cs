@@ -22,18 +22,18 @@ namespace KartCalculator
 
         public GenerationRass(string oldDirPath)
         {
-            this.oldDir = oldDirPath;
-            this.newDir = oldDir + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar;
+            oldDir = oldDirPath;
+            newDir = Directory.GetParent(oldDir).FullName;
 
-            string[] files = Directory.GetFiles(this.oldDir);
-            this.lstOldFiles = new List<string>();
-            this.oldCntViborka = 0;
-            foreach (string filePath in files)
+            var files = Directory.GetFiles(oldDir);
+            lstOldFiles = new List<string>();
+            oldCntViborka = 0;
+            foreach (var filePath in files)
                 if (BaseParams.IsGoodFile(filePath))
                 {
-                    this.lstOldFiles.Add(filePath);
-                    BaseParams bp = new BaseParams(filePath);
-                    this.oldCntViborka += bp.CntViborka;
+                    lstOldFiles.Add(filePath);
+                    var bp = new BaseParams(filePath);
+                    oldCntViborka += bp.CntViborka;
                 }
         }
        
@@ -71,29 +71,29 @@ namespace KartCalculator
         {
             Directory.CreateDirectory(newDir);            
             //обработка новых файлов
-            for (double d = 1.25; d <= 2; d += 0.25)
+            for (var d = 1.25; d <= 2; d += 0.25)
             {
-                string newDirTmp = newDir + d.ToString() + Path.DirectorySeparatorChar;
+                var newDirTmp = Path.Combine(newDir, "Generation-D" + d);
                 Directory.CreateDirectory(newDirTmp);
-                foreach (string filePath in lstOldFiles)
+                foreach (var filePath in lstOldFiles)
                 {                    
-                    BaseParams bp = new BaseParams(filePath);
-                    double[,] arrTmp = new double[bp.InputData.GetLength(0), bp.InputData.GetLength(1)];
-                    for (int i=0;i<bp.InputData.GetLength(0);i++)
-                        for (int j = 0; j < bp.InputData.GetLength(1); j++)
+                    var bp = new BaseParams(filePath);
+                    var arrTmp = new double[bp.InputData.GetLength(0), bp.InputData.GetLength(1)];
+                    for (var i=0;i<bp.InputData.GetLength(0);i++)
+                        for (var j = 0; j < bp.InputData.GetLength(1); j++)
                             arrTmp[i, j] = bp.InputData[i, j] * Math.Pow(d, 1.0 / bp.CntParams);
 
-                    String filePathNew = newDirTmp + Path.GetFileName(filePath);
+                    var filePathNew = Path.Combine(newDirTmp, Path.GetFileName(filePath));
 
-                    StreamWriter sWr = File.CreateText(filePathNew);
+                    var sWr = File.CreateText(filePathNew);
                     sWr.WriteLine(bp.CntParams);
                     sWr.WriteLine(bp.WeightViborka);
                     sWr.WriteLine(bp.CntViborka);
-                    for (int j = 0; j < arrTmp.GetLength(1); j++)
+                    for (var j = 0; j < arrTmp.GetLength(1); j++)
                     {
-                        string curLine = string.Empty;
+                        var curLine = string.Empty;
                         curLine += arrTmp[0, j].ToString("0.000").Replace(',', '.');
-                        for (int k = 1; k < arrTmp.GetLength(0); k++)
+                        for (var k = 1; k < arrTmp.GetLength(0); k++)
                             curLine += '\t' + arrTmp[k, j].ToString("0.000").Replace(',', '.');
                         if (j != arrTmp.GetLength(1) - 1)
                             sWr.WriteLine(curLine);
@@ -113,7 +113,7 @@ namespace KartCalculator
         public void GenerateNewFiles()
         {
             if (!isReadyGenerate()) return;
-            Thread thread = new Thread(new ThreadStart(generate));
+            var thread = new Thread(generate);
             thread.Start();
         }
     }
