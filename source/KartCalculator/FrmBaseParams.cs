@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using KartCalculator.Calculation;
 
 namespace KartCalculator
 {
@@ -26,7 +27,7 @@ namespace KartCalculator
 
             Global.ShowArrayInDataGrid(_baseParams.InputData, dataGVInput);
             Global.ShowArrayInDataGrid(_baseParams.Correlation, dataGVCorelation);
-            Global.ShowArrayInDataGrid(_baseParams.MOSKO, dataGVMOSKO);
+            Global.ShowArrayInDataGrid(_baseParams.Mosko, dataGVMOSKO);
             dataGVMOSKO.Rows[0].HeaderCell.Value = "MO";
             dataGVMOSKO.Rows[1].HeaderCell.Value = "SKO";
             Global.ShowArrayInDataGrid(_baseParams.Covariation, dataGVCovariation);

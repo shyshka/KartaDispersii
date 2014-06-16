@@ -126,7 +126,7 @@ namespace KartCalculator.Calculation
             }
 
             if (ChangePerc != null) ChangePerc(0);
-            if (ChangeText != null) ChangeText(Global.msgGenerationDone + CntCalcNewFiles);
+            if (ChangeText != null) ChangeText(Global.MsgGenerationDone + CntCalcNewFiles);
         }
 
         public void GenerateNewFiles()
