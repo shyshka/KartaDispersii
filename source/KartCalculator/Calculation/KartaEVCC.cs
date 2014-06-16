@@ -6,6 +6,12 @@ namespace KartCalculator.Calculation
 {
     public class KartaEvcc
     {
+        public delegate void IntHandler(int val);
+        public event IntHandler ChangePerc;
+
+        public delegate void StrHandler(string val);
+        public event StrHandler ChangeText;
+
         private readonly BaseParams _baseParams;
         private readonly KartaObDisp _kartaObDisp;
         private string _dirPath;
@@ -79,9 +85,9 @@ namespace KartCalculator.Calculation
         {
             CalcParams();
             var hAvTmp = 0.0;
-            foreach (var filePath in _lstFiles)
+            for (int i = 0; i < _lstFiles.Count; i++)
             {
-                var kartaEvccCur = new KartaEvcc(new BaseParams(filePath));
+                var kartaEvccCur = new KartaEvcc(new BaseParams(_lstFiles[i]));
                 var maxEt = 0.0;
                 var minEt = 0.0;
                 var hCurMax = 0.0;
@@ -94,12 +100,14 @@ namespace KartCalculator.Calculation
                         minEt = kartaEvccCur.ArrEt[t];
                     if (minEt == 0.0) minEt = kartaEvccCur.ArrEt[t];
 
-                    hCurMax = (maxEt - new KartaObDisp(new BaseParams(filePath)).DetArrS) / SigmaEt[t];
-                    hCurMin = (-minEt + new KartaObDisp(new BaseParams(filePath)).DetArrS) / SigmaEt[t];
+                    hCurMax = (maxEt - new KartaObDisp(new BaseParams(_lstFiles[i])).DetArrS)/SigmaEt[t];
+                    hCurMin = (-minEt + new KartaObDisp(new BaseParams(_lstFiles[i])).DetArrS)/SigmaEt[t];
                 }
 
+                ChangePerc(Convert.ToInt32(i*100.0/_lstFiles.Count));
                 hAvTmp += hCurMax + hCurMin;
             }
+            
             hAvTmp /= _lstFiles.Count * _baseParams.CntViborka;
             _hAv = hAvTmp;
 
@@ -122,6 +130,8 @@ namespace KartCalculator.Calculation
                     Lcl[t] = _kartaObDisp.DetArrS - _hAv * SigmaEt[t];
                 }
             }
+            ChangePerc(0);
+            ChangeText("Обсчет карты прошел успешно");
         }
 
         public string GetResultsString()

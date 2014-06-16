@@ -65,6 +65,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chartKarta = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.folderBrDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.prBarMain = new System.Windows.Forms.ToolStripProgressBar();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -80,6 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownK)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartKarta)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -95,6 +98,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.statusStrip1);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.groupBox2);
@@ -113,7 +117,7 @@
             this.groupBox5.Controls.Add(this.label5);
             this.groupBox5.Location = new System.Drawing.Point(582, 7);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(125, 370);
+            this.groupBox5.Size = new System.Drawing.Size(125, 347);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "LCL";
@@ -128,7 +132,7 @@
             this.dataGVDetLCL.Name = "dataGVDetLCL";
             this.dataGVDetLCL.ReadOnly = true;
             this.dataGVDetLCL.RowHeadersWidth = 60;
-            this.dataGVDetLCL.Size = new System.Drawing.Size(119, 351);
+            this.dataGVDetLCL.Size = new System.Drawing.Size(119, 328);
             this.dataGVDetLCL.TabIndex = 27;
             // 
             // label5
@@ -144,7 +148,7 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Location = new System.Drawing.Point(454, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(125, 370);
+            this.groupBox4.Size = new System.Drawing.Size(125, 347);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "UCL";
@@ -159,7 +163,7 @@
             this.dataGVDetUCL.Name = "dataGVDetUCL";
             this.dataGVDetUCL.ReadOnly = true;
             this.dataGVDetUCL.RowHeadersWidth = 60;
-            this.dataGVDetUCL.Size = new System.Drawing.Size(119, 351);
+            this.dataGVDetUCL.Size = new System.Drawing.Size(119, 328);
             this.dataGVDetUCL.TabIndex = 27;
             // 
             // label4
@@ -175,7 +179,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(326, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(125, 370);
+            this.groupBox2.Size = new System.Drawing.Size(125, 347);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Матрица SigmaS(Et)";
@@ -190,7 +194,7 @@
             this.dataGVDetSigmaEt.Name = "dataGVDetSigmaEt";
             this.dataGVDetSigmaEt.ReadOnly = true;
             this.dataGVDetSigmaEt.RowHeadersWidth = 60;
-            this.dataGVDetSigmaEt.Size = new System.Drawing.Size(119, 351);
+            this.dataGVDetSigmaEt.Size = new System.Drawing.Size(119, 328);
             this.dataGVDetSigmaEt.TabIndex = 27;
             // 
             // label3
@@ -206,7 +210,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(198, 7);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(125, 370);
+            this.groupBox3.Size = new System.Drawing.Size(125, 347);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Матрица ЭВСС";
@@ -221,7 +225,7 @@
             this.dataGVDetArrEt.Name = "dataGVDetArrEt";
             this.dataGVDetArrEt.ReadOnly = true;
             this.dataGVDetArrEt.RowHeadersWidth = 60;
-            this.dataGVDetArrEt.Size = new System.Drawing.Size(119, 351);
+            this.dataGVDetArrEt.Size = new System.Drawing.Size(119, 328);
             this.dataGVDetArrEt.TabIndex = 27;
             // 
             // label2
@@ -249,7 +253,7 @@
             this.groupBox1.Controls.Add(this.tBoxDir);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(184, 371);
+            this.groupBox1.Size = new System.Drawing.Size(184, 348);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Обработка файлов";
@@ -268,7 +272,7 @@
             // 
             this.lblResults.Location = new System.Drawing.Point(5, 282);
             this.lblResults.Name = "lblResults";
-            this.lblResults.Size = new System.Drawing.Size(171, 85);
+            this.lblResults.Size = new System.Drawing.Size(171, 66);
             this.lblResults.TabIndex = 26;
             // 
             // btnReadFiles
@@ -459,6 +463,21 @@
             this.chartKarta.Size = new System.Drawing.Size(720, 379);
             this.chartKarta.TabIndex = 1;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prBarMain});
+            this.statusStrip1.Location = new System.Drawing.Point(3, 360);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(720, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // prBarMain
+            // 
+            this.prBarMain.Name = "prBarMain";
+            this.prBarMain.Size = new System.Drawing.Size(700, 16);
+            // 
             // FrmKartaEVCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +489,7 @@
             this.Text = "Карта экспоненциально взвешенных скользящих средних";
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetLCL)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -484,6 +504,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownK)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartKarta)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -522,5 +544,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cBoxUseH;
         private System.Windows.Forms.NumericUpDown numericUpDownH;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar prBarMain;
     }
 }

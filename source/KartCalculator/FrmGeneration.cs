@@ -8,6 +8,7 @@ namespace KartCalculator
     public partial class FrmGeneration : Form
     {
         private readonly BaseParams _baseParams;
+        private GenerationFromExists _genarationFromExist;
 
         public FrmGeneration(BaseParams baseParams)
         {
@@ -55,24 +56,24 @@ namespace KartCalculator
 
         private void btnReadOldDir_Click(object sender, EventArgs e)
         {
-            var genEx = new GenerationFromExists(tBoxOldDirPath.Text);
-            lblCntOldFiles.Text = genEx.CntOldFiles.ToString();
-            lblCntViborka.Text = genEx.CntOldViborka.ToString();
-            lblCntNewFilesCalc.Text = genEx.CntCalcNewFiles.ToString();
+            _genarationFromExist = new GenerationFromExists(tBoxOldDirPath.Text);
+            _genarationFromExist.ChangePerc += val =>
+            {
+                if (InvokeRequired)
+                    BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
+                else
+                    ChangePrBarVal(val);
+            };
+            _genarationFromExist.ChangeText += val => MessageBox.Show(val);
+            _genarationFromExist.LoadFiles();
+            lblCntOldFiles.Text = _genarationFromExist.CntOldFiles.ToString();
+            lblCntViborka.Text = _genarationFromExist.CntOldViborka.ToString();
+            lblCntNewFilesCalc.Text = _genarationFromExist.CntCalcNewFiles.ToString();
         }
 
         private void btnGenerM370_Click(object sender, EventArgs e)
         {
-            var genEx = new GenerationFromExists(tBoxOldDirPath.Text);
-            genEx.ChangePerc += val =>
-                {
-                    if (InvokeRequired)
-                        BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
-                    else
-                        ChangePrBarVal(val);
-                };
-            genEx.ChangeText += val => MessageBox.Show(val);
-            genEx.GenerateNewFiles();
+            _genarationFromExist.GenerateNewFiles();
         }
     }
 }

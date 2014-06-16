@@ -20,6 +20,15 @@ namespace KartCalculator
         {
             _baseParams = baseParams;
             _kartaEvcc = new KartaEvcc(_baseParams);
+            _kartaEvcc.ChangePerc += val =>
+                {
+                    if (InvokeRequired)
+                        BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
+                    else
+                        ChangePrBarVal(val);
+                };
+            _kartaEvcc.ChangeText += val => MessageBox.Show(val); 
+
             InitializeComponent();
         }
 
@@ -39,7 +48,6 @@ namespace KartCalculator
         private void btnMakeKarta_Click(object sender, EventArgs e)
         {
             _kartaEvcc.K = Double.Parse(numericUpDownK.Value.ToString());
-
             _kartaEvcc.HavUser = cBoxUseH.Checked ? double.Parse(numericUpDownH.Value.ToString()) : 0.0;
             _kartaEvcc.CalcUclLcl();
 
@@ -61,6 +69,17 @@ namespace KartCalculator
                 chartKarta.Series[0].Points.AddXY(t + 1, _kartaEvcc.Ucl[t]);
                 chartKarta.Series[1].Points.AddXY(t + 1, _kartaEvcc.Lcl[t]);
                 chartKarta.Series[2].Points.AddXY(t + 1, _kartaEvcc.ArrEt[t]);
+            }
+        }
+
+        private void ChangePrBarVal(int val)
+        {
+            try
+            {
+                prBarMain.Value = val;
+            }
+            catch (Exception exception)
+            {
             }
         }
     }

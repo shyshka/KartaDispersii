@@ -15,28 +15,34 @@ namespace KartCalculator.Calculation
 
         public event StrHandler ChangeText;
 
+        private readonly string _oldDir;
         private readonly string _newDir;
-        private readonly List<string> _lstOldFiles;
-        private readonly int _oldCntViborka;
+        private  List<string> _lstOldFiles;
+        private  int _oldCntViborka;
         private const int CntViborkaPerFile = 370;
 
         public GenerationFromExists(string oldDirPath)
         {
-            string oldDir = oldDirPath;
+            _oldDir = oldDirPath;
             _newDir = Path.Combine(
-                Directory.GetParent(oldDir).FullName,
+                Directory.GetParent(_oldDir).FullName,
                 "Generation-M370");
+        }
 
-            var files = Directory.GetFiles(oldDir);
+        public void LoadFiles()
+        {
+            var files = Directory.GetFiles(_oldDir);
             _lstOldFiles = new List<string>();
             _oldCntViborka = 0;
-            foreach (var filePath in files)
-                if (BaseParams.IsGoodFile(filePath))
+            for (int i = 0; i < files.Length; i++)
+                if (BaseParams.IsGoodFile(files[i]))
                 {
-                    _lstOldFiles.Add(filePath);
-                    var bp = new BaseParams(filePath);
+                    _lstOldFiles.Add(files[i]);
+                    var bp = new BaseParams(files[i]);
                     _oldCntViborka += bp.CntViborka;
+                    ChangePerc(Convert.ToInt32(i * 100.0 / files.Length));
                 }
+            ChangePerc(0);
         }
 
         public int CntOldViborka
@@ -78,6 +84,7 @@ namespace KartCalculator.Calculation
             //обработка новых файлов
             for (var indNewFile = 0; indNewFile < CntCalcNewFiles; indNewFile++)
             {
+                if (indOldFile >= _lstOldFiles.Count) indOldFile = 0;
                 var filePath = Path.Combine(_newDir, indNewFile + ".dtk");
                 var sWrNew = File.CreateText(filePath);
                 sWrNew.WriteLine(new BaseParams(_lstOldFiles[indOldFile]).CntParams);
