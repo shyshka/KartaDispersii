@@ -57,7 +57,12 @@ namespace KartCalculator.Calculation
 
         public int CntCalcNewFiles
         {
-            get { return _oldCntViborka/CntViborkaPerFile; }
+            get
+            {
+                var bp = new BaseParams(_lstOldFiles[0]);
+                var cntSmallInBig = Convert.ToInt32(Math.Floor(double.Parse((CntViborkaPerFile/bp.CntViborka).ToString())) + 1);
+                return cntSmallInBig;
+            }
         }
 
         private bool IsReadyGenerate()
@@ -126,7 +131,7 @@ namespace KartCalculator.Calculation
             }
 
             if (ChangePerc != null) ChangePerc(0);
-            if (ChangeText != null) ChangeText(Global.msgGenerationDone + CntCalcNewFiles);
+            if (ChangeText != null) ChangeText(Global.MsgGenerationDone + CntCalcNewFiles);
         }
 
         public void GenerateNewFiles()

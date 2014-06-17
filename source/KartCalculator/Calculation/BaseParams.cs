@@ -1,100 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
-namespace KartCalculator
+namespace KartCalculator.Calculation
 {
     public class BaseParams
     {
-        #region Private fields
-        private string filePath;        
-        private int cntParams;        
-        private int weightViborka;        
-        private int cntViborka;
-        private int fullViborka;
-
-        private double[,] inputData;
-        private double[] mo;
-        private double[] sko;
-        private double[,] correlation;
-        private double[,] covariation;
-        private double[,] cholesky;        
-        #endregion
-
         #region Public fields
-        public string FilePath
-        {
-            get { return filePath; }
-        }
-        public int CntParams
-        {
-            get { return cntParams; }
-        }
-        public int WeightViborka
-        {
-            get { return weightViborka; }
-        }
-        public int CntViborka
-        {
-            get { return cntViborka; }
-        }
-        public int FullViborka
-        {
-            get { return fullViborka; }
-        }
-        public double[,] InputData
-        {
-            get { return inputData; }
-        }
-        public double[] Mo
-        {
-            get { return mo; }
-        }
-        public double[] Sko
-        {
-            get { return sko; }
-        }
-        public double[,] MOSKO
+
+        public string FilePath { get; private set; }
+
+        public int CntParams { get; private set; }
+
+        public int WeightViborka { get; private set; }
+
+        public int CntViborka { get; private set; }
+
+        public int FullViborka { get; private set; }
+
+        public double[,] InputData { get; private set; }
+
+        public double[] Mo { get; private set; }
+
+        public double[] Sko { get; private set; }
+
+        public double[,] Mosko
         {
             get
             {
-                var tmp = new double[cntParams, 2];
-                for (var i = 0; i < cntParams; i++)
+                var tmp = new double[CntParams, 2];
+                for (var i = 0; i < CntParams; i++)
                 {
-                    tmp[i, 0] = mo[i];
-                    tmp[i, 1] = sko[i];
+                    tmp[i, 0] = Mo[i];
+                    tmp[i, 1] = Sko[i];
                 }
                 return tmp;
             }
         }
-        public double[,] Correlation
-        {
-            get { return correlation; }
-        }
-        public double[,] Covariation
-        {
-            get { return covariation; }
-        }
-        public double[,] Cholesky
-        {
-            get { return cholesky; }
-        }
+
+        public double[,] Correlation { get; private set; }
+
+        public double[,] Covariation { get; private set; }
+
+        public double[,] Cholesky { get; private set; }
+
         #endregion
 
         #region Public methods
         public BaseParams(string filePath)
         {
-            this.filePath = filePath;
-            calcBaseParams();
+            FilePath = filePath;
+            CalcBaseParams();
         }
 
         public static bool IsGoodFile(String filePath)
         {
             try
-            { new BaseParams(filePath); }
-            catch (Exception ex)
+            {
+            // ReSharper disable once ObjectCreationAsStatement
+                if (filePath != null) new BaseParams(filePath);
+            }
+            catch (Exception)
             { return false; }
 
             return true;
@@ -102,99 +68,100 @@ namespace KartCalculator
         #endregion
 
         #region Private methods
-        private void calcBaseParams()
+        private void CalcBaseParams()
         {
             //Входные данные
-            using (var sr = new StreamReader(filePath))
+            using (var sr = new StreamReader(FilePath))
             {
-                cntParams = Convert.ToInt32(sr.ReadLine());
-                weightViborka = Convert.ToInt32(sr.ReadLine());
-                cntViborka = Convert.ToInt32(sr.ReadLine());
-                fullViborka = weightViborka * cntViborka;
+                CntParams = Convert.ToInt32(sr.ReadLine());
+                WeightViborka = Convert.ToInt32(sr.ReadLine());
+                CntViborka = Convert.ToInt32(sr.ReadLine());
+                FullViborka = WeightViborka * CntViborka;
 
-                inputData = new double[cntParams, fullViborka];
-                for (var i = 0; i < fullViborka; i++)
+                InputData = new double[CntParams, FullViborka];
+                for (var i = 0; i < FullViborka; i++)
                 {
-                    var curLineItems = sr.ReadLine().Split('\t');
+                    var readLine = sr.ReadLine();
+                    if (readLine == null) continue;
+                    var curLineItems = readLine.Split('\t');
                     for (var j = 0; j < curLineItems.Length; j++)
-                        inputData[j, i] = float.Parse(curLineItems[j], CultureInfo.InvariantCulture.NumberFormat);
+                        InputData[j, i] = float.Parse(curLineItems[j], CultureInfo.InvariantCulture.NumberFormat);
                 }
             }
-            mo = calcMO();
-            sko = calcSKO();
-            correlation = calcCorrelation();
-            covariation = calcCovariation();
-            cholesky = calcCholesky();
+            Mo = CalcMo();
+            Sko = CalcSko();
+            Correlation = CalcCorrelation();
+            Covariation = CalcCovariation();
+            Cholesky = CalcCholesky();
         }
 
-        private double[] calcMO()
+        private double[] CalcMo()
         {
-            var moTmp = new double[cntParams];
-            for (var i = 0; i < cntParams; i++)
+            var moTmp = new double[CntParams];
+            for (var i = 0; i < CntParams; i++)
             {
-                for (var j = 0; j < fullViborka; j++)
-                    moTmp[i] += inputData[i, j];
-                moTmp[i] /= fullViborka;
+                for (var j = 0; j < FullViborka; j++)
+                    moTmp[i] += InputData[i, j];
+                moTmp[i] /= FullViborka;
             }
             return moTmp;
         }        
-        private double[] calcSKO()
+        private double[] CalcSko()
         {
-            var skoTmp = new double[cntParams];
-            for (var i = 0; i < cntParams; i++)
+            var skoTmp = new double[CntParams];
+            for (var i = 0; i < CntParams; i++)
             {
-                for (var j = 0; j < fullViborka; j++)
-                    skoTmp[i] += Math.Pow(inputData[i, j] - mo[i], 2);
-                skoTmp[i] = Math.Sqrt(skoTmp[i] / fullViborka);
+                for (var j = 0; j < FullViborka; j++)
+                    skoTmp[i] += Math.Pow(InputData[i, j] - Mo[i], 2);
+                skoTmp[i] = Math.Sqrt(skoTmp[i] / FullViborka);
             }
             return skoTmp;
         }        
-        private double[,] calcCorrelation()
+        private double[,] CalcCorrelation()
         {
-            var corTmp = new double[cntParams, cntParams];
+            var corTmp = new double[CntParams, CntParams];
 
-            for (var i = 0; i < cntParams; i++)
-                for (var j = 0; j < cntParams; j++)
+            for (var i = 0; i < CntParams; i++)
+                for (var j = 0; j < CntParams; j++)
                 {
                     var sum = 0.0;
-                    for (var k = 0; k < fullViborka; k++)
-                        sum += (inputData[i, k] - mo[i]) * (inputData[j, k] - mo[j]);
-                    corTmp[i, j] = sum / (fullViborka * sko[i] * sko[j]);
+                    for (var k = 0; k < FullViborka; k++)
+                        sum += (InputData[i, k] - Mo[i]) * (InputData[j, k] - Mo[j]);
+                    corTmp[i, j] = sum / (FullViborka * Sko[i] * Sko[j]);
                 }
             return corTmp;
         }
-        private double[,] calcCovariation()
+        private double[,] CalcCovariation()
         {
-            var tmp = new double[cntParams, cntParams];
-            for (var i = 0; i < cntParams; i++)
-                for (var j = 0; j < cntParams; j++)
+            var tmp = new double[CntParams, CntParams];
+            for (var i = 0; i < CntParams; i++)
+                for (var j = 0; j < CntParams; j++)
                 {
                     var sum = 0.0;
-                    for (var k = 0; k < fullViborka; k++)
-                        sum += (inputData[i, k] - mo[i]) * (inputData[j, k] - mo[j]);
-                    tmp[i, j] = sum / (fullViborka - 1);
+                    for (var k = 0; k < FullViborka; k++)
+                        sum += (InputData[i, k] - Mo[i]) * (InputData[j, k] - Mo[j]);
+                    tmp[i, j] = sum / (FullViborka - 1);
                 }
 
             return tmp;
         }
-        private double[,] calcCholesky()
+        private double[,] CalcCholesky()
         {
-            var resArr = new double[cntParams,cntParams];
-            for (var j = 0; j < cntParams; j++)
+            var resArr = new double[CntParams,CntParams];
+            for (var j = 0; j < CntParams; j++)
             {
                 var s = 0.0;
-                var ss = 0.0;
-                for (var k = 0; k < cntParams - 1; k++)
+                for (var k = 0; k < CntParams - 1; k++)
                     s += resArr[j, k] * resArr[j, k];
-                ss = covariation[j, j] - s;
+                var ss = Covariation[j, j] - s;
                 if (ss <= 0) break;
                 ss = Math.Sqrt(ss);
-                for (var i = j; i < cntParams; i++)
+                for (var i = j; i < CntParams; i++)
                 {
                     s = 0.0;
-                    for (var k = 0; k < cntParams - 1; k++) 
+                    for (var k = 0; k < CntParams - 1; k++) 
                         s += resArr[i, k] * resArr[j, k];
-                    resArr[i, j] = (covariation[i, j] - s) / ss;
+                    resArr[i, j] = (Covariation[i, j] - s) / ss;
                 }                
             }
             return resArr;

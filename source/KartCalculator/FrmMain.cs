@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using KartCalculator.Calculation;
 using WinWord = Microsoft.Office.Interop.Word;
 
 namespace KartCalculator
@@ -27,7 +28,7 @@ namespace KartCalculator
             var lbl = new Label
             {
                 Dock = DockStyle.Fill,
-                Text = Global.msgTitleApp,
+                Text = Global.MsgTitleApp,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = frm
             };
@@ -45,11 +46,11 @@ namespace KartCalculator
             if (openFileDlg.ShowDialog() != DialogResult.OK) return;
             _baseParams = new BaseParams(openFileDlg.FileName);
             var frmBaseParams = new FrmBaseParams(_baseParams) { MdiParent = this };
-            frmBaseParams.SetActiveTitle += msg => Text = string.Format(Global.msgFrmMainTitle, msg);
+            frmBaseParams.SetActiveTitle += msg => Text = string.Format(Global.MsgFrmMainTitle, msg);
             frmBaseParams.FormClosed += (obj, arg) =>
             {
                 _baseParams = null;
-                Text = string.Format(Global.msgFrmMainTitle,string.Empty);
+                Text = string.Format(Global.MsgFrmMainTitle,string.Empty);
             };
 
             frmBaseParams.Show();
@@ -64,7 +65,7 @@ namespace KartCalculator
         {
             if (_baseParams == null)
             {
-                MessageBox.Show(Global.msgBaseFileError);
+                MessageBox.Show(Global.MsgBaseFileError);
                 return;
             }
             var frmGeneration = new FrmGeneration(_baseParams) {MdiParent = this};
@@ -75,7 +76,7 @@ namespace KartCalculator
         {
             if (_baseParams == null)
             {
-                MessageBox.Show(Global.msgBaseFileError);
+                MessageBox.Show(Global.MsgBaseFileError);
                 return;
             }
             var frmKartaObDisp = new FrmKartaObDisp(_baseParams) { MdiParent = this };
@@ -86,7 +87,7 @@ namespace KartCalculator
         {
             if (_baseParams == null)
             {
-                MessageBox.Show(Global.msgBaseFileError);
+                MessageBox.Show(Global.MsgBaseFileError);
                 return;
             }
             

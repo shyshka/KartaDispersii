@@ -98,6 +98,7 @@ namespace KartCalculator.Calculation
                     if (maxEt < kartaEvccCur.ArrEt[t]) maxEt = kartaEvccCur.ArrEt[t];
                     if (minEt > kartaEvccCur.ArrEt[t] && kartaEvccCur.ArrEt[t] >= 0.0)
                         minEt = kartaEvccCur.ArrEt[t];
+// ReSharper disable once CompareOfFloatsByEqualityOperator
                     if (minEt == 0.0) minEt = kartaEvccCur.ArrEt[t];
 
                     hCurMax = (maxEt - new KartaObDisp(new BaseParams(_lstFiles[i])).DetArrS)/SigmaEt[t];
@@ -114,6 +115,7 @@ namespace KartCalculator.Calculation
             _ucl = new double[_baseParams.CntViborka];
             Lcl = new double[_baseParams.CntViborka];
 
+// ReSharper disable once CompareOfFloatsByEqualityOperator
             if (_hAvUser!=0.0)
             {
                 for (var t = 0; t < _baseParams.CntViborka; t++)

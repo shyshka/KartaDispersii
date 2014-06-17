@@ -46,7 +46,7 @@ namespace KartCalculator.Calculation
             for (var indFile = 0; indFile < CntFiles; indFile++)
             {
                 var filePath = Path.Combine(_dirPath, indFile + ".dtk");
-                var arrWrite = createGenArray();
+                var arrWrite = CreateGenArray();
 
                 var sWr = File.CreateText(filePath);
                 sWr.WriteLine(_baseParams.CntParams);
@@ -68,12 +68,12 @@ namespace KartCalculator.Calculation
                 if (ChangePerc != null) ChangePerc(Convert.ToInt32(indFile * 100.0 / CntFiles));
             }
             if (ChangePerc != null) ChangePerc(0);
-            if (ChangeText != null) ChangeText(Global.msgGenerationDone + CntFiles);
+            if (ChangeText != null) ChangeText(Global.MsgGenerationDone + CntFiles);
         }
 
-        private double[,] createGenArray()
+        private double[,] CreateGenArray()
         {
-            var normBeginArr = createNorm(_baseParams.CntParams, _baseParams.FullViborka);
+            var normBeginArr = CreateNorm(_baseParams.CntParams, _baseParams.FullViborka);
             var normFinishArr = new double[_baseParams.CntParams, _baseParams.FullViborka];
             for (var i = 0; i < _baseParams.FullViborka; i++)
             {
@@ -87,7 +87,7 @@ namespace KartCalculator.Calculation
             return normFinishArr;
         }
 
-        private double[,] createNorm(int weight, int height)
+        private double[,] CreateNorm(int weight, int height)
         {
             var rnd = new Random();
             var arrTmp = new double[weight, height];
@@ -99,8 +99,8 @@ namespace KartCalculator.Calculation
 
         private double randGauss(double moVal, double skoVal, Random rnd)
         {
-            var u1 = 0.0;
-            var s2 = 0.0;
+            double u1;
+            double s2;
             do
             {
                 var tmp1 = rnd.NextDouble();
@@ -116,7 +116,7 @@ namespace KartCalculator.Calculation
             var arrTmp = new double[data.Length];
             for (var i = 0; i < data.Length; i++)
                 for (var j = 0; j < data.Length; j++)
-                    arrTmp[i] += src[j, i] * data[j];
+                    arrTmp[i] += src[j, i]*data[j]*1.75;
             return arrTmp;
         }
     }

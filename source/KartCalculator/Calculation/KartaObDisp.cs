@@ -44,7 +44,7 @@ namespace KartCalculator.Calculation
                 sWr.WriteLine("Выборочная ковариационная матрица:");
                 for (int t = 0; t < ArrSt.GetLength(2); t++)
                 {
-                    sWr.WriteLine("Выборка № " + (t + 1).ToString() + " Определитель: " + Global.GetString(DetArrSt[t]));
+                    sWr.WriteLine("Выборка № {0} Определитель: {1}", t + 1, Global.GetString(DetArrSt[t]));
                     for (int i = 0; i < ArrSt.GetLength(0); i++)
                     {
                         var line = string.Empty;

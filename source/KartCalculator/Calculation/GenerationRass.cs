@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
-namespace KartCalculator
+namespace KartCalculator.Calculation
 {
     public class GenerationRass
     {
@@ -15,51 +13,49 @@ namespace KartCalculator
         public delegate void StrHandler(string val);
         public event StrHandler ChangeText;
 
-        private string oldDir;
-        private string newDir;
-        private List<string> lstOldFiles;
-        private int oldCntViborka;
+        private readonly string _newDir;
+        private readonly List<string> _lstOldFiles;
+        private readonly int _oldCntViborka;
 
         public GenerationRass(string oldDirPath)
         {
-            oldDir = oldDirPath;
-            newDir = Directory.GetParent(oldDir).FullName;
+            var oldDir = oldDirPath;
+            _newDir = Directory.GetParent(oldDir).FullName;
 
             var files = Directory.GetFiles(oldDir);
-            lstOldFiles = new List<string>();
-            oldCntViborka = 0;
+            _lstOldFiles = new List<string>();
+            _oldCntViborka = 0;
             foreach (var filePath in files)
                 if (BaseParams.IsGoodFile(filePath))
                 {
-                    lstOldFiles.Add(filePath);
+                    _lstOldFiles.Add(filePath);
                     var bp = new BaseParams(filePath);
-                    oldCntViborka += bp.CntViborka;
+                    _oldCntViborka += bp.CntViborka;
                 }
         }
        
         public int CntOldViborka
         {
-            get { return oldCntViborka; }
+            get { return _oldCntViborka; }
         }
         
         public int CntOldFiles
         {
             get
             {
-                if (lstOldFiles == null) return 0;
-                else return lstOldFiles.Count;
+                return _lstOldFiles == null ? 0 : _lstOldFiles.Count;
             }
         }
 
-        private bool isReadyGenerate()
+        private bool IsReadyGenerate()
         {
-            if (lstOldFiles == null)
+            if (_lstOldFiles == null)
             {
                 if (ChangeText != null) ChangeText(string.Empty);
                 return false;
             }
 
-            if (newDir == null)
+            if (_newDir == null)
             {
                 if (ChangeText != null) ChangeText(string.Empty);
                 return false;
@@ -67,16 +63,17 @@ namespace KartCalculator
             return true;
         }
 
-        private void generate()
+        private void Generate()
         {
-            Directory.CreateDirectory(newDir);            
+            Directory.CreateDirectory(_newDir);            
             //обработка новых файлов
             for (var d = 1.25; d <= 2; d += 0.25)
             {
-                var newDirTmp = Path.Combine(newDir, "Generation-D" + d);
+                var newDirTmp = Path.Combine(_newDir, "Generation-D" + d);
                 Directory.CreateDirectory(newDirTmp);
-                foreach (var filePath in lstOldFiles)
+                foreach (var filePath in _lstOldFiles)
                 {                    
+                    if (filePath==null) return;
                     var bp = new BaseParams(filePath);
                     var arrTmp = new double[bp.InputData.GetLength(0), bp.InputData.GetLength(1)];
                     for (var i=0;i<bp.InputData.GetLength(0);i++)
@@ -103,17 +100,17 @@ namespace KartCalculator
                     sWr.Close();
 
                     if (ChangePerc != null)
-                        ChangePerc(Convert.ToInt32((d - 1.25) * 100.0 + lstOldFiles.IndexOf(filePath) * 100.0 / (lstOldFiles.Count * 4.0)));
+                        ChangePerc(Convert.ToInt32((d - 1.25) * 100.0 + _lstOldFiles.IndexOf(filePath) * 100.0 / (_lstOldFiles.Count * 4.0)));
                 }
             }
             if (ChangePerc != null) ChangePerc(0);
-            if (ChangeText != null) ChangeText(Global.msgGenerationDone + lstOldFiles.Count * 4);
+            if (ChangeText != null) ChangeText(Global.MsgGenerationDone + _lstOldFiles.Count * 4);
         }
 
         public void GenerateNewFiles()
         {
-            if (!isReadyGenerate()) return;
-            var thread = new Thread(generate);
+            if (!IsReadyGenerate()) return;
+            var thread = new Thread(Generate);
             thread.Start();
         }
     }
