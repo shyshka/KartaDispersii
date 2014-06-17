@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KartCalculator.Calculation.BaseParams">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQKAAAABQgAAAACAAAAAAAQACQQQAACEABEEAgAAAA=</HashCode>
+      <FileName>Calculation\BaseParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.CalcSds" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAABAAAAABAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Calculation\CalcSds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.GenerationFromExists">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="KartCalculator.Calculation.GenerationFromExists.IntHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationFromExists.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="KartCalculator.Calculation.GenerationFromExists.StrHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationFromExists.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AwAAIAAABAAAAQAAIAQAAEIAABAAAAAAAAACAAAADAA=</HashCode>
+      <FileName>Calculation\GenerationFromExists.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.GenerationNorm">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="KartCalculator.Calculation.GenerationNorm.IntHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationNorm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="KartCalculator.Calculation.GenerationNorm.StrHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationNorm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAQRQAAEIAAIAAAACACAAABEAACAA=</HashCode>
+      <FileName>Calculation\GenerationNorm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.GenerationRass">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="KartCalculator.Calculation.GenerationRass.IntHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationRass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="KartCalculator.Calculation.GenerationRass.StrHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\GenerationRass.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgAAIAAAAAAAAQAAIAQAAEAAABAAAQAAAAAAAEAACAA=</HashCode>
+      <FileName>Calculation\GenerationRass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.Global" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAABAAABBEAAECAAAACAAAAIAA=</HashCode>
+      <FileName>Calculation\Global.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.KartaEvcc">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="KartCalculator.Calculation.KartaEvcc.IntHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\KartaEVCC.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="KartCalculator.Calculation.KartaEvcc.StrHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Calculation\KartaEVCC.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABgCAgBAIAGAgAQBSACEAAAAQIIAAgAQAIRIAADAI=</HashCode>
+      <FileName>Calculation\KartaEVCC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Calculation.KartaObDisp">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIQAAEAgAAEAIAAAAAQAAEAQIAAAAGAAAAAACAACBAI=</HashCode>
+      <FileName>Calculation\KartaObDisp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmBaseParams" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACYAEAAAARCAAAACACIFACAAAAQAAASIEAE=</HashCode>
+      <FileName>FrmBaseParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmGeneration" Collapsed="true">
+    <Position X="4" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BgAAAEAAKiABkRAAABCAAAACCIIEAAAAAA4AACABABE=</HashCode>
+      <FileName>FrmGeneration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmHelp" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACAEAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FrmHelp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmKartaEVCC" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>cACBAAABACAAoBQACBjAAAIHEAJEAAAACCwAQAEBQAE=</HashCode>
+      <FileName>FrmKartaEVCC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmKartaObDisp" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAkAAAACAAAJAEABCCCAACBAIcAAAgkAUAgAAICgA=</HashCode>
+      <FileName>FrmKartaObDisp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmMain">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RgAAAACCKCAAIAECAJCAAAAiAAAgAJBACBABEKAAIAA=</HashCode>
+      <FileName>FrmMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmModelRass" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgQAAAAACiAAkBAAABCAAAACAIAEAAAAAAQAAAAAAAE=</HashCode>
+      <FileName>FrmModelRass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.FrmSDS">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgAAAACAAAACAAAIAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>FrmSDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Program" Collapsed="true">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KartCalculator.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

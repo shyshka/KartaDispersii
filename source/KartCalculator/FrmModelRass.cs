@@ -17,7 +17,7 @@ namespace KartCalculator
 
         public new void Show()
         {
-            tBoxOldDirPath.Text = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-M370");
+            tBoxOldDirPath.Text = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-Norm");
             base.Show();
         }
 

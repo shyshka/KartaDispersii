@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculation\BaseParams.cs" />
+    <Compile Include="Calculation\CalcSds.cs" />
     <Compile Include="Calculation\GenerationRass.cs" />
     <Compile Include="Calculation\KartaEVCC.cs" />
     <Compile Include="FrmBaseParams.cs">
@@ -94,6 +95,12 @@
     <Compile Include="FrmModelRass.Designer.cs">
       <DependentUpon>FrmModelRass.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSDS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSDS.Designer.cs">
+      <DependentUpon>FrmSDS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmBaseParams.resx">
@@ -117,6 +124,9 @@
     <EmbeddedResource Include="FrmModelRass.resx">
       <DependentUpon>FrmModelRass.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSDS.resx">
+      <DependentUpon>FrmSDS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -128,6 +138,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

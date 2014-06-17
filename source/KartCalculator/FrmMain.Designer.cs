@@ -41,6 +41,7 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDlg = new System.Windows.Forms.OpenFileDialog();
+            this.расчетСДСToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +94,8 @@
             this.генерацияToolStripMenuItem,
             this.картаОбобщеннойДисперсииToolStripMenuItem,
             this.картаЭВССДляОбобщеннойДисперсииToolStripMenuItem,
-            this.моделированиеУвеличенияРассеянияToolStripMenuItem});
+            this.моделированиеУвеличенияРассеянияToolStripMenuItem,
+            this.расчетСДСToolStripMenuItem});
             this.вычисленияToolStripMenuItem.Name = "вычисленияToolStripMenuItem";
             this.вычисленияToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.вычисленияToolStripMenuItem.Text = "Вычисления";
@@ -145,6 +147,13 @@
             this.openFileDlg.Filter = "Файл данных (*.dtk) | *.dtk";
             this.openFileDlg.RestoreDirectory = true;
             // 
+            // расчетСДСToolStripMenuItem
+            // 
+            this.расчетСДСToolStripMenuItem.Name = "расчетСДСToolStripMenuItem";
+            this.расчетСДСToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.расчетСДСToolStripMenuItem.Text = "Расчет СДС";
+            this.расчетСДСToolStripMenuItem.Click += new System.EventHandler(this.расчетСДСToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,6 +186,7 @@
         private System.Windows.Forms.ToolStripMenuItem картаОбобщеннойДисперсииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem картаЭВССДляОбобщеннойДисперсииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem моделированиеУвеличенияРассеянияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem расчетСДСToolStripMenuItem;
     }
 }
 

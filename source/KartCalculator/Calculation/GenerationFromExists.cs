@@ -18,7 +18,6 @@ namespace KartCalculator.Calculation
         private readonly string _oldDir;
         private readonly string _newDir;
         private  List<string> _lstOldFiles;
-        private  int _oldCntViborka;
         private const int CntViborkaPerFile = 370;
 
         public GenerationFromExists(string oldDirPath)
@@ -33,22 +32,19 @@ namespace KartCalculator.Calculation
         {
             var files = Directory.GetFiles(_oldDir);
             _lstOldFiles = new List<string>();
-            _oldCntViborka = 0;
+            CntOldViborka = 0;
             for (int i = 0; i < files.Length; i++)
                 if (BaseParams.IsGoodFile(files[i]))
                 {
                     _lstOldFiles.Add(files[i]);
                     var bp = new BaseParams(files[i]);
-                    _oldCntViborka += bp.CntViborka;
+                    CntOldViborka += bp.CntViborka;
                     ChangePerc(Convert.ToInt32(i * 100.0 / files.Length));
                 }
             ChangePerc(0);
         }
 
-        public int CntOldViborka
-        {
-            get { return _oldCntViborka; }
-        }
+        public int CntOldViborka { get; private set; }
 
         public int CntOldFiles
         {
@@ -60,8 +56,10 @@ namespace KartCalculator.Calculation
             get
             {
                 var bp = new BaseParams(_lstOldFiles[0]);
-                var cntSmallInBig = Convert.ToInt32(Math.Floor(double.Parse((CntViborkaPerFile/bp.CntViborka).ToString())) + 1);
-                return cntSmallInBig;
+                var cntVibPerFileSmall = bp.CntViborka;
+                var cntSmallInBig = Convert.ToInt32(Math.Ceiling(CntViborkaPerFile * 1.0 / cntVibPerFileSmall));
+                var cntBig = Convert.ToInt32(Math.Floor(CntOldFiles*1.0/cntSmallInBig));
+                return cntBig;
             }
         }
 
@@ -89,7 +87,6 @@ namespace KartCalculator.Calculation
             //обработка новых файлов
             for (var indNewFile = 0; indNewFile < CntCalcNewFiles; indNewFile++)
             {
-                if (indOldFile >= _lstOldFiles.Count) indOldFile = 0;
                 var filePath = Path.Combine(_newDir, indNewFile + ".dtk");
                 var sWrNew = File.CreateText(filePath);
                 sWrNew.WriteLine(new BaseParams(_lstOldFiles[indOldFile]).CntParams);
@@ -100,12 +97,11 @@ namespace KartCalculator.Calculation
                 //запись выборок максимум 370 в файл
                 while (indNewVib < CntViborkaPerFile)
                 {
-                    if (indOldFile >= _lstOldFiles.Count) indOldFile = 0;
                     var bpCur = new BaseParams(_lstOldFiles[indOldFile]);
                     //считывание выборок из файла
                     while (indOldVib < bpCur.CntViborka)
                     {
-                        //запись одной выборки указанной глубины
+                        //запись одной выборки со всеми параметрами
                         for (var j = 0; j < bpCur.WeightViborka; j++)
                         {
                             var curLine = string.Empty;
@@ -121,8 +117,6 @@ namespace KartCalculator.Calculation
                         indOldVib++;
                         indNewVib++;
                         if (ChangePerc != null) ChangePerc(Convert.ToInt32(100.0*indNewFile/CntCalcNewFiles));
-                        if (indNewVib == CntViborkaPerFile)
-                            break;
                     }
                     indOldFile++;
                     indOldVib = 0;
