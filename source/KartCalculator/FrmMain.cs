@@ -97,7 +97,25 @@ namespace KartCalculator
 
         private void моделированиеУвеличенияРассеянияToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (_baseParams == null)
+            {
+                MessageBox.Show(Global.MsgBaseFileError);
+                return;
+            }
+
             var frmTmp = new FrmModelRass(_baseParams);
+            frmTmp.Show();
+        }
+
+        private void расчетСДСToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_baseParams == null)
+            {
+                MessageBox.Show(Global.MsgBaseFileError);
+                return;
+            }
+
+            var frmTmp = new FrmSDS(_baseParams);
             frmTmp.Show();
         }
     }

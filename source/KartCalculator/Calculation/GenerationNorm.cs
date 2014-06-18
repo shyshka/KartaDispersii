@@ -116,7 +116,7 @@ namespace KartCalculator.Calculation
             var arrTmp = new double[data.Length];
             for (var i = 0; i < data.Length; i++)
                 for (var j = 0; j < data.Length; j++)
-                    arrTmp[i] += src[j, i]*data[j]*1.75;
+                    arrTmp[i] += src[j, i]*data[j];
             return arrTmp;
         }
     }
