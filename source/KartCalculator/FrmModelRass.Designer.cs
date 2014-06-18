@@ -73,9 +73,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(155, 148);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 13);
+            this.label7.Size = new System.Drawing.Size(87, 13);
             this.label7.TabIndex = 30;
-            this.label7.Text = "Сумма выборок:";
+            this.label7.Text = "Всего выборок:";
             // 
             // label8
             // 

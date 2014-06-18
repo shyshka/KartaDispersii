@@ -38,22 +38,20 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tBoxOldDirPath = new System.Windows.Forms.TextBox();
             this.btnReadOldDir = new System.Windows.Forms.Button();
-            this.lblCntOldFiles = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGVDetArrSDS = new System.Windows.Forms.DataGridView();
             this.chartKartaKS = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.nUpDownD = new System.Windows.Forms.NumericUpDown();
             this.lBoxFile = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.prBarMain = new System.Windows.Forms.ToolStripProgressBar();
-            this.dataGVDetArrSDS = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,8 +71,6 @@
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.tBoxOldDirPath);
             this.tabPage1.Controls.Add(this.btnReadOldDir);
-            this.tabPage1.Controls.Add(this.lblCntOldFiles);
-            this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -118,23 +114,6 @@
             this.btnReadOldDir.UseVisualStyleBackColor = true;
             this.btnReadOldDir.Click += new System.EventHandler(this.btnReadOldDir_Click);
             // 
-            // lblCntOldFiles
-            // 
-            this.lblCntOldFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCntOldFiles.Location = new System.Drawing.Point(378, 240);
-            this.lblCntOldFiles.Name = "lblCntOldFiles";
-            this.lblCntOldFiles.Size = new System.Drawing.Size(52, 13);
-            this.lblCntOldFiles.TabIndex = 48;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(259, 240);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(113, 13);
-            this.label8.TabIndex = 47;
-            this.label8.Text = "Файлов обработано:";
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dataGVDetArrSDS);
@@ -148,6 +127,18 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Результаты";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGVDetArrSDS
+            // 
+            this.dataGVDetArrSDS.AllowUserToAddRows = false;
+            this.dataGVDetArrSDS.AllowUserToDeleteRows = false;
+            this.dataGVDetArrSDS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGVDetArrSDS.Location = new System.Drawing.Point(584, 18);
+            this.dataGVDetArrSDS.Name = "dataGVDetArrSDS";
+            this.dataGVDetArrSDS.ReadOnly = true;
+            this.dataGVDetArrSDS.RowHeadersWidth = 60;
+            this.dataGVDetArrSDS.Size = new System.Drawing.Size(134, 342);
+            this.dataGVDetArrSDS.TabIndex = 28;
             // 
             // chartKartaKS
             // 
@@ -226,18 +217,6 @@
             this.prBarMain.Name = "prBarMain";
             this.prBarMain.Size = new System.Drawing.Size(700, 16);
             // 
-            // dataGVDetArrSDS
-            // 
-            this.dataGVDetArrSDS.AllowUserToAddRows = false;
-            this.dataGVDetArrSDS.AllowUserToDeleteRows = false;
-            this.dataGVDetArrSDS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGVDetArrSDS.Location = new System.Drawing.Point(584, 18);
-            this.dataGVDetArrSDS.Name = "dataGVDetArrSDS";
-            this.dataGVDetArrSDS.ReadOnly = true;
-            this.dataGVDetArrSDS.RowHeadersWidth = 60;
-            this.dataGVDetArrSDS.Size = new System.Drawing.Size(134, 342);
-            this.dataGVDetArrSDS.TabIndex = 28;
-            // 
             // FrmSDS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,11 +232,11 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,8 +253,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tBoxOldDirPath;
         private System.Windows.Forms.Button btnReadOldDir;
-        private System.Windows.Forms.Label lblCntOldFiles;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox lBoxFile;
         private System.Windows.Forms.NumericUpDown nUpDownD;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartKartaKS;
