@@ -7,13 +7,8 @@ namespace KartCalculator.Calculation
 {
     public class GenerationFromExists
     {
-        public delegate void IntHandler(int val);
-
-        public event IntHandler ChangePerc;
-
-        public delegate void StrHandler(string val);
-
-        public event StrHandler ChangeText;
+        public event Global.IntHandler ChangePerc;
+        public event Global.StrHandler ChangeText;
 
         private readonly string _oldDir;
         private readonly string _newDir;

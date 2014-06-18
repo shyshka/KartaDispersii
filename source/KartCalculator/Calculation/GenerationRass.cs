@@ -7,15 +7,13 @@ namespace KartCalculator.Calculation
 {
     public class GenerationRass
     {
-        public delegate void IntHandler(int val);
-        public event IntHandler ChangePerc;
-
-        public delegate void StrHandler(string val);
-        public event StrHandler ChangeText;
+        public event Global.IntHandler ChangePerc;
+        public event Global.StrHandler ChangeText;
 
         private readonly string _newDir;
         private readonly List<string> _lstOldFiles;
         private readonly int _oldCntViborka;
+        private Random _rnd;
 
         public GenerationRass(string oldDirPath)
         {
@@ -32,6 +30,7 @@ namespace KartCalculator.Calculation
                     var bp = new BaseParams(filePath);
                     _oldCntViborka += bp.CntViborka;
                 }
+            _rnd = new Random();
         }
        
         public int CntOldViborka
@@ -78,7 +77,11 @@ namespace KartCalculator.Calculation
                     var arrTmp = new double[bp.InputData.GetLength(0), bp.InputData.GetLength(1)];
                     for (var i=0;i<bp.InputData.GetLength(0);i++)
                         for (var j = 0; j < bp.InputData.GetLength(1); j++)
-                            arrTmp[i, j] = bp.InputData[i, j] * Math.Pow(d, 1.0 / bp.CntParams);
+                        {
+                            var dob = _rnd.NextDouble();
+                            if (dob >= 0.5) arrTmp[i, j] = bp.InputData[i, j] + Math.Pow(d, 1.0/bp.CntParams);
+                            else arrTmp[i, j] = bp.InputData[i, j] - Math.Pow(d, 1.0/bp.CntParams);
+                        }
 
                     var filePathNew = Path.Combine(newDirTmp, Path.GetFileName(filePath));
 

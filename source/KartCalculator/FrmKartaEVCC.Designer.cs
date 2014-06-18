@@ -35,6 +35,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.prBarMain = new System.Windows.Forms.ToolStripProgressBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataGVDetLCL = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
@@ -65,10 +67,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chartKarta = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.folderBrDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.prBarMain = new System.Windows.Forms.ToolStripProgressBar();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetLCL)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -82,7 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownK)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartKarta)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -93,7 +93,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(734, 411);
+            this.tabControl.Size = new System.Drawing.Size(784, 411);
             this.tabControl.TabIndex = 0;
             // 
             // tabPage1
@@ -107,17 +107,32 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(726, 385);
+            this.tabPage1.Size = new System.Drawing.Size(776, 385);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Расчет карты";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prBarMain});
+            this.statusStrip1.Location = new System.Drawing.Point(3, 360);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(770, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // prBarMain
+            // 
+            this.prBarMain.Name = "prBarMain";
+            this.prBarMain.Size = new System.Drawing.Size(700, 16);
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.dataGVDetLCL);
             this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Location = new System.Drawing.Point(582, 7);
+            this.groupBox5.Location = new System.Drawing.Point(627, 7);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(125, 347);
+            this.groupBox5.Size = new System.Drawing.Size(140, 347);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "LCL";
@@ -132,7 +147,7 @@
             this.dataGVDetLCL.Name = "dataGVDetLCL";
             this.dataGVDetLCL.ReadOnly = true;
             this.dataGVDetLCL.RowHeadersWidth = 60;
-            this.dataGVDetLCL.Size = new System.Drawing.Size(119, 328);
+            this.dataGVDetLCL.Size = new System.Drawing.Size(134, 328);
             this.dataGVDetLCL.TabIndex = 27;
             // 
             // label5
@@ -146,9 +161,9 @@
             // 
             this.groupBox4.Controls.Add(this.dataGVDetUCL);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Location = new System.Drawing.Point(454, 6);
+            this.groupBox4.Location = new System.Drawing.Point(484, 7);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(125, 347);
+            this.groupBox4.Size = new System.Drawing.Size(140, 347);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "UCL";
@@ -163,7 +178,7 @@
             this.dataGVDetUCL.Name = "dataGVDetUCL";
             this.dataGVDetUCL.ReadOnly = true;
             this.dataGVDetUCL.RowHeadersWidth = 60;
-            this.dataGVDetUCL.Size = new System.Drawing.Size(119, 328);
+            this.dataGVDetUCL.Size = new System.Drawing.Size(134, 328);
             this.dataGVDetUCL.TabIndex = 27;
             // 
             // label4
@@ -177,9 +192,9 @@
             // 
             this.groupBox2.Controls.Add(this.dataGVDetSigmaEt);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(326, 7);
+            this.groupBox2.Location = new System.Drawing.Point(341, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(125, 347);
+            this.groupBox2.Size = new System.Drawing.Size(140, 347);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Матрица SigmaS(Et)";
@@ -194,7 +209,7 @@
             this.dataGVDetSigmaEt.Name = "dataGVDetSigmaEt";
             this.dataGVDetSigmaEt.ReadOnly = true;
             this.dataGVDetSigmaEt.RowHeadersWidth = 60;
-            this.dataGVDetSigmaEt.Size = new System.Drawing.Size(119, 328);
+            this.dataGVDetSigmaEt.Size = new System.Drawing.Size(134, 328);
             this.dataGVDetSigmaEt.TabIndex = 27;
             // 
             // label3
@@ -210,7 +225,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(198, 7);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(125, 347);
+            this.groupBox3.Size = new System.Drawing.Size(140, 347);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Матрица ЭВСС";
@@ -225,7 +240,7 @@
             this.dataGVDetArrEt.Name = "dataGVDetArrEt";
             this.dataGVDetArrEt.ReadOnly = true;
             this.dataGVDetArrEt.RowHeadersWidth = 60;
-            this.dataGVDetArrEt.Size = new System.Drawing.Size(119, 328);
+            this.dataGVDetArrEt.Size = new System.Drawing.Size(134, 328);
             this.dataGVDetArrEt.TabIndex = 27;
             // 
             // label2
@@ -463,26 +478,11 @@
             this.chartKarta.Size = new System.Drawing.Size(720, 379);
             this.chartKarta.TabIndex = 1;
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.prBarMain});
-            this.statusStrip1.Location = new System.Drawing.Point(3, 360);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(720, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // prBarMain
-            // 
-            this.prBarMain.Name = "prBarMain";
-            this.prBarMain.Size = new System.Drawing.Size(700, 16);
-            // 
             // FrmKartaEVCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 411);
+            this.ClientSize = new System.Drawing.Size(784, 411);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FrmKartaEVCC";
@@ -490,6 +490,8 @@
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetLCL)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -504,8 +506,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownK)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartKarta)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -6,15 +6,14 @@ namespace KartCalculator.Calculation
 {
     public class GenerationNorm
     {
-        public delegate void IntHandler(int val);
-        public event IntHandler ChangePerc;
-
-        public delegate void StrHandler(string val);
-        public event StrHandler ChangeText;
+        public event Global.IntHandler ChangePerc;
+        public event Global.StrHandler ChangeText;
 
         private readonly BaseParams _baseParams;
         private string _dirPath;
         public int CntFiles { get; set; }
+
+        private Random rnd;
 
         public string DirPath
         {
@@ -25,6 +24,7 @@ namespace KartCalculator.Calculation
         public GenerationNorm(BaseParams baseParams)
         {
             _baseParams = baseParams;
+            rnd = new Random();
         }
 
         public void Generate()
@@ -45,6 +45,7 @@ namespace KartCalculator.Calculation
 
             for (var indFile = 0; indFile < CntFiles; indFile++)
             {
+                var rnd = new Random();
                 var filePath = Path.Combine(_dirPath, indFile + ".dtk");
                 var arrWrite = CreateGenArray();
 
@@ -89,15 +90,14 @@ namespace KartCalculator.Calculation
 
         private double[,] CreateNorm(int weight, int height)
         {
-            var rnd = new Random();
             var arrTmp = new double[weight, height];
             for (var i = 0; i < weight; i++)
                 for (var j = 0; j < height; j++)
-                    arrTmp[i, j] = randGauss(0, 1, rnd);
+                    arrTmp[i, j] = randGauss(0, 1);
             return arrTmp;
         }
 
-        private double randGauss(double moVal, double skoVal, Random rnd)
+        private double randGauss(double moVal, double skoVal)
         {
             double u1;
             double s2;
@@ -109,6 +109,7 @@ namespace KartCalculator.Calculation
                 s2 = Math.Pow(u1, 2) + Math.Pow(2.0 * tmp2 - 1, 2);
             } while (s2 >= 1);
             return Math.Sqrt(-2.0 * Math.Log(s2) / s2) * u1 * skoVal + moVal;
+            //return rnd.NextDouble();
         }
 
         private double[] mult1V2V(double[] data, double[,] src)

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using KartCalculator.Calculation;
 
@@ -23,7 +17,7 @@ namespace KartCalculator
             _kartaEvcc.ChangePerc += val =>
                 {
                     if (InvokeRequired)
-                        BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
+                        BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                     else
                         ChangePrBarVal(val);
                 };
@@ -61,8 +55,6 @@ namespace KartCalculator
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
             chartKarta.Series[2].Points.Clear();
-
-            chartKarta.Series[2].IsValueShownAsLabel = true;
 
             for (var t = 0; t < _kartaEvcc.ArrEt.GetLength(0); t++)
             {

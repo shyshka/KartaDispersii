@@ -44,7 +44,7 @@ namespace KartCalculator
             generNorm.ChangePerc += val =>
             {
                 if (InvokeRequired)
-                    BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
+                    BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                 else
                     ChangePrBarVal(val);
             };
@@ -60,7 +60,7 @@ namespace KartCalculator
             _genarationFromExist.ChangePerc += val =>
             {
                 if (InvokeRequired)
-                    BeginInvoke(new GenerationNorm.IntHandler(ChangePrBarVal), val);
+                    BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                 else
                     ChangePrBarVal(val);
             };

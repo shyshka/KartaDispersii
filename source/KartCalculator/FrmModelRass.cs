@@ -43,7 +43,7 @@ namespace KartCalculator
             var gen = new GenerationRass(tBoxOldDirPath.Text);
             gen.ChangePerc += val =>
             {
-                if (InvokeRequired) BeginInvoke(new GenerationRass.IntHandler(ChangePrBarVal), val);
+                if (InvokeRequired) BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                 else ChangePrBarVal(val);
             };
             gen.ChangeText += val => MessageBox.Show(val);

@@ -5,12 +5,14 @@ using System.Windows.Forms;
 
 namespace KartCalculator.Calculation
 {
-    internal class Global
+    public class Global
     {
+        public delegate void IntHandler(int val);
+        public delegate void StrHandler(string val);
+
         public static string MsgTitleApp = "Ульяновский Государственный Технический Университет\nКафедра ПМИ\n2014 год";
 
         public static string MsgBaseFileError = "Начальный файл не загружен в систему";
-        public static string MsgNotWorking = "Модуль еще не работает";
         public static string MsgFrmMainTitle = "Выбор типа карт для контроля рассеяния. {0}";
         public static string MsgGenerationDone = "Генерация файлов прошла успешно. Файлов: ";
         public static string MsgDeterminant = "Определитель матрицы: ";

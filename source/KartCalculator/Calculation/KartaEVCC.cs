@@ -6,23 +6,15 @@ namespace KartCalculator.Calculation
 {
     public class KartaEvcc
     {
-        public delegate void IntHandler(int val);
-        public event IntHandler ChangePerc;
-
-        public delegate void StrHandler(string val);
-        public event StrHandler ChangeText;
+        public event Global.IntHandler ChangePerc;
+        public event Global.StrHandler ChangeText;
 
         private readonly BaseParams _baseParams;
         private readonly KartaObDisp _kartaObDisp;
         private string _dirPath;
         private List<string> _lstFiles;
-        private int _cntViborka;
-        private double[] _arrEt;
         private double _k = 0.25;
         private double _sigmaS;
-        private double[] _sigmaEt;
-        private double[] _ucl;
-        private double _hAv;
         private double _hAvUser;
 
         public string DirPath
@@ -33,18 +25,16 @@ namespace KartCalculator.Calculation
                 LoadFiles();
             }
         }
-        public int CntViborka
-        {
-            get { return _cntViborka; }
-        }        
+
+        public int CntViborka { get; private set; }
+
         public double K
         {
             set { _k = value; }
         }
-        public double[] ArrEt
-        {
-            get { return _arrEt; }
-        }
+
+        public double[] ArrEt { get; private set; }
+
         public int CntFiles
         {
             get
@@ -53,26 +43,19 @@ namespace KartCalculator.Calculation
                 return _lstFiles.Count;
             }
         }
-        public double[] Ucl
-        {
-            get { return _ucl; }
-        }
+
+        public double[] Ucl { get; private set; }
 
         public double[] Lcl { get; private set; }
 
-        public double HAv
-        {
-            get { return _hAv; }
-        }
+        public double HAv { get; private set; }
 
         public double HavUser
         {
             set { _hAvUser = value; }
         }
-        public double[] SigmaEt
-        {
-            get { return _sigmaEt; }
-        }
+
+        public double[] SigmaEt { get; private set; }
 
         public KartaEvcc(BaseParams baseParams)
         {
@@ -110,9 +93,9 @@ namespace KartCalculator.Calculation
             }
             
             hAvTmp /= _lstFiles.Count * _baseParams.CntViborka;
-            _hAv = hAvTmp;
+            HAv = hAvTmp;
 
-            _ucl = new double[_baseParams.CntViborka];
+            Ucl = new double[_baseParams.CntViborka];
             Lcl = new double[_baseParams.CntViborka];
 
 // ReSharper disable once CompareOfFloatsByEqualityOperator
@@ -120,7 +103,7 @@ namespace KartCalculator.Calculation
             {
                 for (var t = 0; t < _baseParams.CntViborka; t++)
                 {
-                    _ucl[t] = _kartaObDisp.DetArrS + _hAvUser * SigmaEt[t];
+                    Ucl[t] = _kartaObDisp.DetArrS + _hAvUser * SigmaEt[t];
                     Lcl[t] = _kartaObDisp.DetArrS - _hAvUser * SigmaEt[t];
                 }
             }
@@ -128,8 +111,8 @@ namespace KartCalculator.Calculation
             {
                 for (var t = 0; t < _baseParams.CntViborka; t++)
                 {
-                    _ucl[t] = _kartaObDisp.DetArrS + _hAv * SigmaEt[t];
-                    Lcl[t] = _kartaObDisp.DetArrS - _hAv * SigmaEt[t];
+                    Ucl[t] = _kartaObDisp.DetArrS + HAv * SigmaEt[t];
+                    Lcl[t] = _kartaObDisp.DetArrS - HAv * SigmaEt[t];
                 }
             }
             ChangePerc(0);
@@ -140,7 +123,7 @@ namespace KartCalculator.Calculation
         {
             var s = string.Empty;
             s += "SigmaS=" + Global.GetString(_sigmaS)+'\n';
-            s += "Calculated H=" + Global.GetString(_hAv);
+            s += "Calculated H=" + Global.GetString(HAv);
             return s;
         }
 
@@ -156,7 +139,7 @@ namespace KartCalculator.Calculation
             arrTmp[0] = _kartaObDisp.DetArrS;
             for (var t = 1; t < arrTmp.GetLength(0); t++)
                 arrTmp[t] = (1 - _k) * arrTmp[t - 1] + _k * _kartaObDisp.DetArrSt[t];
-            _arrEt = arrTmp;
+            ArrEt = arrTmp;
         }
         private void CalcSigmaS()
         {
@@ -172,19 +155,19 @@ namespace KartCalculator.Calculation
                 arrTmp[i] = Math.Sqrt(arrTmp[i]);
             }
 
-            _sigmaEt = arrTmp;
+            SigmaEt = arrTmp;
         }
         private void LoadFiles()
         {
             var files = Directory.GetFiles(_dirPath);
             _lstFiles = new List<string>();
-            _cntViborka = 0;
+            CntViborka = 0;
             foreach (var filePath in files)
                 if (BaseParams.IsGoodFile(filePath))
                 {
                     _lstFiles.Add(filePath);
                     var bp = new BaseParams(filePath);
-                    _cntViborka += bp.CntViborka;
+                    CntViborka += bp.CntViborka;
                 }
         }        
     }
