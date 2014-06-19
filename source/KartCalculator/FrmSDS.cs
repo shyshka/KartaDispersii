@@ -20,12 +20,16 @@ namespace KartCalculator
                 if (InvokeRequired) BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                 else ChangePrBarVal(val);
             };
-            _sds.ChangeText += val => MessageBox.Show(val);
+            _sds.ChangeText += val =>
+            {
+                if (InvokeRequired) BeginInvoke(new Global.StrHandler(ChangeText), val);
+                else ChangeText(val);
+            };
         }
 
         private void btnReadOldDir_Click(object sender, EventArgs e)
         {
-            _sds.CalcParams(tBoxOldDirPath.Text);
+            _sds.CalcParams();
             ShowLBoxFiles();
         }
 
@@ -33,6 +37,12 @@ namespace KartCalculator
         {
             tBoxOldDirPath.Text = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-Norm");
             base.Show();
+        }
+
+        private void ChangeText(string val)
+        {
+            MessageBox.Show(val);
+            ShowResSds();
         }
 
         private void ChangePrBarVal(int val)
@@ -79,11 +89,16 @@ namespace KartCalculator
                 chartKartaKS.Series[0].Points.AddXY(t + 1, Ct[t]);
                 chartKartaKS.Series[1].Points.AddXY(t + 1, Ckr[t]);
             }
+        }
 
-            Global.ShowArrayInDataGrid(_sds.ArrSds, dataGVDetArrSDS);
+        private void ShowResSds()
+        {
+            Global.ShowArrayInDataGrid(_sds.sdsKartaKS, dataGVDetArrSDS);
             if (dataGVDetArrSDS.Rows.Count == 4)
-                for (int i = 0; i <4; i++)
+                for (int i = 0; i < 4; i++)
                     dataGVDetArrSDS.Rows[i].HeaderCell.Value = (1.25 + i * .25).ToString("F");
+
+            lblEvcc.Text = _sds.sdsKartaEvcc.ToString("F");
         }
     }
 }

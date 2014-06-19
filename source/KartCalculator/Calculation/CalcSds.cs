@@ -11,26 +11,51 @@ namespace KartCalculator.Calculation
 
         private readonly BaseParams _baseParams;
 
+        public double[] sdsKartaKS { get; private set; }
+        public double sdsKartaEvcc { get; private set; }
+
         public CalcSds(BaseParams baseParams)
         {
             _baseParams = baseParams;
         }
 
-        public double[] ArrSds { get; private set; }
-
-        public void CalcParams(string dirBasePath)
+        public void CalcParams()
         {
-            ArrSds = new double[4];
+            CalcKarkaKS();
+            CalcKartaEvcc();
+        }
+
+        private void CalcKartaEvcc()
+        {
+            if (Global.KartaEvcc == null)
+            {
+                ChangeText("Проведите расчет карты ЕВСС");
+                return;
+            }
+
+            sdsKartaEvcc = _baseParams.CntViborka - 1;
+            for (int i = 0; i < _baseParams.CntViborka; i++)
+            {
+                if (Global.KartaEvcc.ArrEt[i] > Global.KartaEvcc.Ucl[i] ||
+                    Global.KartaEvcc.ArrEt[i] < Global.KartaEvcc.Lcl[i])
+                {
+                    sdsKartaEvcc = i - 1;
+                    break;
+                }
+            }
+        }
+
+        private void CalcKarkaKS()
+        {
+            sdsKartaKS = new double[4];
             var thread = new Thread(() =>
             {
-                for (int i = 0; i <4; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    double d = i*0.25 + 1.25;
-                    string dirPath = Path.Combine(
-                        Directory.GetParent(dirBasePath).FullName,
-                        "Generation-D" + d);
+                    double d = i * 0.25 + 1.25;
+                    string dirPath = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-D" + d);
                     string[] files = Directory.GetFiles(dirPath);
-                    int dlinaSer = 0;
+                    double dlinaSer = 0;
 
                     for (int j = 0; j < files.Length; j++)
                     {
@@ -49,22 +74,23 @@ namespace KartCalculator.Calculation
                                     dlinaSer += 10;
                             }
                             if (ChangePerc != null)
-                                ChangePerc(Convert.ToInt32(100.0*(d - 1.25) + 25.0*(j*1.0/files.Length)));
+                                ChangePerc(Convert.ToInt32(100.0 * (d - 1.25) + 25.0 * (j * 1.0 / files.Length)));
                         }
                     }
-                    dlinaSer /= _baseParams.CntViborka*files.Length;
-                    ArrSds[i] = dlinaSer;
+                    dlinaSer /= (_baseParams.CntViborka - 11.0) * files.Length;
+                    sdsKartaKS[i] = dlinaSer;
                 }
                 if (ChangePerc != null) ChangePerc(0);
                 if (ChangeText != null) ChangeText("Расчет завершен");
             });
             thread.Start();
+
         }
 
         private double CalcCt(string filePath, int t)
         {
             var avS = 0.0;
-            var kartaObDisp = new KartaObDisp(new BaseParams(filePath));
+            var kartaObDisp = new KartaObDisp(_baseParams);
             for (int i = 0; i < kartaObDisp.DetArrSt.GetLength(0); i++)
                 avS += kartaObDisp.DetArrSt[i];
             avS /= 1.0*kartaObDisp.DetArrSt.GetLength(0);
@@ -75,7 +101,7 @@ namespace KartCalculator.Calculation
             sRes /= kartaObDisp.DetArrSt.GetLength(0);
             sRes = Math.Sqrt(sRes);
 
-            var res = (1.0/sRes)*(kartaObDisp.DetArrSt[t] - kartaObDisp.DetArrS);
+            var res = (1.0/sRes)*(new KartaObDisp(new BaseParams(filePath)).DetArrSt[t] - kartaObDisp.DetArrS);
             return res;
         }
 

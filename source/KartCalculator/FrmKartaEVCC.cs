@@ -8,20 +8,20 @@ namespace KartCalculator
     public partial class FrmKartaEVCC : Form
     {
         private readonly BaseParams _baseParams;
-        private readonly KartaEvcc _kartaEvcc;
 
         public FrmKartaEVCC(BaseParams baseParams)
         {
             _baseParams = baseParams;
-            _kartaEvcc = new KartaEvcc(_baseParams);
-            _kartaEvcc.ChangePerc += val =>
+            
+            Global.KartaEvcc = new KartaEvcc(_baseParams);
+            Global.KartaEvcc.ChangePerc += val =>
                 {
                     if (InvokeRequired)
                         BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                     else
                         ChangePrBarVal(val);
                 };
-            _kartaEvcc.ChangeText += val => MessageBox.Show(val); 
+            Global.KartaEvcc.ChangeText += val => MessageBox.Show(val); 
 
             InitializeComponent();
         }
@@ -34,33 +34,33 @@ namespace KartCalculator
 
         private void btnReadFiles_Click(object sender, EventArgs e)
         {
-            _kartaEvcc.DirPath = tBoxDir.Text;
-            lblCntFiles.Text = _kartaEvcc.CntFiles.ToString();
-            lblCntViborok.Text = _kartaEvcc.CntViborka.ToString();
+            Global.KartaEvcc.DirPath = tBoxDir.Text;
+            lblCntFiles.Text = Global.KartaEvcc.CntFiles.ToString();
+            lblCntViborok.Text = Global.KartaEvcc.CntViborka.ToString();
         }
 
         private void btnMakeKarta_Click(object sender, EventArgs e)
         {
-            _kartaEvcc.K = Double.Parse(numericUpDownK.Value.ToString());
-            _kartaEvcc.HavUser = cBoxUseH.Checked ? double.Parse(numericUpDownH.Value.ToString()) : 0.0;
-            _kartaEvcc.CalcUclLcl();
+            Global.KartaEvcc.K = Double.Parse(numericUpDownK.Value.ToString());
+            Global.KartaEvcc.HavUser = cBoxUseH.Checked ? double.Parse(numericUpDownH.Value.ToString()) : 0.0;
+            Global.KartaEvcc.CalcUclLcl();
 
-            Global.ShowArrayInDataGrid(_kartaEvcc.ArrEt,dataGVDetArrEt);
-            Global.ShowArrayInDataGrid(_kartaEvcc.SigmaEt, dataGVDetSigmaEt);
-            Global.ShowArrayInDataGrid(_kartaEvcc.Ucl, dataGVDetUCL);
-            Global.ShowArrayInDataGrid(_kartaEvcc.Lcl, dataGVDetLCL);
+            Global.ShowArrayInDataGrid(Global.KartaEvcc.ArrEt, dataGVDetArrEt);
+            Global.ShowArrayInDataGrid(Global.KartaEvcc.SigmaEt, dataGVDetSigmaEt);
+            Global.ShowArrayInDataGrid(Global.KartaEvcc.Ucl, dataGVDetUCL);
+            Global.ShowArrayInDataGrid(Global.KartaEvcc.Lcl, dataGVDetLCL);
 
-            lblResults.Text = _kartaEvcc.GetResultsString();
+            lblResults.Text = Global.KartaEvcc.GetResultsString();
 
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
             chartKarta.Series[2].Points.Clear();
 
-            for (var t = 0; t < _kartaEvcc.ArrEt.GetLength(0); t++)
+            for (var t = 0; t < Global.KartaEvcc.ArrEt.GetLength(0); t++)
             {
-                chartKarta.Series[0].Points.AddXY(t + 1, _kartaEvcc.Ucl[t]);
-                chartKarta.Series[1].Points.AddXY(t + 1, _kartaEvcc.Lcl[t]);
-                chartKarta.Series[2].Points.AddXY(t + 1, _kartaEvcc.ArrEt[t]);
+                chartKarta.Series[0].Points.AddXY(t + 1, Global.KartaEvcc.Ucl[t]);
+                chartKarta.Series[1].Points.AddXY(t + 1, Global.KartaEvcc.Lcl[t]);
+                chartKarta.Series[2].Points.AddXY(t + 1, Global.KartaEvcc.ArrEt[t]);
             }
         }
 

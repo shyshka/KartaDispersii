@@ -40,23 +40,29 @@
             this.btnReadOldDir = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGVDetArrSDS = new System.Windows.Forms.DataGridView();
-            this.chartKartaKS = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.nUpDownD = new System.Windows.Forms.NumericUpDown();
-            this.lBoxFile = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.prBarMain = new System.Windows.Forms.ToolStripProgressBar();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lBoxFile = new System.Windows.Forms.ListBox();
+            this.nUpDownD = new System.Windows.Forms.NumericUpDown();
+            this.chartKartaKS = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblEvcc = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -116,10 +122,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblEvcc);
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.dataGVDetArrSDS);
-            this.tabPage2.Controls.Add(this.chartKartaKS);
-            this.tabPage2.Controls.Add(this.nUpDownD);
-            this.tabPage2.Controls.Add(this.lBoxFile);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -133,74 +139,12 @@
             this.dataGVDetArrSDS.AllowUserToAddRows = false;
             this.dataGVDetArrSDS.AllowUserToDeleteRows = false;
             this.dataGVDetArrSDS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGVDetArrSDS.Location = new System.Drawing.Point(584, 18);
+            this.dataGVDetArrSDS.Location = new System.Drawing.Point(38, 34);
             this.dataGVDetArrSDS.Name = "dataGVDetArrSDS";
             this.dataGVDetArrSDS.ReadOnly = true;
             this.dataGVDetArrSDS.RowHeadersWidth = 60;
-            this.dataGVDetArrSDS.Size = new System.Drawing.Size(134, 342);
+            this.dataGVDetArrSDS.Size = new System.Drawing.Size(134, 310);
             this.dataGVDetArrSDS.TabIndex = 28;
-            // 
-            // chartKartaKS
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartKartaKS.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartKartaKS.Legends.Add(legend1);
-            this.chartKartaKS.Location = new System.Drawing.Point(140, 18);
-            this.chartKartaKS.Name = "chartKartaKS";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Legend = "Legend1";
-            series1.Name = "Ct";
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Legend = "Legend1";
-            series2.Name = "Cкр";
-            this.chartKartaKS.Series.Add(series1);
-            this.chartKartaKS.Series.Add(series2);
-            this.chartKartaKS.Size = new System.Drawing.Size(438, 342);
-            this.chartKartaKS.TabIndex = 2;
-            this.chartKartaKS.Text = "chart1";
-            // 
-            // nUpDownD
-            // 
-            this.nUpDownD.DecimalPlaces = 2;
-            this.nUpDownD.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            131072});
-            this.nUpDownD.Location = new System.Drawing.Point(8, 18);
-            this.nUpDownD.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nUpDownD.Minimum = new decimal(new int[] {
-            125,
-            0,
-            0,
-            131072});
-            this.nUpDownD.Name = "nUpDownD";
-            this.nUpDownD.Size = new System.Drawing.Size(126, 20);
-            this.nUpDownD.TabIndex = 1;
-            this.nUpDownD.Value = new decimal(new int[] {
-            125,
-            0,
-            0,
-            131072});
-            this.nUpDownD.ValueChanged += new System.EventHandler(this.nUpDownD_ValueChanged);
-            // 
-            // lBoxFile
-            // 
-            this.lBoxFile.FormattingEnabled = true;
-            this.lBoxFile.Location = new System.Drawing.Point(8, 44);
-            this.lBoxFile.Name = "lBoxFile";
-            this.lBoxFile.Size = new System.Drawing.Size(126, 316);
-            this.lBoxFile.TabIndex = 0;
-            this.lBoxFile.SelectedIndexChanged += new System.EventHandler(this.lBoxFile_SelectedIndexChanged);
             // 
             // statusStrip1
             // 
@@ -217,6 +161,107 @@
             this.prBarMain.Name = "prBarMain";
             this.prBarMain.Size = new System.Drawing.Size(700, 16);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chartKartaKS);
+            this.tabPage3.Controls.Add(this.nUpDownD);
+            this.tabPage3.Controls.Add(this.lBoxFile);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(726, 385);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Карта КС";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lBoxFile
+            // 
+            this.lBoxFile.FormattingEnabled = true;
+            this.lBoxFile.Location = new System.Drawing.Point(8, 42);
+            this.lBoxFile.Name = "lBoxFile";
+            this.lBoxFile.Size = new System.Drawing.Size(126, 316);
+            this.lBoxFile.TabIndex = 3;
+            this.lBoxFile.SelectedIndexChanged += new System.EventHandler(this.lBoxFile_SelectedIndexChanged);
+            // 
+            // nUpDownD
+            // 
+            this.nUpDownD.DecimalPlaces = 2;
+            this.nUpDownD.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+            this.nUpDownD.Location = new System.Drawing.Point(8, 16);
+            this.nUpDownD.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nUpDownD.Minimum = new decimal(new int[] {
+            125,
+            0,
+            0,
+            131072});
+            this.nUpDownD.Name = "nUpDownD";
+            this.nUpDownD.Size = new System.Drawing.Size(126, 20);
+            this.nUpDownD.TabIndex = 4;
+            this.nUpDownD.Value = new decimal(new int[] {
+            125,
+            0,
+            0,
+            131072});
+            this.nUpDownD.ValueChanged += new System.EventHandler(this.nUpDownD_ValueChanged);
+            // 
+            // chartKartaKS
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartKartaKS.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartKartaKS.Legends.Add(legend1);
+            this.chartKartaKS.Location = new System.Drawing.Point(140, 16);
+            this.chartKartaKS.Name = "chartKartaKS";
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Legend = "Legend1";
+            series1.Name = "Ct";
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Legend = "Legend1";
+            series2.Name = "Cкр";
+            this.chartKartaKS.Series.Add(series1);
+            this.chartKartaKS.Series.Add(series2);
+            this.chartKartaKS.Size = new System.Drawing.Size(578, 342);
+            this.chartKartaKS.TabIndex = 5;
+            this.chartKartaKS.Text = "chart1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Карта КС";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(245, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "Карта ЕВСС";
+            // 
+            // lblEvcc
+            // 
+            this.lblEvcc.AutoSize = true;
+            this.lblEvcc.Location = new System.Drawing.Point(245, 34);
+            this.lblEvcc.Name = "lblEvcc";
+            this.lblEvcc.Size = new System.Drawing.Size(36, 13);
+            this.lblEvcc.TabIndex = 29;
+            this.lblEvcc.Text = "СДС=";
+            // 
             // FrmSDS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,11 +277,13 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVDetArrSDS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartKartaKS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,10 +300,14 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tBoxOldDirPath;
         private System.Windows.Forms.Button btnReadOldDir;
-        private System.Windows.Forms.ListBox lBoxFile;
-        private System.Windows.Forms.NumericUpDown nUpDownD;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartKartaKS;
         private System.Windows.Forms.DataGridView dataGVDetArrSDS;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartKartaKS;
+        private System.Windows.Forms.NumericUpDown nUpDownD;
+        private System.Windows.Forms.ListBox lBoxFile;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblEvcc;
+        private System.Windows.Forms.Label label2;
 
     }
 }

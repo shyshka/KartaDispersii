@@ -103,7 +103,7 @@ namespace KartCalculator
                 return;
             }
 
-            var frmTmp = new FrmModelRass(_baseParams);
+            var frmTmp = new FrmModelRass(_baseParams) { MdiParent = this };
             frmTmp.Show();
         }
 
@@ -115,7 +115,7 @@ namespace KartCalculator
                 return;
             }
 
-            var frmTmp = new FrmSDS(_baseParams);
+            var frmTmp = new FrmSDS(_baseParams) { MdiParent = this };
             frmTmp.Show();
         }
     }

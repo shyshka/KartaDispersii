@@ -94,5 +94,7 @@ namespace KartCalculator.Calculation
                 return string.Empty;
             }
         }
+
+        public static KartaEvcc KartaEvcc { get; set; }
     }
 }

@@ -11,7 +11,10 @@ namespace KartCalculator
         public FrmHelp()
         {
             InitializeComponent();
-            webBrowser.Url = new Uri(Path.Combine(path1: Path.GetDirectoryName(Application.ExecutablePath), path2: FileHelpPath));
+            webBrowser.Url = new Uri(Path.Combine(
+                Path.GetDirectoryName(Application.ExecutablePath), 
+                "Help",
+                FileHelpPath));
         }
     }
 }
