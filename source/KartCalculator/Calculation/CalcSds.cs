@@ -27,13 +27,8 @@ namespace KartCalculator.Calculation
 
         private void CalcKartaEvcc()
         {
-            if (Global.KartaEvcc == null)
-            {
-                ChangeText("Проведите расчет карты ЕВСС");
-                return;
-            }
+            /*
 
-            sdsKartaEvcc = _baseParams.CntViborka - 1;
             for (int i = 0; i < _baseParams.CntViborka; i++)
             {
                 if (Global.KartaEvcc.ArrEt[i] > Global.KartaEvcc.Ucl[i] ||
@@ -43,6 +38,7 @@ namespace KartCalculator.Calculation
                     break;
                 }
             }
+             */
         }
 
         private void CalcKarkaKS()

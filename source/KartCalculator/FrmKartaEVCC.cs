@@ -8,20 +8,22 @@ namespace KartCalculator
     public partial class FrmKartaEVCC : Form
     {
         private readonly BaseParams _baseParams;
+        private KartaEvcc _kartaEvcc;
 
         public FrmKartaEVCC(BaseParams baseParams)
         {
             _baseParams = baseParams;
-            
-            Global.KartaEvcc = new KartaEvcc(_baseParams);
-            Global.KartaEvcc.ChangePerc += val =>
+            _kartaEvcc = new KartaEvcc(_baseParams);
+
+            _kartaEvcc = new KartaEvcc(_baseParams);
+            _kartaEvcc.ChangePerc += val =>
                 {
                     if (InvokeRequired)
                         BeginInvoke(new Global.IntHandler(ChangePrBarVal), val);
                     else
                         ChangePrBarVal(val);
                 };
-            Global.KartaEvcc.ChangeText += val => MessageBox.Show(val); 
+            _kartaEvcc.ChangeText += val => MessageBox.Show(val); 
 
             InitializeComponent();
         }
