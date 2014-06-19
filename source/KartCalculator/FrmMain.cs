@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using KartCalculator.Calculation;
-using WinWord = Microsoft.Office.Interop.Word;
 
 namespace KartCalculator
 {

@@ -35,7 +35,6 @@ namespace KartCalculator
 
         public new void Show()
         {
-            tBoxOldDirPath.Text = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-Norm");
             base.Show();
         }
 
@@ -61,6 +60,8 @@ namespace KartCalculator
             foreach (string file in Directory.GetFiles(dirName))
                 lBoxFile.Items.Add(Path.GetFileName(file));
             lBoxFile.SelectedIndex = 0;
+
+            listBoxEvcc_SelectedIndexChanged(null, null);
         }
 
         private void nUpDownD_ValueChanged(object sender, EventArgs e)
@@ -70,10 +71,10 @@ namespace KartCalculator
 
         private void lBoxFile_SelectedIndexChanged(object sender, EventArgs e)
         {
-           RefreshChart();
+           RefreshChartKS();
         }
 
-        private void RefreshChart()
+        private void RefreshChartKS()
         {
             var d = Convert.ToDouble(nUpDownD.Value);
             var selFile = Path.Combine(_sds.GetPathByD(d), lBoxFile.Text);
@@ -89,16 +90,56 @@ namespace KartCalculator
                 chartKartaKS.Series[0].Points.AddXY(t + 1, Ct[t]);
                 chartKartaKS.Series[1].Points.AddXY(t + 1, Ckr[t]);
             }
+
+            Global.ShowArrayInDataGrid(Ct, dataGridViewСt);
+            Global.ShowArrayInDataGrid(Ckr, dataGridViewCkr);
         }
 
         private void ShowResSds()
         {
-            Global.ShowArrayInDataGrid(_sds.sdsKartaKS, dataGVDetArrSDS);
-            if (dataGVDetArrSDS.Rows.Count == 4)
+            Global.ShowArrayInDataGrid(_sds.sdsKartaKS, dataGVSdsKC);
+            if (dataGVSdsKC.Rows.Count == 4)
                 for (int i = 0; i < 4; i++)
-                    dataGVDetArrSDS.Rows[i].HeaderCell.Value = (1.25 + i * .25).ToString("F");
+                    dataGVSdsKC.Rows[i].HeaderCell.Value = (1.25 + i * .25).ToString("F");
+            Global.ShowArrayInDataGrid(_sds.sdsKartaEvcc, dataGVSdsEvcc);
+            if (dataGVSdsEvcc.Rows.Count == 4)
+                for (int i = 0; i < 4; i++)
+                    dataGVSdsEvcc.Rows[i].HeaderCell.Value = (1.25 + i * .25).ToString("F");
 
-            lblEvcc.Text = _sds.sdsKartaEvcc.ToString("F");
         }
+
+        private void numericUpDownDEvcc_ValueChanged(object sender, EventArgs e)
+        {
+            var d = Convert.ToDouble(nUpDownD.Value);
+            var dirName = _sds.GetPathByD(d);
+            listBoxEvcc.Items.Clear();
+            foreach (string file in Directory.GetFiles(dirName))
+                listBoxEvcc.Items.Add(Path.GetFileName(file));
+            listBoxEvcc.SelectedIndex = 0;            
+        }
+
+        private void listBoxEvcc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            double d = Convert.ToDouble(numericUpDownDEvcc.Value);
+            KartaEvcc kartaEvcc = new KartaEvcc(new BaseParams( Path.Combine(_sds.GetPathByD(d), lBoxFile.Text)));
+            kartaEvcc.DirPath = _sds.GetPathByD(d);
+            kartaEvcc.CalcUclLcl();
+
+            chartKartaEvcc.Series[0].Points.Clear();
+            chartKartaEvcc.Series[1].Points.Clear();
+            chartKartaEvcc.Series[2].Points.Clear();
+
+            for (var t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
+            {
+                chartKartaEvcc.Series[0].Points.AddXY(t + 1, kartaEvcc.Ucl[t]);
+                chartKartaEvcc.Series[1].Points.AddXY(t + 1, kartaEvcc.Lcl[t]);
+                chartKartaEvcc.Series[2].Points.AddXY(t + 1, kartaEvcc.ArrEt[t]);
+            }
+
+            Global.ShowArrayInDataGrid(kartaEvcc.ArrEt, dataGridViewKartaEvcc);
+
+
+        }
+
     }
 }

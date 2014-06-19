@@ -88,7 +88,7 @@ namespace KartCalculator.Calculation
                     hCurMin = (-minEt + new KartaObDisp(new BaseParams(_lstFiles[i])).DetArrS)/SigmaEt[t];
                 }
 
-                ChangePerc(Convert.ToInt32(i*100.0/_lstFiles.Count));
+                if (ChangePerc!=null) ChangePerc(Convert.ToInt32(i*100.0/_lstFiles.Count));
                 hAvTmp += hCurMax + hCurMin;
             }
             
@@ -115,8 +115,8 @@ namespace KartCalculator.Calculation
                     Lcl[t] = _kartaObDisp.DetArrS - HAv * SigmaEt[t];
                 }
             }
-            ChangePerc(0);
-            ChangeText("Обсчет карты прошел успешно");
+            if (ChangePerc!=null) ChangePerc(0);
+            if (ChangeText!=null) ChangeText("Обсчет карты прошел успешно");
         }
 
         public string GetResultsString()

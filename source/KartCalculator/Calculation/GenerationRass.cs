@@ -75,10 +75,9 @@ namespace KartCalculator.Calculation
                     if (filePath==null) return;
                     var bp = new BaseParams(filePath);
                     var arrTmp = new double[bp.InputData.GetLength(0), bp.InputData.GetLength(1)];
-                    for (var i=0;i<bp.InputData.GetLength(0);i++)
+                    for (var i = 0; i < bp.InputData.GetLength(0); i++)
                         for (var j = 0; j < bp.InputData.GetLength(1); j++)
-                            arrTmp[i, j] = bp.InputData[i, j]*Math.Pow(d, 1.0/bp.CntParams);
-
+                            arrTmp[i, j] = (bp.InputData[i, j] - bp.Mo[i]) * Math.Pow(d, 1.0 / bp.CntParams) + bp.Mo[i];
                     var filePathNew = Path.Combine(newDirTmp, Path.GetFileName(filePath));
 
                     var sWr = File.CreateText(filePathNew);

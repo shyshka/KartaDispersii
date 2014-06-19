@@ -8,7 +8,7 @@ namespace KartCalculator
     public partial class FrmKartaEVCC : Form
     {
         private readonly BaseParams _baseParams;
-        private KartaEvcc _kartaEvcc;
+        private readonly KartaEvcc _kartaEvcc;
 
         public FrmKartaEVCC(BaseParams baseParams)
         {
@@ -36,33 +36,33 @@ namespace KartCalculator
 
         private void btnReadFiles_Click(object sender, EventArgs e)
         {
-            Global.KartaEvcc.DirPath = tBoxDir.Text;
-            lblCntFiles.Text = Global.KartaEvcc.CntFiles.ToString();
-            lblCntViborok.Text = Global.KartaEvcc.CntViborka.ToString();
+            _kartaEvcc.DirPath = tBoxDir.Text;
+            lblCntFiles.Text = _kartaEvcc.CntFiles.ToString();
+            lblCntViborok.Text = _kartaEvcc.CntViborka.ToString();
         }
 
         private void btnMakeKarta_Click(object sender, EventArgs e)
         {
-            Global.KartaEvcc.K = Double.Parse(numericUpDownK.Value.ToString());
-            Global.KartaEvcc.HavUser = cBoxUseH.Checked ? double.Parse(numericUpDownH.Value.ToString()) : 0.0;
-            Global.KartaEvcc.CalcUclLcl();
+            _kartaEvcc.K = Double.Parse(numericUpDownK.Value.ToString());
+            _kartaEvcc.HavUser = cBoxUseH.Checked ? Convert.ToDouble(numericUpDownH.Value) : 0.0;
+            _kartaEvcc.CalcUclLcl();
 
-            Global.ShowArrayInDataGrid(Global.KartaEvcc.ArrEt, dataGVDetArrEt);
-            Global.ShowArrayInDataGrid(Global.KartaEvcc.SigmaEt, dataGVDetSigmaEt);
-            Global.ShowArrayInDataGrid(Global.KartaEvcc.Ucl, dataGVDetUCL);
-            Global.ShowArrayInDataGrid(Global.KartaEvcc.Lcl, dataGVDetLCL);
+            Global.ShowArrayInDataGrid(_kartaEvcc.ArrEt, dataGVDetArrEt);
+            Global.ShowArrayInDataGrid(_kartaEvcc.SigmaEt, dataGVDetSigmaEt);
+            Global.ShowArrayInDataGrid(_kartaEvcc.Ucl, dataGVDetUCL);
+            Global.ShowArrayInDataGrid(_kartaEvcc.Lcl, dataGVDetLCL);
 
-            lblResults.Text = Global.KartaEvcc.GetResultsString();
+            lblResults.Text = _kartaEvcc.GetResultsString();
 
             chartKarta.Series[0].Points.Clear();
             chartKarta.Series[1].Points.Clear();
             chartKarta.Series[2].Points.Clear();
 
-            for (var t = 0; t < Global.KartaEvcc.ArrEt.GetLength(0); t++)
+            for (var t = 0; t < _kartaEvcc.ArrEt.GetLength(0); t++)
             {
-                chartKarta.Series[0].Points.AddXY(t + 1, Global.KartaEvcc.Ucl[t]);
-                chartKarta.Series[1].Points.AddXY(t + 1, Global.KartaEvcc.Lcl[t]);
-                chartKarta.Series[2].Points.AddXY(t + 1, Global.KartaEvcc.ArrEt[t]);
+                chartKarta.Series[0].Points.AddXY(t + 1, _kartaEvcc.Ucl[t]);
+                chartKarta.Series[1].Points.AddXY(t + 1, _kartaEvcc.Lcl[t]);
+                chartKarta.Series[2].Points.AddXY(t + 1, _kartaEvcc.ArrEt[t]);
             }
         }
 

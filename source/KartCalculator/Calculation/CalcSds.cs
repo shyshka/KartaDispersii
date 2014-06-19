@@ -12,7 +12,7 @@ namespace KartCalculator.Calculation
         private readonly BaseParams _baseParams;
 
         public double[] sdsKartaKS { get; private set; }
-        public double sdsKartaEvcc { get; private set; }
+        public double[] sdsKartaEvcc { get; private set; }
 
         public CalcSds(BaseParams baseParams)
         {
@@ -27,18 +27,31 @@ namespace KartCalculator.Calculation
 
         private void CalcKartaEvcc()
         {
-            /*
-
-            for (int i = 0; i < _baseParams.CntViborka; i++)
+            sdsKartaEvcc = new double[4];
+            var thread = new Thread(() =>
             {
-                if (Global.KartaEvcc.ArrEt[i] > Global.KartaEvcc.Ucl[i] ||
-                    Global.KartaEvcc.ArrEt[i] < Global.KartaEvcc.Lcl[i])
+                for (int i = 0; i < 4; i++)
                 {
-                    sdsKartaEvcc = i - 1;
-                    break;
+                    double d = i * 0.25 + 1.25;
+                    string dirPath = Path.Combine(Global.GetPathBaseDir(_baseParams), "Generation-D" + d);
+                    KartaEvcc kartaEvcc = new KartaEvcc(_baseParams);
+                    kartaEvcc.DirPath = dirPath;
+                    kartaEvcc.CalcUclLcl();
+
+                    sdsKartaEvcc[i] = kartaEvcc.ArrEt.GetLength(0);
+                    for (int t = 0; t < kartaEvcc.ArrEt.GetLength(0); t++)
+                    {
+                        if (kartaEvcc.ArrEt[t] > kartaEvcc.Ucl[t] || kartaEvcc.ArrEt[t] < kartaEvcc.Lcl[t])
+                        {
+                            sdsKartaEvcc[i] = t;
+                            break;
+                        }
+                    }
                 }
-            }
-             */
+                if (ChangePerc != null) ChangePerc(0);
+                if (ChangeText != null) ChangeText("Расчет ЭВСС завершен");
+            });
+            thread.Start();
         }
 
         private void CalcKarkaKS()
@@ -86,7 +99,7 @@ namespace KartCalculator.Calculation
         private double CalcCt(string filePath, int t)
         {
             var avS = 0.0;
-            var kartaObDisp = new KartaObDisp(_baseParams);
+            var kartaObDisp = new KartaObDisp(new BaseParams(filePath));
             for (int i = 0; i < kartaObDisp.DetArrSt.GetLength(0); i++)
                 avS += kartaObDisp.DetArrSt[i];
             avS /= 1.0*kartaObDisp.DetArrSt.GetLength(0);

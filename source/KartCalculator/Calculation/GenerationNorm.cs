@@ -71,7 +71,7 @@ namespace KartCalculator.Calculation
             if (ChangePerc != null) ChangePerc(0);
             if (ChangeText != null) ChangeText(Global.MsgGenerationDone + CntFiles);
         }
-
+        
         private double[,] CreateGenArray()
         {
             var normBeginArr = CreateNorm(_baseParams.CntParams, _baseParams.FullViborka);
